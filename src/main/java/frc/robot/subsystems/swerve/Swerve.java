@@ -37,7 +37,6 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -51,6 +50,7 @@ import frc.robot.constants.GlobalConstants.Mode;
 import frc.robot.lib.util.AllianceFlipUtil;
 import frc.robot.lib.util.GeomUtil;
 import frc.robot.subsystems.swerve.generated.LocalADStarAK;
+import frc.robot.subsystems.swerve.generated.TunerConstantsPlaceholder;
 import frc.robot.subsystems.swerve.gyro.GyroIO;
 import frc.robot.subsystems.swerve.gyro.GyroIOInputsAutoLogged;
 import frc.robot.subsystems.swerve.module.Module;
@@ -108,10 +108,10 @@ public class Swerve extends SubsystemBase {
         poseEstimator = new SwerveDrivePoseEstimator(kinematics, rawGyroRotation, lastModulePositions, new Pose2d());
 
         // Create our modules
-        modules[0] = new Module(flModuleIO, 0, TunerConstants.getFrontLeft());
-        modules[1] = new Module(frModuleIO, 1, TunerConstants.getFrontRight());
-        modules[2] = new Module(blModuleIO, 2, TunerConstants.getBackLeft());
-        modules[3] = new Module(brModuleIO, 3, TunerConstants.getBackRight());
+        modules[0] = new Module(flModuleIO, 0, TunerConstantsPlaceholder.getFrontLeft());
+        modules[1] = new Module(frModuleIO, 1, TunerConstantsPlaceholder.getFrontRight());
+        modules[2] = new Module(blModuleIO, 2, TunerConstantsPlaceholder.getBackLeft());
+        modules[3] = new Module(brModuleIO, 3, TunerConstantsPlaceholder.getBackRight());
 
         // Usage reporting for swerve template
         HAL.report(tResourceType.kResourceType_RobotDrive, tInstances.kRobotDriveSwerve_AdvantageKit);
@@ -387,12 +387,7 @@ public class Swerve extends SubsystemBase {
     }
 
     public Pose2d getBestCoralAutoAlign() {
-        Translation2d offset = RobotState.getInstance().isEarly()
-                ? FieldConstants.CoralTags.kCoralAlignOffset.plus(
-                        new Translation2d(-0.025, 0.05 + .0175 + Units.inchesToMeters(1.5)))
-                : FieldConstants.CoralTags.kCoralAlignOffset
-                        .plus(new Translation2d(0.025, 0.142))
-                        .unaryMinus();
+        Translation2d offset = null;
         return getBestCoralTag()
                 .plus(GeomUtil.toTransform2d(offset))
                 .plus(new Transform2d(new Translation2d(), Rotation2d.fromDegrees(180)));

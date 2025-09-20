@@ -27,6 +27,7 @@ public class FieldConstants {
     public static double kFieldWidth = Units.inchesToMeters(317.0);
 
     public static final Pose2d kFrontReefPose = new Pose2d(14.205, 4.127, Rotation2d.fromDegrees(180));
+
     public static final Rotation3d kSourceRotationLeft =
             new Rotation3d(new Quaternion(-0.8910065241883679, 0.0, 0.0, 0.45399049973954675));
     public static final Rotation3d kSourceRotationRight =
@@ -36,18 +37,9 @@ public class FieldConstants {
 
         public static final List<Pose3d> kCoralTags = new ArrayList<>(); // list of coral tags on the reef
 
-        public static final Translation2d kReefOffset = new Translation2d(0.456, 0.0); // So we are not in the reef
-        // early: x: 0.443, y: 0.166, rotation: 3.136
-        // late: x: 0.4357, y: -0.187, rotation: 3.139
-        public static final Translation2d kCoralAlignOffset = new Translation2d(
-                0.0,
-                0.12
-                        - (Units.inchesToMeters(2))
-                        - Units.inchesToMeters(
-                                1)); // .177 The horizontal offset between the tag and the left and right scoring
-        // positions at the
-        // reef
+        public static final Translation2d kReefOffset = null; // So we are not in the reef
 
+        public static final Translation2d kCoralAlignOffset = null;
         public static final String jsonFilePath = Filesystem.getDeployDirectory() + "/2025-reefscape.json";
 
         static {

@@ -4,21 +4,21 @@ import frc.robot.subsystems.elevator.ElevatorIO.EleavtorIOInputs;
 
 public class ElevatorIOKraken {
 
-    public void updateInputs(EleavtorIOInputs inputs){}
+    public void updateInputs(EleavtorIOInputs inputs) {}
 
-    public void runPosition(double eleHeight, double feedforward){}
+    public void runPosition(double eleHeight, double feedforward) {}
 
-    public void resetPosition(double pos){}
+    public void resetPosition(double pos) {}
 
-    public void runVolts(double volts){}
-    
-    public void runVelocity(double velocity){}
+    public void runVolts(double volts) {}
 
-    public void stop(){}
+    public void runVelocity(double velocity) {}
 
-    public void setBrakeMode(boolean enabled){}
+    public void stop() {}
 
-    public void setPID(double kP, double kI, double kD){}
+    public void setBrakeMode(boolean enabled) {}
 
-    public void setFF(double kS, double kG, double kV, double kA){}
+    public void setPID(double kP, double kI, double kD) {}
+
+    public void setFF(double kS, double kG, double kV, double kA) {}
 }

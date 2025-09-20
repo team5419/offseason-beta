@@ -50,7 +50,6 @@ public class GlobalConstants {
     public enum RobotType {
         SIMBOT,
         BETA
- 
     }
 
     public enum Mode {
