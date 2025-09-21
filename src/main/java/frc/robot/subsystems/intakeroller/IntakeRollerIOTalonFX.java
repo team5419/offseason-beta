@@ -1,11 +1,11 @@
 package frc.robot.subsystems.intakeroller;
 
-import frc.robot.subsystems.intakeroller.IntakeRollerIO.RollerIOInputs;
+import frc.robot.subsystems.intakeroller.IntakeRollerIO.IntakeRollerIOInputs;
 
 public class IntakeRollerIOTalonFX {
     public IntakeRollerIOTalonFX() {}
 
-    public void updateInputs(RollerIOInputs inputs) {}
+    public void updateInputs(IntakeRollerIOInputs inputs) {}
 
     public void runVolts(double motorVolts) {}
 

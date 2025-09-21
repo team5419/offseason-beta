@@ -1,11 +1,11 @@
-package frc.robot.subsystems.pivot;
+package frc.robot.subsystems.outtakepivot;
 
-import frc.robot.subsystems.pivot.PivotIO.PivotIOInputs;
+import frc.robot.subsystems.outtakepivot.OuttakePivotIO.OuttakePivotIOInputs;
 
-public class PivotIOKraken {
-    public PivotIOKraken() {}
+public class OuttakePivotIOTalonFX {
+    public OuttakePivotIOTalonFX() {}
 
-    public void updateInputs(PivotIOInputs inputs) {}
+    public void updateInputs(OuttakePivotIOInputs inputs) {}
 
     public void runPosition(double goal) {}
 

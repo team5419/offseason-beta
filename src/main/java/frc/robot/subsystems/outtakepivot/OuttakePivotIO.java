@@ -1,10 +1,10 @@
-package frc.robot.subsystems.pivot;
+package frc.robot.subsystems.outtakepivot;
 
 import org.littletonrobotics.junction.AutoLog;
 
-public interface PivotIO {
+public interface OuttakePivotIO {
     @AutoLog
-    class PivotIOInputs {
+    class OuttakePivotIOInputs {
         public boolean motorConnected = true;
         public double position = 0.0; // degrees
         public double appliedVolts = 0.0;
@@ -15,7 +15,7 @@ public interface PivotIO {
         public double referenceVelocity = 0.0;
     }
 
-    default void updateInputs(PivotIOInputs inputs) {}
+    default void updateInputs(OuttakePivotIOInputs inputs) {}
 
     default void runPosition(double goal) {} // sets the arm to a specific position
 

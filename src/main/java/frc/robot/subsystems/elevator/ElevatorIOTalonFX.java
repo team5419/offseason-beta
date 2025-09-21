@@ -2,7 +2,7 @@ package frc.robot.subsystems.elevator;
 
 import frc.robot.subsystems.elevator.ElevatorIO.EleavtorIOInputs;
 
-public class ElevatorIOKraken {
+public class ElevatorIOTalonFX {
 
     public void updateInputs(EleavtorIOInputs inputs) {}
 
