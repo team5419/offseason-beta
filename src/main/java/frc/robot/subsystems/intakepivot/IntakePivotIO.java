@@ -1,3 +1,3 @@
 package frc.robot.subsystems.intakepivot;
 
-public class IntakePivotIO {}
+public interface IntakePivotIO {}

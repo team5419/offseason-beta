@@ -1,10 +1,8 @@
 package frc.robot.subsystems.elevator;
 
-import frc.robot.subsystems.elevator.ElevatorIO.EleavtorIOInputs;
+public class ElevatorIOTalonFX implements ElevatorIO {
 
-public class ElevatorIOTalonFX {
-
-    public void updateInputs(EleavtorIOInputs inputs) {}
+    public void updateInputs(ElevatorIOInputs inputs) {}
 
     public void runPosition(double eleHeight, double feedforward) {}
 

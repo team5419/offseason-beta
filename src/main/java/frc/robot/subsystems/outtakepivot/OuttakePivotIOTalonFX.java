@@ -1,8 +1,6 @@
 package frc.robot.subsystems.outtakepivot;
 
-import frc.robot.subsystems.outtakepivot.OuttakePivotIO.OuttakePivotIOInputs;
-
-public class OuttakePivotIOTalonFX {
+public class OuttakePivotIOTalonFX implements OuttakePivotIO {
     public OuttakePivotIOTalonFX() {}
 
     public void updateInputs(OuttakePivotIOInputs inputs) {}

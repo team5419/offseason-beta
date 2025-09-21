@@ -5,11 +5,11 @@ import org.littletonrobotics.junction.AutoLog;
 public interface ElevatorIO {
 
     @AutoLog
-    class EleavtorIOInputs {
+    class ElevatorIOInputs {
         // u add these!
     }
 
-    default void updateInputs(EleavtorIOInputs inputs) {}
+    default void updateInputs(ElevatorIOInputs inputs) {}
 
     default void runPosition(double eleHeight, double feedforward) {}
 
