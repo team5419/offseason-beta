@@ -1,7 +1,16 @@
 package frc.robot.subsystems.outtakepivot;
 
+import com.ctre.phoenix6.hardware.TalonFX;
+import frc.robot.constants.GlobalConstants;
+import frc.robot.constants.Ports;
+
 public class OuttakePivotIOTalonFX implements OuttakePivotIO {
-    public OuttakePivotIOTalonFX() {}
+
+    private TalonFX motor;
+
+    public OuttakePivotIOTalonFX() {
+        motor = new TalonFX(Ports.kOuttakePivotID, GlobalConstants.kCANivoreName);
+    }
 
     public void updateInputs(OuttakePivotIOInputs inputs) {}
 

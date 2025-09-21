@@ -1,7 +1,17 @@
 package frc.robot.subsystems.intakeroller;
 
+import com.ctre.phoenix6.hardware.TalonFX;
+import frc.robot.constants.GlobalConstants;
+import frc.robot.constants.Ports;
+
 public class IntakeRollerIOTalonFX implements IntakeRollerIO {
-    public IntakeRollerIOTalonFX() {}
+
+    private TalonFX leaderMotor, followerMotor;
+
+    public IntakeRollerIOTalonFX() {
+        leaderMotor = new TalonFX(Ports.kIntakeRollerLeaderID, GlobalConstants.kCANivoreName);
+        followerMotor = new TalonFX(Ports.kIntakeRollerFollowerID, GlobalConstants.kCANivoreName);
+    }
 
     public void updateInputs(IntakeRollerIOInputs inputs) {}
 
