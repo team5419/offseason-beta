@@ -1,6 +1,6 @@
-package frc.robot.subsystems.pivot;
+package frc.robot.subsystems.endeffector.pivot;
 
-import frc.robot.subsystems.pivot.PivotIO.PivotIOInputs;
+import frc.robot.subsystems.endeffector.pivot.PivotIO.PivotIOInputs;
 
 public class PivotIOKraken {
     public PivotIOKraken() {}

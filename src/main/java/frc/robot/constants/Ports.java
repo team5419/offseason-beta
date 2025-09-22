@@ -27,32 +27,23 @@ public class Ports {
 
     public static final int kPigeonID = 51;
 
-    public static final int kRollerID = 0; // TODO, GET PORTS
+    // Intake Pivot (1 motor)
+    public static final int kIntakePivotID = 27; // TODO: set real port
 
-    public static final int kPivotID =
-            switch (GlobalConstants.getRobotType()) {
-                default -> 27;
-            };
+    // Intake (2 motors)
+    public static final int kIntakeLeaderID = 19;   // TODO: set real port
+    public static final int kIntakeFollowerID = 18; // TODO: set real port
 
-    public static final int kEleLeaderID =
-            switch (GlobalConstants.getRobotType()) {
-                default -> 19;
-            };
+    // Pivot (1 motor)
+    public static final int kPivotID = 28; // TODO: set real port
 
-    public static final int kEleFollowerID =
-            switch (GlobalConstants.getRobotType()) {
-                default -> 18;
-            };
+    // Pivot Rollers (1 motor)
+    public static final int kPivotRollersID = 29; // TODO: set real port
 
-    public static final int kClimbLeaderID =
-            switch (GlobalConstants.getRobotType()) {
-                default -> 28;
-            };
+    // Elevator (2 motors)
+    public static final int kElevatorLeaderID = 30;   // TODO: set real port
+    public static final int kElevatorFollowerID = 31; // TODO: set real port
 
-    public static final int kClimbFollowerID =
-            switch (GlobalConstants.getRobotType()) {
-                default -> 29;
-            };
 
     public static final int kBeamBreakPort = 0;
 }
