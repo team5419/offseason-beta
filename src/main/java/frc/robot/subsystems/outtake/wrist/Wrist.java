@@ -45,6 +45,8 @@ public class Wrist extends SubsystemBase {
         }
     }
 
+    private WristGoal desiredLevel = WristGoal.IDLE;
+
     public Wrist(WristIO io) {
         this.io = io;
     }
@@ -52,17 +54,18 @@ public class Wrist extends SubsystemBase {
     @Override
     public void periodic() {
         io.updateInputs(inputs);
-        Logger.processInputs("Wrist", inputs);
-        LoggedTunableNumber.ifChanged(hashCode(), () -> io.setPID(kP.get(), kI.get(), kD.get()), kP, kI, kD);
+        Logger.processInputs("Wrist", inputs); // Logs the inputs/telemetry data
+        LoggedTunableNumber.ifChanged(hashCode(), () -> io.setPID(kP.get(), kI.get(), kD.get()), kP, kI, kD); // Sets PID if changed
         LoggedTunableNumber.ifChanged(
                 hashCode(),
                 () -> io.setFF(kS.getAsDouble(), kG.getAsDouble(), kV.getAsDouble(), kA.getAsDouble()),
                 kS,
                 kG,
                 kV,
-                kA);
+                kA); // Sets Feedforward if changed
     }
 
+    // Put methods for controlling this subsystem using io interface methods
     public void resetPosition() {}
 
     public void stop() {}
@@ -71,6 +74,7 @@ public class Wrist extends SubsystemBase {
 
     public void runPosition() {}
 
+    // set the desiredLevel variable of the wrist
     public void setDesiredLevel(ElevatorGoal goal) {}
 
     public boolean atGoal() {
