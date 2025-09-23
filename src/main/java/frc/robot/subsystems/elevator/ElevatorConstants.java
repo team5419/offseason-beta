@@ -5,12 +5,6 @@ import frc.robot.lib.Gains;
 
 public class ElevatorConstants {
 
-    // TODO: tune
-    public static final double kStowHeight = 0;
-    public static final double kL2Height = 1.6;
-    public static final double kL3Height = 3.4;
-    public static final double kL4Height = 6.73;
-
     public static final Gains kGains =
             switch (GlobalConstants.getRobotType()) {
                     // TODO: tune
@@ -28,6 +22,11 @@ public class ElevatorConstants {
                     // TODO: tune
                 default -> new MotionMagicConfigs(0, 0, 0);
             };
+    public static final ElevatorHeights kElevatorHeights = new ElevatorHeights(0, 1.6, 3.4, 6.73);
 
     public record MotionMagicConfigs(double vel, double accel, double jerk) {}
+
+    public record ElevatorHeights(double stow, double l2, double l3, double l4) {}
+
+    public record ElevatorConfigs(int ID) {}
 }
