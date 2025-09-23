@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LoggedTunableNumber;
 import frc.robot.subsystems.elevator.Elevator.ElevatorGoal;
 import java.util.function.DoubleSupplier;
+import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class Wrist extends SubsystemBase {
@@ -73,6 +74,7 @@ public class Wrist extends SubsystemBase {
 
     public void setDesiredLevel(ElevatorGoal goal) {}
 
+    @AutoLogOutput
     public boolean atGoal() {
         return false;
     }

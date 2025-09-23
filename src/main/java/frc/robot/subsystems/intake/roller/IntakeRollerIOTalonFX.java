@@ -13,13 +13,18 @@ public class IntakeRollerIOTalonFX implements IntakeRollerIO {
         followerMotor = new TalonFX(Ports.kIntakeRollerFollowerID, GlobalConstants.kCANivoreName);
     }
 
+    @Override
     public void updateInputs(IntakeRollerIOInputs inputs) {}
 
+    @Override
     public void runVolts(double motorVolts) {}
 
+    @Override
     public void stop() {}
 
-    public void runVelocity() {}
+    @Override
+    public void runVelocity(double motorRPS, double ff) {}
 
+    @Override
     public void setPID(double kP, double kI, double kD) {}
 }

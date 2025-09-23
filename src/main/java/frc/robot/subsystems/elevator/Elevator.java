@@ -60,14 +60,6 @@ public class Elevator extends SubsystemBase {
                 kV,
                 kA);
     }
-    // CALL IO METHODS IN THESE FUNCTIONS
-    public void resetPosition() {}
-
-    public void stop() {}
-
-    public void runVolts() {}
-
-    public void runPosition() {}
 
     public void setDesiredLevel(ElevatorGoal goal) {}
 
