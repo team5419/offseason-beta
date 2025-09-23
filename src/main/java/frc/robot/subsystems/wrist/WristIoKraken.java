@@ -3,7 +3,7 @@ package frc.robot.subsystems.wrist;
 public class WristIoKraken implements WristIO {
     public WristIoKraken() {}
 
-    public void updateInputs(PivotIOInputs inputs) {}
+    public void updateInputs(WristIOInputs inputs) {}
 
     public void runPosition(double goal) {}
 

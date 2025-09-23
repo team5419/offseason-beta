@@ -11,15 +11,15 @@ public class IntakePivotIOSim implements IntakePivotIO {
     public IntakePivotIOSim() {
         // Initialize variables with default/mock values
         pivotSim = new SingleJointedArmSim(
-                null,    // placeholder for motor
-                1.0,     // gear ratio placeholder
-                1.0,     // moment of inertia placeholder
-                0.0,     // length placeholder
-                0.0,     // min angle placeholder
-                180.0,   // max angle placeholder
-                false,   // simulation flag
-                180.0    // initial angle placeholder
-        );
+                null, // placeholder for motor
+                1.0, // gear ratio placeholder
+                1.0, // moment of inertia placeholder
+                0.0, // length placeholder
+                0.0, // min angle placeholder
+                180.0, // max angle placeholder
+                false, // simulation flag
+                180.0 // initial angle placeholder
+                );
 
         controller = new PIDController(0.0, 0.0, 0.0);
     }

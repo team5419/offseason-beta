@@ -2,11 +2,10 @@ package frc.robot.subsystems.elevator;
 
 import static frc.robot.subsystems.elevator.ElevatorConstants.*;
 
-import org.littletonrobotics.junction.AutoLogOutput;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.simulation.ElevatorSim;
+import org.littletonrobotics.junction.AutoLogOutput;
 
 public class ElevatorIOSim implements ElevatorIO {
 
@@ -19,13 +18,11 @@ public class ElevatorIOSim implements ElevatorIO {
 
     public ElevatorIOSim() {
         controller = new PIDController(kGains.kP(), kGains.kI(), kGains.kD());
-        eSim = new ElevatorSim(DCMotor.getKrakenX60(2), 10, 10, .1, 0, 7, false, 0); 
+        eSim = new ElevatorSim(DCMotor.getKrakenX60(2), 10, 10, .1, 0, 7, false, 0);
     }
 
     @Override
-    public void updateInputs(ElevatorIOInputs inputs) {
-        
-    }
+    public void updateInputs(ElevatorIOInputs inputs) {}
 
     @Override
     public void runVolts(double volts) {

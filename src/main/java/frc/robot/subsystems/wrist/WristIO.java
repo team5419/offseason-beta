@@ -4,7 +4,7 @@ import org.littletonrobotics.junction.AutoLog;
 
 public interface WristIO {
     @AutoLog
-    class PivotIOInputs {
+    class WristIOInputs {
         public boolean motorConnected = true;
         public double position = 0.0; // degrees
         public double appliedVolts = 0.0;
@@ -15,7 +15,7 @@ public interface WristIO {
         public double referenceVelocity = 0.0;
     }
 
-    default void updateInputs(PivotIOInputs inputs) {}
+    default void updateInputs(WristIOInputs inputs) {}
 
     default void runPosition(double goal) {} // sets the arm to a specific position
 
