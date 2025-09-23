@@ -17,7 +17,8 @@ public interface IntakePivotIO {
 
     default void updateInputs(IntakePivotIOInputs inputs) {}
 
-    default void runPosition(double goal) {} // sets the arm to a specific position
+    /** runs the pivot to a specific position goal */
+    default void runPosition(double goal) {}
 
     default void runVolts(double volts) {}
 
