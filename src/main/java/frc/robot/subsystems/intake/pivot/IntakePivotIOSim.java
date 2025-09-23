@@ -1,3 +1,3 @@
-package frc.robot.subsystems.intakepivot;
+package frc.robot.subsystems.intake.pivot;
 
 public class IntakePivotIOSim implements IntakePivotIO {}

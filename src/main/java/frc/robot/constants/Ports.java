@@ -36,7 +36,7 @@ public class Ports {
     public static final int kIntakeRollerLeaderID = 0; // TODO: GET PORTS
     public static final int kIntakeRollerFollowerID = 0; // TODO: GET PORTS
 
-    public static final int kOuttakePivotID = 0; // TODO: GET PORTS
+    public static final int kEndEffecterPivotID = 0; // TODO: GET PORTS
 
     public static final int kOuttakeRollerLeaderID = 0; // TODO: GET PORTS
     public static final int kOuttakeRollerFollowerID = 0; // TODO: GET PORTS

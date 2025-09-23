@@ -22,22 +22,17 @@ import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.elevator.ElevatorIO;
 import frc.robot.subsystems.elevator.ElevatorIOSim;
 import frc.robot.subsystems.elevator.ElevatorIOTalonFX;
-import frc.robot.subsystems.intakepivot.IntakePivot;
-import frc.robot.subsystems.intakepivot.IntakePivotIO;
-import frc.robot.subsystems.intakepivot.IntakePivotIOSim;
-import frc.robot.subsystems.intakepivot.IntakePivotIOTalonFX;
-import frc.robot.subsystems.intakeroller.IntakeRoller;
-import frc.robot.subsystems.intakeroller.IntakeRollerIO;
-import frc.robot.subsystems.intakeroller.IntakeRollerIOSim;
-import frc.robot.subsystems.intakeroller.IntakeRollerIOTalonFX;
-import frc.robot.subsystems.outtakepivot.OuttakePivot;
-import frc.robot.subsystems.outtakepivot.OuttakePivotIO;
-import frc.robot.subsystems.outtakepivot.OuttakePivotIOSim;
-import frc.robot.subsystems.outtakepivot.OuttakePivotIOTalonFX;
-import frc.robot.subsystems.outtakeroller.OuttakeRoller;
-import frc.robot.subsystems.outtakeroller.OuttakeRollerIO;
-import frc.robot.subsystems.outtakeroller.OuttakeRollerIOSim;
-import frc.robot.subsystems.outtakeroller.OuttakeRollerIOTalonFX;
+import frc.robot.subsystems.endeffector.EndEffector;
+import frc.robot.subsystems.endeffector.EndEffectorIOKraken;
+import frc.robot.subsystems.endeffector.EndEffectorIOSim;
+import frc.robot.subsystems.intake.pivot.IntakePivot;
+import frc.robot.subsystems.intake.pivot.IntakePivotIO;
+import frc.robot.subsystems.intake.pivot.IntakePivotIOSim;
+import frc.robot.subsystems.intake.pivot.IntakePivotIOTalonFX;
+import frc.robot.subsystems.intake.roller.IntakeRoller;
+import frc.robot.subsystems.intake.roller.IntakeRollerIO;
+import frc.robot.subsystems.intake.roller.IntakeRollerIOSim;
+import frc.robot.subsystems.intake.roller.IntakeRollerIOTalonFX;
 import frc.robot.subsystems.swerve.Swerve;
 import frc.robot.subsystems.swerve.SwerveConstants;
 import frc.robot.subsystems.swerve.gyro.GyroIO;
@@ -45,6 +40,10 @@ import frc.robot.subsystems.swerve.gyro.GyroIOPigeon2;
 import frc.robot.subsystems.swerve.module.ModuleIO;
 import frc.robot.subsystems.swerve.module.ModuleIOSim;
 import frc.robot.subsystems.swerve.module.ModuleIOTalonFX;
+import frc.robot.subsystems.wrist.Wrist;
+import frc.robot.subsystems.wrist.WristIO;
+import frc.robot.subsystems.wrist.WristIOSim;
+import frc.robot.subsystems.wrist.WristIoKraken;
 import java.io.File;
 import lombok.Getter;
 
@@ -69,10 +68,10 @@ public class RobotContainer {
     private IntakeRoller intakeRoller;
 
     @Getter
-    private OuttakePivot outtakePivot;
+    private Wrist wrist;
 
     @Getter
-    private OuttakeRoller outtakeRoller;
+    private EndEffector endEffector;
 
     @Getter
     private Swerve swerve;
@@ -162,8 +161,8 @@ public class RobotContainer {
         Elevator tempElevator = null;
         IntakePivot tempIntakePivot = null;
         IntakeRoller tempIntakeRoller = null;
-        OuttakePivot tempOuttakePivot = null;
-        OuttakeRoller tempOuttakeRoller = null;
+        Wrist tempWrist = null;
+        EndEffector tempEndEffector = null;
         Swerve tempSwerve = null;
 
         if (GlobalConstants.getMode() == GlobalConstants.Mode.REPLAY) return;
@@ -172,8 +171,8 @@ public class RobotContainer {
                 tempElevator = new Elevator(new ElevatorIOTalonFX());
                 tempIntakePivot = new IntakePivot(new IntakePivotIOTalonFX());
                 tempIntakeRoller = new IntakeRoller(new IntakeRollerIOTalonFX());
-                tempOuttakePivot = new OuttakePivot(new OuttakePivotIOTalonFX());
-                tempOuttakeRoller = new OuttakeRoller(new OuttakeRollerIOTalonFX());
+                tempWrist = new Wrist(new WristIoKraken());
+                tempEndEffector = new EndEffector(new EndEffectorIOKraken());
                 tempSwerve = new Swerve(
                         new GyroIOPigeon2(),
                         new ModuleIOTalonFX(SwerveConstants.TunerConstants.getFrontLeft()),
@@ -186,8 +185,8 @@ public class RobotContainer {
                 tempElevator = new Elevator(new ElevatorIOSim());
                 tempIntakePivot = new IntakePivot(new IntakePivotIOSim());
                 tempIntakeRoller = new IntakeRoller(new IntakeRollerIOSim());
-                tempOuttakePivot = new OuttakePivot(new OuttakePivotIOSim());
-                tempOuttakeRoller = new OuttakeRoller(new OuttakeRollerIOSim());
+                tempWrist = new Wrist(new WristIOSim());
+                tempEndEffector = new EndEffector(new EndEffectorIOSim());
                 tempSwerve = new Swerve(
                         new GyroIO() {},
                         new ModuleIOSim(SwerveConstants.TunerConstants.getFrontLeft()),
@@ -203,15 +202,15 @@ public class RobotContainer {
         if (tempElevator == null) tempElevator = new Elevator(new ElevatorIO() {});
         if (tempIntakePivot == null) tempIntakePivot = new IntakePivot(new IntakePivotIO() {});
         if (tempIntakeRoller == null) tempIntakeRoller = new IntakeRoller(new IntakeRollerIO() {});
-        if (tempOuttakePivot == null) tempOuttakePivot = new OuttakePivot(new OuttakePivotIO() {});
-        if (tempOuttakeRoller == null) tempOuttakeRoller = new OuttakeRoller(new OuttakeRollerIO() {});
+        if (tempWrist == null) tempWrist = new Wrist(new WristIO() {});
+        if (tempIntakeRoller == null) tempIntakeRoller = new IntakeRoller(new IntakeRollerIO() {});
 
         swerve = tempSwerve;
         elevator = tempElevator;
         intakePivot = tempIntakePivot;
         intakeRoller = tempIntakeRoller;
-        outtakePivot = tempOuttakePivot;
-        outtakeRoller = tempOuttakeRoller;
+        wrist = tempWrist;
+        endEffector = tempEndEffector;
     }
 
     /** Adds named commands to pathplanner */

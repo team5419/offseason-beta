@@ -1,4 +1,4 @@
-package frc.robot.subsystems.intakeroller;
+package frc.robot.subsystems.intake.roller;
 
 import com.ctre.phoenix6.hardware.TalonFX;
 import frc.robot.constants.GlobalConstants;

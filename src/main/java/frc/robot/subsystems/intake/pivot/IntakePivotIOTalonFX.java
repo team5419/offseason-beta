@@ -1,4 +1,4 @@
-package frc.robot.subsystems.intakepivot;
+package frc.robot.subsystems.intake.pivot;
 
 import com.ctre.phoenix6.hardware.TalonFX;
 import frc.robot.constants.GlobalConstants;
