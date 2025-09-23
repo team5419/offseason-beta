@@ -1,4 +1,4 @@
-package frc.robot.subsystems.endeffector;
+package frc.robot.subsystems.outtake.endeffector;
 
 import frc.robot.constants.Ports;
 

@@ -1,6 +1,6 @@
-package frc.robot.subsystems.wrist;
+package frc.robot.subsystems.outtake.wrist;
 
-import static frc.robot.subsystems.wrist.WristConstants.*;
+import static frc.robot.subsystems.outtake.wrist.WristConstants.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LoggedTunableNumber;

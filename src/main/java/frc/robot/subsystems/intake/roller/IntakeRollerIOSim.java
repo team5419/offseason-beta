@@ -1,9 +1,9 @@
 package frc.robot.subsystems.intake.roller;
 
-import frc.robot.subsystems.endeffector.EndEffectorIO.EndEffectorIOInputs;
-
 public class IntakeRollerIOSim implements IntakeRollerIO {
-    public void updateInputs(EndEffectorIOInputs inputs) {
+
+    @Override
+    public void updateInputs(IntakeRollerIOInputs inputs) {
         // TODO: implement
     }
 

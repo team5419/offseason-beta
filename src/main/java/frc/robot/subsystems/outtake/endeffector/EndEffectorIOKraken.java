@@ -1,3 +1,3 @@
-package frc.robot.subsystems.endeffector;
+package frc.robot.subsystems.outtake.endeffector;
 
 public class EndEffectorIOKraken implements EndEffectorIO {}

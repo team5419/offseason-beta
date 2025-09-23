@@ -1,4 +1,4 @@
-package frc.robot.subsystems.wrist;
+package frc.robot.subsystems.outtake.wrist;
 
 public class WristIoKraken implements WristIO {
     public WristIoKraken() {}

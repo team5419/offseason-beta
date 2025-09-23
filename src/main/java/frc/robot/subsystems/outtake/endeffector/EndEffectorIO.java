@@ -1,10 +1,10 @@
-package frc.robot.subsystems.wrist;
+package frc.robot.subsystems.outtake.endeffector;
 
 import org.littletonrobotics.junction.AutoLog;
 
-public interface WristIO {
+public interface EndEffectorIO {
     @AutoLog
-    class WristIOInputs {
+    class EndEffectorIOInputs {
         public boolean motorConnected = true;
         public double position = 0.0; // degrees
         public double appliedVolts = 0.0;
@@ -15,9 +15,9 @@ public interface WristIO {
         public double referenceVelocity = 0.0;
     }
 
-    default void updateInputs(WristIOInputs inputs) {}
+    default void updateInputs(EndEffectorIOInputs inputs) {}
 
-    default void runPosition(double goal) {} // sets the arm to a specific position
+    default void runVelocity(double rps, double ff) {}
 
     default void runVolts(double volts) {}
 
