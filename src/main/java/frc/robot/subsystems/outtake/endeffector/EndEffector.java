@@ -40,7 +40,7 @@ public class EndEffector extends SubsystemBase {
     @Override
     public void periodic() {
         io.updateInputs(inputs);
-        Logger.processInputs("Intake Roller", inputs);
+        Logger.processInputs("End Effector Roller", inputs);
         LoggedTunableNumber.ifChanged(hashCode(), () -> io.setPID(kP.get(), kI.get(), kD.get()), kP, kI, kD);
         LoggedTunableNumber.ifChanged(
                 hashCode(),

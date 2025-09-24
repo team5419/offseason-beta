@@ -1,7 +1,6 @@
 package frc.robot.subsystems.outtake.wrist;
 
 import com.ctre.phoenix6.hardware.TalonFX;
-
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
 

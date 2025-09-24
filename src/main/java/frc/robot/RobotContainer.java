@@ -31,6 +31,7 @@ import frc.robot.subsystems.intake.roller.IntakeRollerIO;
 import frc.robot.subsystems.intake.roller.IntakeRollerIOSim;
 import frc.robot.subsystems.intake.roller.IntakeRollerIOTalonFX;
 import frc.robot.subsystems.outtake.endeffector.EndEffector;
+import frc.robot.subsystems.outtake.endeffector.EndEffectorIO;
 import frc.robot.subsystems.outtake.endeffector.EndEffectorIOSim;
 import frc.robot.subsystems.outtake.endeffector.EndEffectorIOTalonFX;
 import frc.robot.subsystems.outtake.wrist.Wrist;
@@ -203,7 +204,7 @@ public class RobotContainer {
         if (tempIntakePivot == null) tempIntakePivot = new IntakePivot(new IntakePivotIO() {});
         if (tempIntakeRoller == null) tempIntakeRoller = new IntakeRoller(new IntakeRollerIO() {});
         if (tempWrist == null) tempWrist = new Wrist(new WristIO() {});
-        if (tempIntakeRoller == null) tempIntakeRoller = new IntakeRoller(new IntakeRollerIO() {});
+        if (tempEndEffector == null) tempEndEffector = new EndEffector(new EndEffectorIO() {});
 
         swerve = tempSwerve;
         elevator = tempElevator;
