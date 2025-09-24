@@ -15,7 +15,7 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
     @Override
     public void updateInputs(IntakePivotIOInputs inputs) {}
 
-     // call .setControl on the motor controller with the appropriate control mode and value.
+    // call .setControl on the motor controller with the appropriate control mode and value.
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/MotionMagicDutyCycle.html
     @Override
     public void runPosition(double goal) {}
@@ -23,7 +23,7 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
     @Override
     public void resetPosition(double pos) {}
 
-     // call .setControl on the motor controller with the appropriate control mode and value.
+    // call .setControl on the motor controller with the appropriate control mode and value.
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/VoltageOut.html
     @Override
     public void runVolts(double volts) {}
