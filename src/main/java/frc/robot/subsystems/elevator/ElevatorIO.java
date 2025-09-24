@@ -17,8 +17,6 @@ public interface ElevatorIO {
 
     default void runVolts(double volts) {}
 
-    default void runVelocity(double velocity) {}
-
     default void stop() {}
 
     default void setBrakeMode(boolean enabled) {}

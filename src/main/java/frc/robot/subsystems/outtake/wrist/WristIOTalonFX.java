@@ -16,20 +16,20 @@ public class WristIOTalonFX implements WristIO {
     // method below
     public void updateInputs(WristIOInputs inputs) {}
 
-    // call .setControlMode on the motor controller with the appropriate control mode and value.
-    // https://v6.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/motion-magic.html
+    // call .setControl on the motor controller with the appropriate control mode and value.
+    // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/MotionMagicDutyCycle.html
     @Override
     public void runPosition(double goal) {}
 
-    // call .setControlMode on the motor controller with the appropriate control mode and value.
-    // https://v6.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/talonfx-control-intro.html
+    // call .setControl on the motor controller with the appropriate control mode and value.
+    // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/VoltageOut.html
     @Override
     public void runVolts(double volts) {}
 
     @Override
     public void resetPosition(double angle) {}
 
-    // call .setControlMode on the motor controller with the appropriate control mode and value.
+    // call .setControl on the motor controller with the appropriate control mode and value.
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/configs/MotorOutputConfigs.html#NeutralMode
     @Override
     public void setBrakeMode(boolean enabled) {}

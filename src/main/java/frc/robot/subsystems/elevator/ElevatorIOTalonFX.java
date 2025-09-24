@@ -16,17 +16,21 @@ public class ElevatorIOTalonFX implements ElevatorIO {
     @Override
     public void updateInputs(ElevatorIOInputs inputs) {}
 
+     // call .setControl on the motor controller with the appropriate control mode and value.
+    // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/MotionMagicDutyCycle.html
     @Override
     public void runPosition(double eleHeight, double feedforward) {}
 
     @Override
     public void resetPosition(double pos) {}
 
+    // call .setControl on the motor controller with the appropriate control mode and value.
+    // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/VoltageOut.html
     @Override
     public void runVolts(double volts) {}
 
-    public void runVelocity(double velocity) {}
-
+    // call .setControl on the motor controller with the appropriate control mode and value.
+    // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/configs/MotorOutputConfigs.html#NeutralMode
     @Override
     public void stop() {}
 
