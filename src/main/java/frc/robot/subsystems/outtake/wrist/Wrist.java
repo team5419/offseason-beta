@@ -22,18 +22,8 @@ public class Wrist extends SubsystemBase {
     private static final LoggedTunableNumber kA = new LoggedTunableNumber("Wrist/Gains/kA", kGains.kA());
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("Wrist/Gains/kG", kGains.kG());
 
-    private static final LoggedTunableNumber l1 = new LoggedTunableNumber("Wrist/Goals/l1", kWristAngles.l1());
-    private static final LoggedTunableNumber lowGoal =
-            new LoggedTunableNumber("Wrist/Goals/lowGoal", kWristAngles.lowGoal());
-    private static final LoggedTunableNumber l4Goal = new LoggedTunableNumber("Wrist/Goals/l4Goal", kWristAngles.l4());
-    private static final LoggedTunableNumber stow = new LoggedTunableNumber("Wrist/Goals/stow", kWristAngles.stow());
-
     public enum WristGoal {
-        IDLE(() -> 0),
-        L1(l1),
-        LOW_GOAL(lowGoal),
-        L4(l4Goal),
-        STOW(stow);
+        IDLE(() -> 0);
 
         private DoubleSupplier wristAngle;
 
@@ -45,8 +35,6 @@ public class Wrist extends SubsystemBase {
             return wristAngle.getAsDouble();
         }
     }
-
-    private WristGoal desiredLevel = WristGoal.IDLE;
 
     public Wrist(WristIO io) {
         this.io = io;
@@ -78,6 +66,10 @@ public class Wrist extends SubsystemBase {
     // set the desiredLevel variable of the wrist
     public void setDesiredLevel(ElevatorGoal goal) {}
 
+    /**
+     * Returns true if this subsystem is within a margin of error of the current
+     * goal
+     */
     @AutoLogOutput
     public boolean atGoal() {
         return false;

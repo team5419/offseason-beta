@@ -25,4 +25,7 @@ public interface IntakeRollerIO {
     default void runVelocity(double motorRPS, double ff) {}
 
     default void setPID(double kP, double kI, double kD) {}
+
+    default void setFF(double kA, double kG, double kS, double kV) {}
+
 }
