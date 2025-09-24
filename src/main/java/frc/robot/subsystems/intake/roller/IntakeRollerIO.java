@@ -27,5 +27,4 @@ public interface IntakeRollerIO {
     default void setPID(double kP, double kI, double kD) {}
 
     default void setFF(double kA, double kG, double kS, double kV) {}
-
 }

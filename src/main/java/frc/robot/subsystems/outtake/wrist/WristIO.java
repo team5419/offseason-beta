@@ -18,7 +18,7 @@ public interface WristIO {
     default void updateInputs(WristIOInputs inputs) {}
 
     default void runPosition(double goal) {}
-    
+
     default void runVolts(double volts) {}
 
     default void resetPosition(double angle) {}
