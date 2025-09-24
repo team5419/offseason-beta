@@ -1,7 +1,7 @@
 package frc.robot.subsystems.outtake.wrist;
 
-public class WristIoKraken implements WristIO {
-    public WristIoKraken() {}
+public class WristIOTalonFX implements WristIO {
+    public WristIOTalonFX() {}
 
     // In WristIO, theres a wristIOInputs class that has all the inputs we want to log. Update these values using the method below
     public void updateInputs(WristIOInputs inputs) {}

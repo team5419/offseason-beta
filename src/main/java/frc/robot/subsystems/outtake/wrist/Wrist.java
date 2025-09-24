@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LoggedTunableNumber;
 import frc.robot.subsystems.elevator.Elevator.ElevatorGoal;
 import java.util.function.DoubleSupplier;
+import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class Wrist extends SubsystemBase {
@@ -21,11 +22,10 @@ public class Wrist extends SubsystemBase {
     private static final LoggedTunableNumber kA = new LoggedTunableNumber("Wrist/Gains/kA", kGains.kA());
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("Wrist/Gains/kG", kGains.kG());
 
-    private static final LoggedTunableNumber l1 = new LoggedTunableNumber("Wrist/Gains/kS", kWristAngles.l1());
-    private static final LoggedTunableNumber lowGoal =
-            new LoggedTunableNumber("Wrist/Gains/kV", kWristAngles.lowGoal());
-    private static final LoggedTunableNumber l4Goal = new LoggedTunableNumber("Wrist/Gains/kA", kWristAngles.l4());
-    private static final LoggedTunableNumber stow = new LoggedTunableNumber("Wrist/Gains/kG", kWristAngles.stow());
+    private static final LoggedTunableNumber l1 = new LoggedTunableNumber("Wrist/Goals/l1", kWristAngles.l1());
+    private static final LoggedTunableNumber lowGoal = new LoggedTunableNumber("Wrist/Goals/lowGoal", kWristAngles.lowGoal());
+    private static final LoggedTunableNumber l4Goal = new LoggedTunableNumber("Wrist/Goals/l4Goal", kWristAngles.l4());
+    private static final LoggedTunableNumber stow = new LoggedTunableNumber("Wrist/Goals/stow", kWristAngles.stow());
 
     public enum WristGoal {
         IDLE(() -> 0),
@@ -77,6 +77,7 @@ public class Wrist extends SubsystemBase {
     // set the desiredLevel variable of the wrist
     public void setDesiredLevel(ElevatorGoal goal) {}
 
+    @AutoLogOutput
     public boolean atGoal() {
         return false;
     }

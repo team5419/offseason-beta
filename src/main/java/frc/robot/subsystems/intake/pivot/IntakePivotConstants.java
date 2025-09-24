@@ -1,5 +1,7 @@
 package frc.robot.subsystems.intake.pivot;
 
+import frc.robot.lib.Gains;
+
 public class IntakePivotConstants {
     public static final double kAngleTolerance = 0;
 
@@ -8,8 +10,6 @@ public class IntakePivotConstants {
     public static final Gains kGains = new Gains(0, 0, 0, 0, 0, 0, 0);
 
     public static final MotionConfigs kMotionConfigs = new MotionConfigs(0, 0, 0);
-
-    public record Gains(double kP, double kI, double kD, double kS, double kV, double kA, double kG) {}
 
     public record MotionConfigs(double kAcceleration, double kCruiseVel, double kJerk) {}
 }
