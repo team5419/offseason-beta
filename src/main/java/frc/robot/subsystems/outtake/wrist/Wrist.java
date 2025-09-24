@@ -23,7 +23,8 @@ public class Wrist extends SubsystemBase {
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("Wrist/Gains/kG", kGains.kG());
 
     private static final LoggedTunableNumber l1 = new LoggedTunableNumber("Wrist/Goals/l1", kWristAngles.l1());
-    private static final LoggedTunableNumber lowGoal = new LoggedTunableNumber("Wrist/Goals/lowGoal", kWristAngles.lowGoal());
+    private static final LoggedTunableNumber lowGoal =
+            new LoggedTunableNumber("Wrist/Goals/lowGoal", kWristAngles.lowGoal());
     private static final LoggedTunableNumber l4Goal = new LoggedTunableNumber("Wrist/Goals/l4Goal", kWristAngles.l4());
     private static final LoggedTunableNumber stow = new LoggedTunableNumber("Wrist/Goals/stow", kWristAngles.stow());
 

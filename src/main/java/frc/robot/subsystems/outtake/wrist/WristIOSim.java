@@ -4,6 +4,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 
 public class WristIOSim implements WristIO {
+
     private final SingleJointedArmSim pivotSim;
     private final PIDController controller;
 
