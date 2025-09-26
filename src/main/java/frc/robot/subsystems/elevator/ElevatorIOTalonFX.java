@@ -3,7 +3,6 @@ package frc.robot.subsystems.elevator;
 import static frc.robot.subsystems.elevator.ElevatorConstants.kGains;
 import static frc.robot.subsystems.elevator.ElevatorConstants.kGearRatio;
 
-import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicDutyCycle;
 import com.ctre.phoenix6.controls.NeutralOut;
@@ -13,7 +12,6 @@ import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.StaticFeedforwardSignValue;
-
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
 
@@ -40,11 +38,9 @@ public class ElevatorIOTalonFX implements ElevatorIO {
     }
 
     @Override
-    public void updateInputs(ElevatorIOInputs inputs) {
+    public void updateInputs(ElevatorIOInputs inputs) {}
 
-    }
-
-     // call .setControl on the motor controller with the appropriate control mode and value.
+    // call .setControl on the motor controller with the appropriate control mode and value.
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/MotionMagicDutyCycle.html
     @Override
     public void runPosition(double eleHeight, double feedforward) {
