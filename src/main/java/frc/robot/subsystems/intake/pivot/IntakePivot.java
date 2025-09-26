@@ -12,7 +12,7 @@ import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class IntakePivot extends SubsystemBase {
-
+//max 15 pounds maybe over
     private IntakePivotIO io;
     private IntakePivotIOInputsAutoLogged inputs = new IntakePivotIOInputsAutoLogged();
 

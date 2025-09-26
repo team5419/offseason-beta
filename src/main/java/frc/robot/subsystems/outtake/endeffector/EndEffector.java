@@ -10,7 +10,8 @@ import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class EndEffector extends SubsystemBase {
-
+//no hybrid cycles ;(
+//beam break on the side
     private EndEffectorIO io;
     private EndEffectorIOInputsAutoLogged inputs = new EndEffectorIOInputsAutoLogged();
 

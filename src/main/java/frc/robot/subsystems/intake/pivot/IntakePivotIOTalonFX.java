@@ -1,5 +1,6 @@
 package frc.robot.subsystems.intake.pivot;
 
+import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
@@ -15,7 +16,7 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
        config.Slot0.kA = kGains.kA();
        config.Slot0.kG = kGains.kG();
        config.Slot0.kV = kGains.kV();
-       
+
     private TalonFX motor;
 
     public IntakePivotIOTalonFX() {
@@ -24,8 +25,18 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
 
     @Override
     public void updateInputs(IntakePivotIOInputs inputs) {
+        inputs.motorConnected = BaseStatusSignal.resfreshALL(
+                            motorPosition,
+                            motorVelocity,
+                            motorAppliedVoltage,
+                            motorSupplyCurrent
+                            motorTorqueCurrent,
+                            motorTempCelsius)
+                        .isOK();
+        inputs.positionRAD = talon.getPosition().getValueAsDoubled();
         
-    }
+                            
+        )    }
         
     // call .setControl on the motor controller with the appropriate control mode and value.
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/MotionMagicDutyCycle.html
@@ -43,12 +54,12 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/VoltageOut.html
     @Override
     public void runVolts(double volts) {
-
+        talon.setControl(voltageOut.withOutput(volts));
     }
 
     @Override
     public void stop() {
-
+        talon.setControl(NeutralOut);
     }
 
     // call .setControl on the motor controller with the appropriate control mode and value.
