@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LoggedTunableNumber;
 import java.util.function.DoubleSupplier;
 import lombok.Getter;
+import lombok.Setter;
+
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
@@ -23,16 +25,20 @@ public class IntakePivot extends SubsystemBase {
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("Intake Pivot/Gains/kG", kGains.kG());
 
     public enum IntakePivotGoal {
-        IDLE(() -> 0); // Should be the current angle
+        IDLE(() -> 0), // Should be the pivot angle
+        INTAKE(() -> 0), // Set intake angle
+        
+        private IntakePivotGoal currentGoal = IntakePivotGoal.IDLE;
 
-        @Getter
-        private DoubleSupplier pivotAngle;
+        @Getter;
+        @Setter;
+        private DouleSupplier pivotAngle;
 
         private IntakePivotGoal(DoubleSupplier pivotAngle) {
             this.pivotAngle = pivotAngle;
         }
     }
-
+    private IntakePivotGoal currentGoal = IntakePivotGoal.IDLE;
     public IntakePivot(IntakePivotIO io) {
         this.io = io;
     }
