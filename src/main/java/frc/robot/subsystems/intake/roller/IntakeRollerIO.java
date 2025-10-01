@@ -8,12 +8,12 @@ public interface IntakeRollerIO {
     class IntakeRollerIOInputs {
         public boolean motorConnected = true;
 
-        public double[] motorPositionRads =  new double[]{0.0,0.0};
-        public double[] motorVelocityRPS = new double []{0.0,0.0};
-        public double[] motorAppliedVolts = new double []{0.0,0.0};
-        public double[] motorSupplyCurrentAmps = new double[]{0.0,0.0};
-        public double[] motorTorqueCurrentAmps = new double[]{0.0,0.0};
-        public double[] motorTempCelsius = new double[]{0.0,0.0};
+        public double[] motorPositionRads = new double[] {0.0, 0.0};
+        public double[] motorVelocityRPS = new double[] {0.0, 0.0};
+        public double[] motorAppliedVolts = new double[] {0.0, 0.0};
+        public double[] motorSupplyCurrentAmps = new double[] {0.0, 0.0};
+        public double[] motorTorqueCurrentAmps = new double[] {0.0, 0.0};
+        public double[] motorTempCelsius = new double[] {0.0, 0.0};
     }
 
     default void updateInputs(IntakeRollerIOInputs inputs) {}

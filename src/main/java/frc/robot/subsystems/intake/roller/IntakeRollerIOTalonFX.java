@@ -32,7 +32,7 @@ public class IntakeRollerIOTalonFX implements IntakeRollerIO {
 
     private TalonFX leaderMotor, followerMotor;
     private TalonFXConfiguration talonConfig = new TalonFXConfiguration();
-    private Follower follow = new Follower(Ports.kIntakeRollerLeaderID, oppositeDirection); 
+    private Follower follow = new Follower(Ports.kIntakeRollerLeaderID, oppositeDirection);
 
     motorPosition = List.of(leaderMotor.getPosition(),followerMotor.getPosition());
     motorVelocity = List.of(leaderMotor.getVelocity(),followerMotor.getVelocity());
@@ -42,6 +42,7 @@ public class IntakeRollerIOTalonFX implements IntakeRollerIO {
     motorTempCelsius = List.of(leaderMotor.getDeviceTemp(),followerMotor.getDeviceTemp());
 
     private VelocityVoltage reqVelocity = new VelocityVoltage(0.0);
+
 
     public IntakeRollerIOTalonFX() {
         leaderMotor = new TalonFX(Ports.kIntakeRollerLeaderID, GlobalConstants.kCANivoreName);
