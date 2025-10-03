@@ -1,12 +1,34 @@
 package frc.robot.subsystems.elevator;
 
+import java.util.List;
+
 import org.littletonrobotics.junction.AutoLog;
+
+import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.measure.AngularVelocity;
+import edu.wpi.first.units.measure.Current;
+import edu.wpi.first.units.measure.Temperature;
+import edu.wpi.first.units.measure.Voltage;
 
 public interface ElevatorIO {
 
     @AutoLog
     class ElevatorIOInputs {
-        // u add these!
+        public boolean leaderMotorConnected = true;
+        public boolean followerMotorConnected = true;
+
+        public double[] position = new double[] {0, 0};
+        public double[] velocityRotationsPerSecond = new double[] {0, 0};
+
+        public double[] referencePosition = new double[] {0, 0};
+        public double[] referenceVelocity = new double[] {0, 0};
+        public double[] referenceError = new double[] {0, 0};
+
+        public double[] appliedVolts = new double[] {0, 0};
+
+        public double[] supplyCurrentAmps = new double[] {0, 0};
+        public double[] statorCurrentAmps = new double[] {0, 0};
+        public double[] tempCelsius = new double[] {0, 0};
     }
 
     default void updateInputs(ElevatorIOInputs inputs) {}
