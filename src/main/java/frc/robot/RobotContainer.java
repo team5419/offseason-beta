@@ -24,7 +24,6 @@ import frc.robot.subsystems.elevator.ElevatorIOSim;
 import frc.robot.subsystems.elevator.ElevatorIOTalonFX;
 import frc.robot.subsystems.intake.pivot.IntakePivot;
 import frc.robot.subsystems.intake.pivot.IntakePivotIO;
-import frc.robot.subsystems.intake.pivot.IntakePivotIOSim;
 import frc.robot.subsystems.intake.pivot.IntakePivotIOTalonFX;
 import frc.robot.subsystems.intake.roller.IntakeRoller;
 import frc.robot.subsystems.intake.roller.IntakeRollerIO;
@@ -114,7 +113,7 @@ public class RobotContainer {
         driver.start(); // ! Unbound
         driver.back(); // ! Unbound
 
-        driver.a(); // ! Unbound
+        driver.a().onTrue(new InstantCommand()); // ! Unbound
         driver.b(); // ! Unbound
         driver.x(); // ! Unbound
         driver.y(); // ! Unbound
@@ -147,9 +146,8 @@ public class RobotContainer {
 
         operator.leftBumper(); // ! Unbound
         operator.rightBumper(); // ! Unbound
-//*left trigger intake then pivot down on hold, pivot up on release
-        operator.leftTrigger(0.1).onFalse(getAutonomousCommand()); // ! Unbound
-        operator.leftTrigger(threshold:0.1).onTrue(getAutonomousCommand());
+        // *left trigger intake then pivot down on hold, pivot up on release
+        operator.leftTrigger(0.1);
         operator.rightTrigger(0.1); // ! Unbound
     }
 
@@ -185,7 +183,7 @@ public class RobotContainer {
 
             case SIMBOT -> {
                 tempElevator = new Elevator(new ElevatorIOSim());
-                tempIntakePivot = new IntakePivot(new IntakePivotIOSim());
+                // tempIntakePivot = new IntakePivot(new IntakePivotIOSim());
                 tempIntakeRoller = new IntakeRoller(new IntakeRollerIOSim());
                 tempWrist = new Wrist(new WristIOSim());
                 tempEndEffector = new EndEffector(new EndEffectorIOSim());
@@ -210,9 +208,6 @@ public class RobotContainer {
         swerve = tempSwerve;
         elevator = tempElevator;
         intakePivot = tempIntakePivot;
-//*left trigger intake then pivot down on hold, pivot up on release
-operator.leftTrigger(0.1).onFalse(getAutonomousCommand()); // ! Unbound
-operator.leftTrigger(threshold:0.1).onTrue(getAutonomousCommand());//
         intakeRoller = tempIntakeRoller;
         wrist = tempWrist;
         endEffector = tempEndEffector;

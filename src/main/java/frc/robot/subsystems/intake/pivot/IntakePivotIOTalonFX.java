@@ -5,7 +5,6 @@ import static frc.robot.subsystems.intake.pivot.IntakePivotConstants.*;
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
-import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.NeutralOut;
@@ -52,7 +51,7 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
         motorTorqueCurrent = motor.getTorqueCurrent();
         motorVoltage = motor.getMotorVoltage();
 
-    config = new TalonFXConfiguration();
+        config = new TalonFXConfiguration();
 
         BaseStatusSignal.setUpdateFrequencyForAll(
                 GlobalConstants.kLooperHZ, // 50 hz
@@ -96,10 +95,9 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/MotionMagicDutyCycle.html
     @Override
     public void runPosition(double goal) {
-        motor.setControl(new MotionMagicVoltage(null).withEnableFOC(true));
+        motor.setControl(new MotionMagicVoltage(goal).withEnableFOC(true));
     }
-   
-    
+
     @Override
     public void resetPosition(double pos) {
         motor.setPosition(pos);
@@ -124,6 +122,7 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
         var MotorOutputConfigs = new TalonFXConfiguration().MotorOutput;
         MotorOutputConfigs.NeutralMode = enabled ? NeutralModeValue.Brake : NeutralModeValue.Coast;
     }
+
     @Override
     public void setPID(double kP, double kI, double kD) {
         var slot0 = new TalonFXConfiguration().Slot0;
@@ -131,14 +130,15 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
         slot0.kI = kI;
         slot0.kD = kD;
         motor.getConfigurator().apply(new TalonFXConfiguration().withSlot0(slot0));
-
     }
 
     @Override
-    public void setFF(double kS, double kG, double kV, double kA) {     var slot0 = new TalonFXConfiguration().Slot0;
+    public void setFF(double kS, double kG, double kV, double kA) {
+        var slot0 = new TalonFXConfiguration().Slot0;
         slot0.kS = kS;
         slot0.kG = kG;
         slot0.kV = kV;
         slot0.kA = kA;
-        motor.getConfigurator().apply(new TalonFXConfiguration().withSlot0(slot0));}
+        motor.getConfigurator().apply(new TalonFXConfiguration().withSlot0(slot0));
+    }
 }
