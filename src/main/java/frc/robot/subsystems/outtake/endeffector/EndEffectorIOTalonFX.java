@@ -1,7 +1,5 @@
 package frc.robot.subsystems.outtake.endeffector;
 
-import java.util.List;
-
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -15,6 +13,7 @@ import edu.wpi.first.units.measure.Temperature;
 import edu.wpi.first.units.measure.Voltage;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
+import java.util.List;
 
 public class EndEffectorIOTalonFX implements EndEffectorIO {
 
@@ -62,7 +61,6 @@ public class EndEffectorIOTalonFX implements EndEffectorIO {
                 motorTempCelsius.get(0),
                 motorTempCelsius.get(1),
                 leaderMotor.getDutyCycle());
-
     }
     // call .setControl on the motor controller with the appropriate control mode and value.
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/VoltageOut.html
