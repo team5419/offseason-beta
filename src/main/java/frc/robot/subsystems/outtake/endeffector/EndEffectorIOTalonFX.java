@@ -33,7 +33,7 @@ public class EndEffectorIOTalonFX implements EndEffectorIO {
     private final List<StatusSignal<Current>> motorTorqueCurrent;
     private final List<StatusSignal<Temperature>> motorTempCelsius;
 
-    public EndEffectorIOTalonFX(int id, String canBus, boolean invert, boolean brake) {
+    public EndEffectorIOTalonFX() {
         leaderMotor = new TalonFX(Ports.kEndEffectorLeaderID, GlobalConstants.kCANivoreName);
         followerMotor = new TalonFX(Ports.kEndEffectorFollowerID, GlobalConstants.kCANivoreName);
 
