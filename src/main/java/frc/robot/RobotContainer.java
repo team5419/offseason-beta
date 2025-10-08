@@ -147,8 +147,9 @@ public class RobotContainer {
 
         operator.leftBumper(); // ! Unbound
         operator.rightBumper(); // ! Unbound
-
-        operator.leftTrigger(0.1); // ! Unbound
+//*left trigger intake then pivot down on hold, pivot up on release
+        operator.leftTrigger(0.1).onFalse(getAutonomousCommand()); // ! Unbound
+        operator.leftTrigger(threshold:0.1).onTrue(getAutonomousCommand());
         operator.rightTrigger(0.1); // ! Unbound
     }
 
@@ -209,6 +210,9 @@ public class RobotContainer {
         swerve = tempSwerve;
         elevator = tempElevator;
         intakePivot = tempIntakePivot;
+//*left trigger intake then pivot down on hold, pivot up on release
+operator.leftTrigger(0.1).onFalse(getAutonomousCommand()); // ! Unbound
+operator.leftTrigger(threshold:0.1).onTrue(getAutonomousCommand());//
         intakeRoller = tempIntakeRoller;
         wrist = tempWrist;
         endEffector = tempEndEffector;
