@@ -5,6 +5,8 @@ import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
@@ -27,7 +29,6 @@ public class WristIOTalonFX implements WristIO {
     private final StatusSignal<Temperature> motorTempCelsius;
     public WristIOTalonFX() {
        motor = new TalonFX(Ports.kWristID, GlobalConstants.kCANivoreName);
-
         motorPosition = motor.getPosition();
         motorAppliedVoltage = motor.getMotorVoltage();
         motorVelocity = motor.getVelocity();
@@ -44,9 +45,20 @@ public class WristIOTalonFX implements WristIO {
                 motorTorqueCurrent,
                 motorTempCelsius);
 
+        // Basic motor config
+        config.CurrentLimits.SupplyCurrentLimit = kSupplyCurrentLimit;
+        config.CurrentLimits.SupplyCurrentLimitEnable = true;
+        config.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+        config.Feedback.SensorToMechanismRatio = 1;
+
+
         config.Slot0.kP = WristConstants.kGains.kP();
         config.Slot0.kI = WristConstants.kGains.kI();
         config.Slot0.kD = WristConstants.kGains.kD();
+
+        // Apply the configuration
+        motor.getConfigurator().apply(config);
 
     }
 
@@ -54,6 +66,19 @@ public class WristIOTalonFX implements WristIO {
     // log. Update these values using the
     // method below
     public void updateInputs(WristIOInputs inputs) {
+        inputs.motorConnected = BaseStatusSignal.refreshAll(
+                        motorPosition,
+                        motorVelocity,
+                        motorAppliedVoltage,
+                        motorSupplyCurrent,
+                        motorTorqueCurrent,
+                        motorTempCelsius)
+                        .isOK();
+        inputs.positionRad = motor.getPosition().getValueAsDouble();
+        inputs.velocityRadPerSec = motor.getVelocity().getValueAsDouble();
+        inputs.appliedVolts = motor.getMotorVoltage().getValueAsDouble();
+        inputs.currentAmps = motor.getSupplyCurrent().getValueAsDouble();
+        
     }
     MotionMagicVoltage reqMotionMagic = new MotionMagicVoltage(0);
     // call .setControl on the motor controller with the appropriate control mode
@@ -96,6 +121,6 @@ public class WristIOTalonFX implements WristIO {
 
     @Override
     public void stop() {
-
+        motor.setControl(neutralOut);
     }
 }
