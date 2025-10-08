@@ -11,32 +11,12 @@ import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.InvertedValue;
-import com.ctre.phoenix6.signals.NeutralModeValue;
-import edu.wpi.first.units.measure.Angle;
-import edu.wpi.first.units.measure.AngularVelocity;
-import edu.wpi.first.units.measure.Current;
-import edu.wpi.first.units.measure.Temperature;
-import edu.wpi.first.units.measure.Voltage;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
 
 public class IntakePivotIOTalonFX implements IntakePivotIO {
+
     private TalonFX motor;
-    private TalonFXConfiguration config;
-    private final VoltageOut reqVoltage = new VoltageOut(0.0).withEnableFOC(true);
-    private final NeutralOut reqNeutral = new NeutralOut();
-    private final VelocityVoltage reqVelocity = new VelocityVoltage(0);
-    private final StatusSignal<Angle> motorPosition;
-    private final StatusSignal<AngularVelocity> motorVelocity;
-    private final StatusSignal<Voltage> motorVoltage;
-    private final StatusSignal<Current> motorSupplyCurrent;
-    private final StatusSignal<Current> motorTorqueCurrent;
-    private final StatusSignal<Temperature> motorTempCelsius;
-    private final StatusSignal<Voltage> motorAppliedVoltage;
-    private final StatusSignal<Current> motorSupplyCurrentAmps;
-    private final StatusSignal<Double> motorReference;
-    private final StatusSignal<Double> motorReferenceVelocity;
 
     public IntakePivotIOTalonFX() {
         motor = new TalonFX(Ports.kIntakePivotID, GlobalConstants.kCANivoreName);
@@ -79,19 +59,9 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
     }
 
     @Override
-    public void updateInputs(IntakePivotIOInputs inputs) {
-        inputs.motorConnected = BaseStatusSignal.refreshAll(
-                        motorPosition,
-                        motorVelocity,
-                        motorAppliedVoltage,
-                        motorSupplyCurrent,
-                        motorTorqueCurrent,
-                        motorTempCelsius)
-                .isOK();
-        inputs.position = motor.getPosition().getValueAsDouble();
-    }
+    public void updateInputs(IntakePivotIOInputs inputs) {}
 
-    // call .setControl on the motor controller with the appropriate control mode and value.
+     // call .setControl on the motor controller with the appropriate control mode and value.
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/MotionMagicDutyCycle.html
     @Override
     public void runPosition(double goal) {
@@ -99,21 +69,15 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
     }
 
     @Override
-    public void resetPosition(double pos) {
-        motor.setPosition(pos);
-    }
+    public void resetPosition(double pos) {}
 
-    // call .setControl on the motor controller with the appropriate control mode and value.
+     // call .setControl on the motor controller with the appropriate control mode and value.
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/VoltageOut.html
     @Override
-    public void runVolts(double volts) {
-        motor.setControl(reqVoltage.withOutput(volts));
-    }
+    public void runVolts(double volts) {}
 
     @Override
-    public void stop() {
-        motor.setControl(reqNeutral);
-    }
+    public void stop() {}
 
     // call .setControl on the motor controller with the appropriate control mode and value.
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/configs/MotorOutputConfigs.html#NeutralMode
