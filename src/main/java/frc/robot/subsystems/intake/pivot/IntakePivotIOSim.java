@@ -25,9 +25,7 @@ public class IntakePivotIOSim implements IntakePivotIO {
     }
 
     @Override
-    public void updateInputs(IntakePivotIOInputs inputs) {
-        
-    }
+    public void updateInputs(IntakePivotIOInputs inputs) {}
 
     @Override
     public void setBrakeMode(boolean enabled) {

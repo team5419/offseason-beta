@@ -55,6 +55,7 @@ public class IntakePivot extends SubsystemBase {
                 kG,
                 kV,
                 kA);
+                  
     }
 
     /** Returns true if this subsystem is within a margin of error of the current goal */
