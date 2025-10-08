@@ -21,12 +21,12 @@ public class IntakeRollerIOTalonFX implements IntakeRollerIO {
     @Override
     public void runVolts(double motorVolts) {}
 
-    // call .setControl on the motor controller with the appropriate control mode and value.
+     // call .setControl on the motor controller with the appropriate control mode and value.
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/NeutralOut.html
     @Override
     public void stop() {}
 
-    // call .setControl on the motor controller with the appropriate control mode and value.
+     // call .setControl on the motor controller with the appropriate control mode and value.
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/MotionMagicVelocityVoltage.html
     @Override
     public void runVelocity(double motorRPS, double ff) {}

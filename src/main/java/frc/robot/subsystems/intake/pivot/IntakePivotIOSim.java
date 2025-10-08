@@ -1,10 +1,6 @@
 package frc.robot.subsystems.intake.pivot;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.system.plant.DCMotor;
-import edu.wpi.first.math.system.plant.LinearSystemId;
-import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 
 public class IntakePivotIOSim implements IntakePivotIO {
@@ -12,11 +8,7 @@ public class IntakePivotIOSim implements IntakePivotIO {
     private final SingleJointedArmSim pivotSim;
     private final PIDController controller;
 
-    private final DCMotorSim sim;
-    private double appliedVoltage = 0.0;
-   
-    public IntakePivotIOSim(DCMotor motor, double reduction, double moi) {
-        sim = new DCMotorSim(LinearSystemId.createDCMotorSystem(motor, moi, reduction), motor);
+    public IntakePivotIOSim() {
         // Initialize variables with default/mock values
         pivotSim = new SingleJointedArmSim(
                 null, // placeholder for motor
@@ -32,28 +24,10 @@ public class IntakePivotIOSim implements IntakePivotIO {
         controller = new PIDController(0.0, 0.0, 0.0);
     }
 
-// Updates the record with simulated data values
- @Override
- public void updateInputs(IntakePivotIOInputs inputs) {
-   sim.update(0.02);    
-   inputs.positionRad = sim.getAngularPositionRad();
-   inputs.velocityRadPerSec = sim.getAngularVelocityRadPerSec();
-   inputs.appliedVolts = appliedVoltage;
-   inputs.currentAmps = sim.getCurrentDrawAmps();
- }
-
- @Override
-public void runVolts(double volts) {
-   appliedVoltage = MathUtil.clamp(volts, -12.0, 12.0);
-   sim.setInputVoltage(appliedVoltage);
- }
- @Override
- public void stop() {
-   runVolts(0.0);
- }
-
-   
-    
+    @Override
+    public void updateInputs(IntakePivotIOInputs inputs) {
+        // TODO: implement
+    }
 
     @Override
     public void setBrakeMode(boolean enabled) {
@@ -65,13 +39,20 @@ public void runVolts(double volts) {
         // TODO: implement
     }
 
-    
+    @Override
+    public void runVolts(double volts) {
+        // TODO: implement
+    }
 
     @Override
     public void setPID(double P, double I, double D) {
         // TODO: implement
     }
 
+    @Override
+    public void stop() {
+        // TODO: implement
+    }
 
     @Override
     public void resetPosition(double degrees) {
