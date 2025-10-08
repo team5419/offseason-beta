@@ -44,7 +44,7 @@ public class EndEffectorIOTalonFX implements EndEffectorIO {
         motorSupplyCurrent = List.of(leaderMotor.getSupplyCurrent(), followerMotor.getSupplyCurrent());
         motorTorqueCurrent = List.of(leaderMotor.getTorqueCurrent(), followerMotor.getTorqueCurrent());
         motorTempCelsius = List.of(leaderMotor.getDeviceTemp(), followerMotor.getDeviceTemp());
-        motorAppliedVoltage = List.of(leaderMotor.motorAppliedVoltage(), followerMotor.motorAppliedVoltage());
+        motorAppliedVoltage = List.of(leaderMotor.getMotorVoltage(), followerMotor.getMotorVoltage());
     }
 
     @Override
