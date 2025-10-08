@@ -6,6 +6,7 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.controls.NeutralOut;
 
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
@@ -14,6 +15,7 @@ import edu.wpi.first.units.measure.Temperature;
 import edu.wpi.first.units.measure.Velocity;
 import edu.wpi.first.units.measure.Voltage;
 
+import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
@@ -34,13 +36,6 @@ public class IntakeRollerIOTalonFX implements IntakeRollerIO {
     private TalonFXConfiguration talonConfig = new TalonFXConfiguration();
     private Follower follow = new Follower(Ports.kIntakeRollerLeaderID, oppositeDirection);
 
-    motorPosition = List.of(leaderMotor.getPosition(),followerMotor.getPosition());
-    motorVelocity = List.of(leaderMotor.getVelocity(),followerMotor.getVelocity());
-    motorAppliedVoltage = List.of(leaderMotor.getVoltage(),followerMotor.getVoltage());
-    motorSupplyCurrent = List.of(leaderMotor.getSupplyCurrent(),followerMotor.getSupplyCurrent());
-    //motorTorqueCurrent = List.of(leaderMotor.getTorqueCurrent(),followerMotor.getTorqueCurrent());
-    motorTempCelsius = List.of(leaderMotor.getDeviceTemp(),followerMotor.getDeviceTemp());
-
     private VelocityVoltage reqVelocity = new VelocityVoltage(0.0);
 
 
@@ -51,13 +46,56 @@ public class IntakeRollerIOTalonFX implements IntakeRollerIO {
         talonConfig.Slot0.kP = IntakeRollerConstants.kGains.kP();
         talonConfig.Slot0.kI = IntakeRollerConstants.kGains.kI();
         talonConfig.Slot0.kD = IntakeRollerConstants.kGains.kD();
+        talonConfig.Slot0.kA = IntakeRollerConstants.kGains.kA();
+        talonConfig.Slot0.kG = IntakeRollerConstants.kGains.kG();
+        talonConfig.Slot0.kS = IntakeRollerConstants.kGains.kS();
+
+        motorPosition = List.of(leaderMotor.getPosition(),followerMotor.getPosition());
+        motorVelocity = List.of(leaderMotor.getVelocity(),followerMotor.getVelocity());
+        motorAppliedVoltage = List.of(leaderMotor.getMotorVoltage(),followerMotor.getVoltageMotorVoltage());
+        motorSupplyCurrent = List.of(leaderMotor.getSupplyCurrent(),followerMotor.getSupplyCurrent());
+        //motorTorqueCurrent = List.of(leaderMotor.getTorqueCurrent(),followerMotor.getTorqueCurrent());
+        motorTempCelsius = List.of(leaderMotor.getDeviceTemp(),followerMotor.getDeviceTemp());
+
+        BaseStatusSignal.setUpdateFrequencyForAll(
+                GlobalConstants.kLooperHZ, // 50 hz
+                motorPosition.get(0),
+                        motorPosition.get(1),
+                        motorVelocity.get(0),
+                        motorVelocity.get(1),
+                        motorAppliedVoltage.get(0),
+                        motorAppliedVoltage.get(1),
+                        motorSupplyCurrent.get(0),
+                        motorSupplyCurrent.get(0),
+                        motorTorqueCurrent.get(1),
+                        motorTempCelsius.get(0),
+                        motorTempCelsius.get(1)
+                        );
 
         leaderMotor.getConfigurator().apply(talonConfig);
+        followerMotor.getConfigurator().apply(talonConfig);
         followerMotor.setControl(follow);
     }
 
     @Override
     public void updateInputs(IntakeRollerIOInputs inputs) {
+
+        inputs.motorConnected = BaseStatusSignal.refreshAll(
+            motorPosition.get(0),
+            motorPosition.get(1),
+            motorVelocity.get(0),
+            motorVelocity.get(1),
+            motorAppliedVoltage.get(0),
+            motorAppliedVoltage.get(1),
+            motorSupplyCurrent.get(0),
+            motorSupplyCurrent.get(0),
+            motorTorqueCurrent.get(1),
+            motorTempCelsius.get(0),
+            motorTempCelsius.get(1)
+        )
+        .isOK();
+
+
         inputs.motorConnected = true;
 
         inputs.motorPositionRads = motorPosition.stream().mapToDouble(StatusSignal::getValueAsDouble)
@@ -83,7 +121,7 @@ public class IntakeRollerIOTalonFX implements IntakeRollerIO {
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/NeutralOut.html
     @Override
     public void stop() {
-        leaderMotor.set(0);
+        leaderMotor.setControl(new NeutralOut());
     }
 
     // call .setControl on the motor controller with the appropriate control mode and value.
@@ -94,5 +132,9 @@ public class IntakeRollerIOTalonFX implements IntakeRollerIO {
     }
 
     @Override
-    public void setPID(double kP, double kI, double kD) {}
+    public void setPID(double kP, double kI, double kD) {
+        talonConfig.Slot0.kP = kP;
+        talonConfig.Slot0.kI = kI;
+        talonConfig.Slot0.kD = kD;
+    }
 }
