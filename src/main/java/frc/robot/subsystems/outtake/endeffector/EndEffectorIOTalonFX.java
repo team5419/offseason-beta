@@ -75,7 +75,7 @@ public class EndEffectorIOTalonFX implements EndEffectorIO {
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/NeutralOut.html
     @Override
     public void stop() {
-        leaderMotor.setControl(voltageOut.withOutput(0));
+        leaderMotor.setControl(neutralOut);
     }
 
     // call .setControl on the motor controller with the approrol modpriate conte and value.
