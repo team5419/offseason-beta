@@ -6,13 +6,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LoggedTunableNumber;
 import java.util.function.DoubleSupplier;
 import lombok.Getter;
-import lombok.Setter;
-
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class IntakePivot extends SubsystemBase {
-//max 15 pounds maybe over
+
     private IntakePivotIO io;
     private IntakePivotIOInputsAutoLogged inputs = new IntakePivotIOInputsAutoLogged();
 
@@ -25,20 +23,16 @@ public class IntakePivot extends SubsystemBase {
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("Intake Pivot/Gains/kG", kGains.kG());
 
     public enum IntakePivotGoal {
-        IDLE(() -> 0), // Should be the pivot angle
-        INTAKE(() -> 0), // Set intake angle
-        
-        private IntakePivotGoal currentGoal = IntakePivotGoal.IDLE;
+        IDLE(() -> 0); // Should be the current angle
 
-        @Getter;
-        @Setter;
-        private DouleSupplier pivotAngle;
+        @Getter
+        private DoubleSupplier pivotAngle;
 
         private IntakePivotGoal(DoubleSupplier pivotAngle) {
             this.pivotAngle = pivotAngle;
         }
     }
-    private IntakePivotGoal currentGoal = IntakePivotGoal.IDLE;
+
     public IntakePivot(IntakePivotIO io) {
         this.io = io;
     }
@@ -55,7 +49,6 @@ public class IntakePivot extends SubsystemBase {
                 kG,
                 kV,
                 kA);
-                  
     }
 
     /** Returns true if this subsystem is within a margin of error of the current goal */
