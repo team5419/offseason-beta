@@ -11,7 +11,7 @@ import org.littletonrobotics.junction.Logger;
 
 public class EndEffector extends SubsystemBase {
 
-    private EndEffectorIO io;
+    private EndEffectorIO io;   
     private EndEffectorIOInputsAutoLogged inputs = new EndEffectorIOInputsAutoLogged();
 
     private static final LoggedTunableNumber kP = new LoggedTunableNumber("End Effector Roller/Gains/kP", kGains.kP());
@@ -49,6 +49,14 @@ public class EndEffector extends SubsystemBase {
                 kG,
                 kV,
                 kA);
+    }
+
+    public void runn(double volts) {
+        io.runVolts(volts);
+    }
+
+    public void stop() {
+        io.stop();
     }
 
     /**
