@@ -14,7 +14,7 @@ import org.littletonrobotics.junction.Logger;
 public class IntakePivot extends SubsystemBase {
 //max 15 pounds maybe over
     private IntakePivotIO io;
-    private IntakePivotIOInputsAutoLogged inputs = new IntakePivotIOInputsAutoLogged();
+    
 
     private static final LoggedTunableNumber kP = new LoggedTunableNumber("Intake Pivot/Gains/kP", kGains.kP());
     private static final LoggedTunableNumber kI = new LoggedTunableNumber("Intake Pivot/Gains/kI", kGains.kI());
@@ -25,31 +25,26 @@ public class IntakePivot extends SubsystemBase {
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("Intake Pivot/Gains/kG", kGains.kG());
 
     public enum IntakePivotGoal {
-        IDLE(() -> 0), // Should be the pivot angle
-        INTAKE(() -> 0), // Set intake angle
+       
+       
+
         
-        private IntakePivotGoal currentGoal = IntakePivotGoal.IDLE;
+   
 
-        @Getter;
-        @Setter;
-        private DouleSupplier pivotAngle;
-
-        private IntakePivotGoal(DoubleSupplier pivotAngle) {
-            this.pivotAngle = pivotAngle;
-        }
+    
     }
-    private IntakePivotGoal currentGoal = IntakePivotGoal.IDLE;
+
     public IntakePivot(IntakePivotIO io) {
         this.io = io;
     }
 
     @Override
     public void periodic() {
-        io.updateInputs(inputs);
-        Logger.processInputs("Intake Pivot", inputs);
+    
+      
         LoggedTunableNumber.ifChanged(hashCode(), () -> io.setPID(kP.get(), kI.get(), kD.get()), kP, kI, kD);
         LoggedTunableNumber.ifChanged(
-                hashCode(),
+                  hashCode(),
                 () -> io.setFF(kS.getAsDouble(), kG.getAsDouble(), kV.getAsDouble(), kA.getAsDouble()),
                 kS,
                 kG,

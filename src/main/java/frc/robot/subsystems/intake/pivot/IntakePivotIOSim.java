@@ -36,10 +36,10 @@ public class IntakePivotIOSim implements IntakePivotIO {
  @Override
  public void updateInputs(IntakePivotIOInputs inputs) {
    sim.update(0.02);    
-   inputs.positionRad = sim.getAngularPositionRad();
-   inputs.velocityRadPerSec = sim.getAngularVelocityRadPerSec();
+   
+ 
    inputs.appliedVolts = appliedVoltage;
-   inputs.currentAmps = sim.getCurrentDrawAmps();
+  
  }
 
  @Override
