@@ -8,7 +8,7 @@ public interface IntakeRollerIO {
     class IntakeRollerIOInputs {
         public boolean motorConnected = true;
 
-        public double[] motorPositionRads = new double[] {0.0, 0.0};
+        public double[] motorPositionRotations = new double[] {0.0, 0.0};
         public double[] motorVelocityRPS = new double[] {0.0, 0.0};
         public double[] motorAppliedVolts = new double[] {0.0, 0.0};
         public double[] motorSupplyCurrentAmps = new double[] {0.0, 0.0};
