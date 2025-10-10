@@ -4,8 +4,12 @@ import static frc.robot.subsystems.elevator.ElevatorConstants.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LoggedTunableNumber;
+import frc.robot.subsystems.elevator.ElevatorIO.ElevatorIOInputs;
+
 import java.util.function.DoubleSupplier;
 import lombok.Getter;
+import lombok.Setter;
+import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class Elevator extends SubsystemBase {
@@ -26,6 +30,11 @@ public class Elevator extends SubsystemBase {
     private static final LoggedTunableNumber l2 = new LoggedTunableNumber("Elevator/L2", kElevatorHeights.l2());
     private static final LoggedTunableNumber l3 = new LoggedTunableNumber("Elevator/L3", kElevatorHeights.l3());
     private static final LoggedTunableNumber l4 = new LoggedTunableNumber("Elevator/L4", kElevatorHeights.l4());
+
+    @Getter
+    @Setter
+    @AutoLogOutput(key = "Elevator/Current Goal")
+    private ElevatorGoal currentGoal = ElevatorGoal.STOW;
 
     public enum ElevatorGoal {
         IDLE(() -> 0), // Should be the current height

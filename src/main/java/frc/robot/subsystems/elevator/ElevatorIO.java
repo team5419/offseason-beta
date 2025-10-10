@@ -6,7 +6,21 @@ public interface ElevatorIO {
 
     @AutoLog
     class ElevatorIOInputs {
-        // u add these!
+        public boolean leaderMotorConnected = true;
+        public boolean followerMotorConnected = true;
+
+        public double[] position = new double[] {0, 0};
+        public double[] velocityRotationsPerSecond = new double[] {0, 0};
+
+        public double[] referencePosition = new double[] {0, 0};
+        public double[] referenceVelocity = new double[] {0, 0};
+        public double[] referenceError = new double[] {0, 0};
+
+        public double[] appliedVolts = new double[] {0, 0};
+
+        public double[] supplyCurrentAmps = new double[] {0, 0};
+        public double[] statorCurrentAmps = new double[] {0, 0};
+        public double[] tempCelsius = new double[] {0, 0};
     }
 
     default void updateInputs(ElevatorIOInputs inputs) {}
