@@ -54,7 +54,7 @@ public class IntakeRollerIOTalonFX implements IntakeRollerIO {
         motorVelocity = List.of(leaderMotor.getVelocity(),followerMotor.getVelocity());
         motorAppliedVoltage = List.of(leaderMotor.getMotorVoltage(),followerMotor.getVoltageMotorVoltage());
         motorSupplyCurrent = List.of(leaderMotor.getSupplyCurrent(),followerMotor.getSupplyCurrent());
-        //motorTorqueCurrent = List.of(leaderMotor.getTorqueCurrent(),followerMotor.getTorqueCurrent());
+        motorTorqueCurrent = List.of(leaderMotor.getTorqueCurrent(),followerMotor.getTorqueCurrent());
         motorTempCelsius = List.of(leaderMotor.getDeviceTemp(),followerMotor.getDeviceTemp());
 
         BaseStatusSignal.setUpdateFrequencyForAll(
