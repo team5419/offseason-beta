@@ -4,6 +4,8 @@ import static frc.robot.subsystems.elevator.ElevatorConstants.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LoggedTunableNumber;
+import frc.robot.subsystems.elevator.ElevatorIO.ElevatorIOInputs;
+
 import java.util.function.DoubleSupplier;
 import lombok.Getter;
 import lombok.Setter;

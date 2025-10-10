@@ -1,14 +1,6 @@
 package frc.robot.subsystems.elevator;
 
-import java.util.List;
-
 import org.littletonrobotics.junction.AutoLog;
-
-import edu.wpi.first.units.measure.Angle;
-import edu.wpi.first.units.measure.AngularVelocity;
-import edu.wpi.first.units.measure.Current;
-import edu.wpi.first.units.measure.Temperature;
-import edu.wpi.first.units.measure.Voltage;
 
 public interface ElevatorIO {
 

@@ -3,8 +3,6 @@ package frc.robot.subsystems.elevator;
 import static frc.robot.subsystems.elevator.ElevatorConstants.kGains;
 import static frc.robot.subsystems.elevator.ElevatorConstants.kGearRatio;
 
-import java.util.List;
-
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -17,7 +15,6 @@ import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.StaticFeedforwardSignValue;
-
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Current;
@@ -25,6 +22,7 @@ import edu.wpi.first.units.measure.Temperature;
 import edu.wpi.first.units.measure.Voltage;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
+import java.util.List;
 
 public class ElevatorIOTalonFX implements ElevatorIO {
 
@@ -76,89 +74,88 @@ public class ElevatorIOTalonFX implements ElevatorIO {
         motorTempCelsius = List.of(leaderMotor.getDeviceTemp(), followerMotor.getDeviceTemp());
 
         BaseStatusSignal.setUpdateFrequencyForAll(
-            GlobalConstants.kLooperHZ,
-            motorPosition.get(0),
-            motorPosition.get(1),
-            motorVelocity.get(0),
-            motorVelocity.get(1),
-            motorReferencePosition.get(0),
-            motorReferencePosition.get(1),
-            motorReferenceVelocity.get(0),
-            motorReferenceVelocity.get(1),
-            motorReferenceError.get(0),
-            motorReferenceError.get(1),
-            motorAppliedVoltage.get(0),
-            motorAppliedVoltage.get(1),
-            motorSupplyCurrent.get(0),
-            motorSupplyCurrent.get(1),
-            motorTorqueCurrent.get(0),
-            motorTorqueCurrent.get(1),
-            motorTempCelsius.get(0),
-            motorTempCelsius.get(1),
-            leaderMotor.getDutyCycle()
-        );
+                GlobalConstants.kLooperHZ,
+                motorPosition.get(0),
+                motorPosition.get(1),
+                motorVelocity.get(0),
+                motorVelocity.get(1),
+                motorReferencePosition.get(0),
+                motorReferencePosition.get(1),
+                motorReferenceVelocity.get(0),
+                motorReferenceVelocity.get(1),
+                motorReferenceError.get(0),
+                motorReferenceError.get(1),
+                motorAppliedVoltage.get(0),
+                motorAppliedVoltage.get(1),
+                motorSupplyCurrent.get(0),
+                motorSupplyCurrent.get(1),
+                motorTorqueCurrent.get(0),
+                motorTorqueCurrent.get(1),
+                motorTempCelsius.get(0),
+                motorTempCelsius.get(1),
+                leaderMotor.getDutyCycle());
     }
 
     @Override
     public void updateInputs(ElevatorIOInputs inputs) {
         inputs.leaderMotorConnected = BaseStatusSignal.refreshAll(
-                    motorPosition.get(0),
-                    motorVelocity.get(0),
-                    motorReferencePosition.get(0),
-                    motorReferenceVelocity.get(0),
-                    motorReferenceError.get(0),
-                    motorAppliedVoltage.get(0),
-                    motorSupplyCurrent.get(0),
-                    motorTorqueCurrent.get(0),
-                    motorTempCelsius.get(0))
-            .isOK();
+                        motorPosition.get(0),
+                        motorVelocity.get(0),
+                        motorReferencePosition.get(0),
+                        motorReferenceVelocity.get(0),
+                        motorReferenceError.get(0),
+                        motorAppliedVoltage.get(0),
+                        motorSupplyCurrent.get(0),
+                        motorTorqueCurrent.get(0),
+                        motorTempCelsius.get(0))
+                .isOK();
 
         inputs.followerMotorConnected = BaseStatusSignal.refreshAll(
-                    motorPosition.get(1),
-                    motorVelocity.get(1),
-                    motorReferencePosition.get(1),
-                    motorReferenceVelocity.get(1),
-                    motorReferenceError.get(1),
-                    motorAppliedVoltage.get(1),
-                    motorSupplyCurrent.get(1),
-                    motorTorqueCurrent.get(1),
-                    motorTempCelsius.get(1))
-            .isOK();
+                        motorPosition.get(1),
+                        motorVelocity.get(1),
+                        motorReferencePosition.get(1),
+                        motorReferenceVelocity.get(1),
+                        motorReferenceError.get(1),
+                        motorAppliedVoltage.get(1),
+                        motorSupplyCurrent.get(1),
+                        motorTorqueCurrent.get(1),
+                        motorTempCelsius.get(1))
+                .isOK();
 
         inputs.position = motorPosition.stream()
-            .mapToDouble(StatusSignal::getValueAsDouble)
-            .toArray();
+                .mapToDouble(StatusSignal::getValueAsDouble)
+                .toArray();
 
         inputs.velocityRotationsPerSecond = motorVelocity.stream()
-            .mapToDouble(StatusSignal::getValueAsDouble)
-            .toArray();
+                .mapToDouble(StatusSignal::getValueAsDouble)
+                .toArray();
 
         inputs.referencePosition = motorReferencePosition.stream()
-            .mapToDouble(StatusSignal::getValueAsDouble)
-            .toArray();
+                .mapToDouble(StatusSignal::getValueAsDouble)
+                .toArray();
 
         inputs.referenceVelocity = motorReferenceVelocity.stream()
-            .mapToDouble(StatusSignal::getValueAsDouble)
-            .toArray();
+                .mapToDouble(StatusSignal::getValueAsDouble)
+                .toArray();
 
         inputs.referenceError = motorReferenceError.stream()
-            .mapToDouble(StatusSignal::getValueAsDouble)
-            .toArray();
+                .mapToDouble(StatusSignal::getValueAsDouble)
+                .toArray();
 
         inputs.appliedVolts = motorAppliedVoltage.stream()
-            .mapToDouble(StatusSignal::getValueAsDouble)
-            .toArray();
+                .mapToDouble(StatusSignal::getValueAsDouble)
+                .toArray();
 
         inputs.supplyCurrentAmps = motorSupplyCurrent.stream()
-            .mapToDouble(StatusSignal::getValueAsDouble)
-            .toArray();
+                .mapToDouble(StatusSignal::getValueAsDouble)
+                .toArray();
         inputs.statorCurrentAmps = motorTorqueCurrent.stream()
-            .mapToDouble(StatusSignal::getValueAsDouble)
-            .toArray();
+                .mapToDouble(StatusSignal::getValueAsDouble)
+                .toArray();
 
         inputs.tempCelsius = motorTempCelsius.stream()
-            .mapToDouble(StatusSignal::getValueAsDouble)
-            .toArray();
+                .mapToDouble(StatusSignal::getValueAsDouble)
+                .toArray();
     }
 
     // call .setControl on the motor controller with the appropriate control mode and value.
