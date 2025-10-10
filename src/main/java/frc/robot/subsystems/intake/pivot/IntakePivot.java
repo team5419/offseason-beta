@@ -10,7 +10,6 @@ import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class IntakePivot extends SubsystemBase {
-
     private IntakePivotIO io;
     private IntakePivotIOInputsAutoLogged inputs = new IntakePivotIOInputsAutoLogged();
 
@@ -23,7 +22,8 @@ public class IntakePivot extends SubsystemBase {
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("Intake Pivot/Gains/kG", kGains.kG());
 
     public enum IntakePivotGoal {
-        IDLE(() -> 0); // Should be the current angle
+        IDLE(() -> 0), // Should be the pivot angle
+        INTAKE(() -> 0); // Set intake angle
 
         @Getter
         private DoubleSupplier pivotAngle;
@@ -33,14 +33,14 @@ public class IntakePivot extends SubsystemBase {
         }
     }
 
+    private IntakePivotGoal currentGoal = IntakePivotGoal.IDLE;
+
     public IntakePivot(IntakePivotIO io) {
         this.io = io;
     }
 
     @Override
     public void periodic() {
-        io.updateInputs(inputs);
-        Logger.processInputs("Intake Pivot", inputs);
         LoggedTunableNumber.ifChanged(hashCode(), () -> io.setPID(kP.get(), kI.get(), kD.get()), kP, kI, kD);
         LoggedTunableNumber.ifChanged(
                 hashCode(),
@@ -49,6 +49,9 @@ public class IntakePivot extends SubsystemBase {
                 kG,
                 kV,
                 kA);
+        io.runPosition(currentGoal.getPivotAngle().getAsDouble());
+        io.updateInputs(inputs);
+        Logger.processInputs("Intake Pivot", inputs);
     }
 
     /** Returns true if this subsystem is within a margin of error of the current goal */
