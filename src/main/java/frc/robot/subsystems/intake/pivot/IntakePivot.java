@@ -4,9 +4,8 @@ import static frc.robot.subsystems.elevator.ElevatorConstants.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LoggedTunableNumber;
-import lombok.Getter;
-
 import java.util.function.DoubleSupplier;
+import lombok.Getter;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
@@ -25,6 +24,7 @@ public class IntakePivot extends SubsystemBase {
     public enum IntakePivotGoal {
         IDLE(() -> 0), // Should be the pivot angle
         INTAKE(() -> 0); // Set intake angle
+
         @Getter
         private DoubleSupplier pivotAngle;
 

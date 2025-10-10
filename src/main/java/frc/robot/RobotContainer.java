@@ -113,12 +113,12 @@ public class RobotContainer {
         driver.start(); // ! Unbound
         driver.back(); // ! Unbound
 
-        driver.a().onTrue(new InstantCommand()); // ! Unbound
+        driver.a(); // ! Unbound
         driver.b(); // ! Unbound
         driver.x(); // ! Unbound
         driver.y(); // ! Unbound
 
-        driver.povUp();
+        driver.povUp(); // ! Unbound
         driver.povDown(); // ! Unbound
         driver.povLeft(); // ! Unbound
         driver.povRight(); // ! Unbound
@@ -146,8 +146,8 @@ public class RobotContainer {
 
         operator.leftBumper(); // ! Unbound
         operator.rightBumper(); // ! Unbound
-        // *left trigger intake then pivot down on hold, pivot up on release
-        operator.leftTrigger(0.1);
+
+        operator.leftTrigger(0.1); // ! Unbound
         operator.rightTrigger(0.1); // ! Unbound
     }
 
