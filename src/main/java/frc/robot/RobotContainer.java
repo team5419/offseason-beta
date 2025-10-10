@@ -118,7 +118,7 @@ public class RobotContainer {
         driver.x(); // ! Unbound
         driver.y(); // ! Unbound
 
-        driver.povUp(); // ! Unbound
+        driver.povUp();
         driver.povDown(); // ! Unbound
         driver.povLeft(); // ! Unbound
         driver.povRight(); // ! Unbound
@@ -183,7 +183,7 @@ public class RobotContainer {
 
             case SIMBOT -> {
                 tempElevator = new Elevator(new ElevatorIOSim());
-                // tempIntakePivot = new IntakePivot(new IntakePivotIOSim());
+                tempIntakePivot = new IntakePivot(new IntakePivotIOSim());
                 tempIntakeRoller = new IntakeRoller(new IntakeRollerIOSim());
                 tempWrist = new Wrist(new WristIOSim());
                 tempEndEffector = new EndEffector(new EndEffectorIOSim());
