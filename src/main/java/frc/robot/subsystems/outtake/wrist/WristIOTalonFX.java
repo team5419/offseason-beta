@@ -1,9 +1,12 @@
 package frc.robot.subsystems.outtake.wrist;
 
+import static frc.robot.subsystems.outtake.wrist.WristConstants.*;
+
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
+import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
@@ -20,6 +23,7 @@ public class WristIOTalonFX implements WristIO {
 
     private TalonFX motor;
     private TalonFXConfiguration config;
+    private final NeutralOut neutralOut= new NeutralOut(); // neutral control (equivalent to stopping the motor)
 
     private final StatusSignal<Angle> motorPosition;
     private final StatusSignal<AngularVelocity> motorVelocity;
@@ -74,11 +78,12 @@ public class WristIOTalonFX implements WristIO {
                         motorTorqueCurrent,
                         motorTempCelsius)
                         .isOK();
-        inputs.positionRad = motor.getPosition().getValueAsDouble();
-        inputs.velocityRadPerSec = motor.getVelocity().getValueAsDouble();
+        inputs.position = motor.getPosition().getValueAsDouble();
+        inputs.velocity = motor.getVelocity().getValueAsDouble();
         inputs.appliedVolts = motor.getMotorVoltage().getValueAsDouble();
-        inputs.currentAmps = motor.getSupplyCurrent().getValueAsDouble();
-        
+        inputs.supplyCurrentAmps = motor.getSupplyCurrent().getValueAsDouble();
+        inputs.tempCelcius = motor.getDeviceTemp().getValueAsDouble();
+        inputs.motorConnected = motor.isConnected();
     }
     MotionMagicVoltage reqMotionMagic = new MotionMagicVoltage(0);
     // call .setControl on the motor controller with the appropriate control mode
@@ -102,21 +107,32 @@ public class WristIOTalonFX implements WristIO {
         motor.setPosition(0);
     }
 
+
     // call .setControl on the motor controller with the appropriate control mode
     // and value.
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/configs/MotorOutputConfigs.html#NeutralMode
     @Override
     public void setBrakeMode(boolean enabled) {
-
+        motor.setNeutralMode(NeutralModeValue.Brake);
     }
 
     @Override
     public void setPID(double P, double I, double D) {
+        config.Slot0.kP = P;
+        config.Slot0.kI = I;
+        config.Slot0.kD = D;
 
+        motor.getConfigurator().apply(config);
     }
 
     @Override
     public void setFF(double kA, double kG, double kS, double kV) {
+        config.Slot0.kA = kA;
+        config.Slot0.kG = kG;
+        config.Slot0.kS = kS;
+        config.Slot0.kV = kV;
+
+        motor.getConfigurator().apply(config);
     }
 
     @Override

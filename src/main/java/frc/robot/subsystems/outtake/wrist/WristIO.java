@@ -11,8 +11,8 @@ public interface WristIO {
         public double velocity = 0.0; // degrees per second
         public double tempCelcius = 0.0;
         public double supplyCurrentAmps = 0.0;
-        public double referencePose = 0.0;
-        public double referenceVelocity = 0.0;
+        // public double referencePose = 0.0;
+        // public double referenceVelocity = 0.0;
     }
 
     default void updateInputs(WristIOInputs inputs) {}
