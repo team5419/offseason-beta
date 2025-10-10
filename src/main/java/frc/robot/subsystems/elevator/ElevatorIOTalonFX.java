@@ -142,22 +142,6 @@ public class ElevatorIOTalonFX implements ElevatorIO {
                 .mapToDouble(StatusSignal::getValueAsDouble)
                 .toArray();
 
-        inputs.appliedVolts = motorAppliedVoltage.stream()
-                .mapToDouble(StatusSignal::getValueAsDouble)
-                .toArray();
-
-        inputs.supplyCurrentAmps = motorSupplyCurrent.stream()
-                .mapToDouble(StatusSignal::getValueAsDouble)
-                .toArray();
-        inputs.statorCurrentAmps = motorTorqueCurrent.stream()
-                .mapToDouble(StatusSignal::getValueAsDouble)
-                .toArray();
-
-        inputs.tempCelsius = motorTempCelsius.stream()
-                .mapToDouble(StatusSignal::getValueAsDouble)
-                .toArray();
-    }
-
     // call .setControl on the motor controller with the appropriate control mode and value.
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/MotionMagicDutyCycle.html
     @Override
