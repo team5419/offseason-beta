@@ -87,7 +87,6 @@ public class IntakeRollerIOTalonFX implements IntakeRollerIO {
                         motorAppliedVoltage.get(1),
                         motorSupplyCurrent.get(0),
                         motorSupplyCurrent.get(1),
-                        motorTorqueCurrent.get(1),
                         motorTempCelsius.get(0),
                         motorTempCelsius.get(1))
                 .isOK();
@@ -126,8 +125,8 @@ public class IntakeRollerIOTalonFX implements IntakeRollerIO {
     // call .setControl on the motor controller with the appropriate control mode and value.
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/MotionMagicVelocityVoltage.html
     @Override
-    public void runVelocity(double motorRPS, double ff) {
-        leaderMotor.setControl(reqVelocity.withVelocity(motorRPS).withFeedForward(ff));
+    public void runVelocity(double motorRPS) {
+        leaderMotor.setControl(reqVelocity.withVelocity(motorRPS));
     }
 
     @Override

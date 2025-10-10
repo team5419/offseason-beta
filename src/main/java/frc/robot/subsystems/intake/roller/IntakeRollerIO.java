@@ -22,7 +22,7 @@ public interface IntakeRollerIO {
 
     default void stop() {}
 
-    default void runVelocity(double motorRPS, double ff) {}
+    default void runVelocity(double motorRPS) {}
 
     default void setPID(double kP, double kI, double kD) {}
 
