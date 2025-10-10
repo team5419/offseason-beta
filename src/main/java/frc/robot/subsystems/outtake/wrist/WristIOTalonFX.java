@@ -24,7 +24,7 @@ public class WristIOTalonFX implements WristIO {
     private TalonFX motor;
     private TalonFXConfiguration config;
     private final NeutralOut neutralOut= new NeutralOut(); // neutral control (equivalent to stopping the motor)
-
+    private MotionMagicVoltage reqMotionMagic = new MotionMagicVoltage(0);
     private final StatusSignal<Angle> motorPosition;
     private final StatusSignal<AngularVelocity> motorVelocity;
     private final StatusSignal<Voltage> motorAppliedVoltage;
@@ -85,7 +85,7 @@ public class WristIOTalonFX implements WristIO {
         inputs.tempCelcius = motor.getDeviceTemp().getValueAsDouble();
         inputs.motorConnected = motor.isConnected();
     }
-    MotionMagicVoltage reqMotionMagic = new MotionMagicVoltage(0);
+    
     // call .setControl on the motor controller with the appropriate control mode
     // and value.
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/MotionMagicDutyCycle.html
@@ -104,7 +104,7 @@ public class WristIOTalonFX implements WristIO {
 
     @Override
     public void resetPosition(double angle) {
-        motor.setPosition(0);
+        motor.setPosition(angle);
     }
 
 
@@ -113,7 +113,12 @@ public class WristIOTalonFX implements WristIO {
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/configs/MotorOutputConfigs.html#NeutralMode
     @Override
     public void setBrakeMode(boolean enabled) {
-        motor.setNeutralMode(NeutralModeValue.Brake);
+        if (enabled){
+            motor.setNeutralMode(NeutralModeValue.Brake);
+        }else{
+            motor.setNeutralMode(NeutralModeValue.Coast);
+        }
+        
     }
 
     @Override
