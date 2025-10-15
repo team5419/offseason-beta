@@ -23,8 +23,10 @@ public class IntakePivot extends SubsystemBase {
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("Intake Pivot/Gains/kG", kGains.kG());
 
     public enum IntakePivotGoal {
-        IDLE(() -> 0), // Should be the pivot angle
-        INTAKE(() -> 0); // Set intake angle
+        IDLE(() -> 0), // TODO: set idle angle
+        INTAKE(() -> 0), // TODO: Set intake angle
+        SCORE1(() -> 0), //TODO: set scoring angle
+        HANDOFF(() -> 0); //TODO: set handoff angle
 
         @Getter
         private DoubleSupplier pivotAngle;
