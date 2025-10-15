@@ -23,7 +23,7 @@ public class WristIOTalonFX implements WristIO {
 
     private TalonFX motor;
     private TalonFXConfiguration config;
-    private final NeutralOut neutralOut = new NeutralOut(); // neutral control (equivalent to stopping the motor)
+    private final NeutralOut neutralOut = new NeutralOut(); 
     private MotionMagicVoltage reqMotionMagic = new MotionMagicVoltage(0);
 
     private final StatusSignal<Angle> motorPosition;
@@ -37,13 +37,13 @@ public class WristIOTalonFX implements WristIO {
 
     public WristIOTalonFX() {
         motor = new TalonFX(Ports.kWristID, GlobalConstants.kCANivoreName);
+
         motorPosition = motor.getPosition();
         motorAppliedVoltage = motor.getMotorVoltage();
         motorVelocity = motor.getVelocity();
         motorTempCelsius = motor.getDeviceTemp();
         motorTorqueCurrent = motor.getTorqueCurrent();
         motorSupplyCurrent = motor.getSupplyCurrent();
-
         referenceVelocity = motor.getClosedLoopReferenceSlope();
         referencePose = motor.getClosedLoopReference();
 
@@ -51,18 +51,6 @@ public class WristIOTalonFX implements WristIO {
         config.MotionMagic.MotionMagicAcceleration = Units.degreesToRotations(kMotionConfigs.kAcceleration());
         config.MotionMagic.MotionMagicJerk = Units.degreesToRotations(kMotionConfigs.kJerk());
 
-        BaseStatusSignal.setUpdateFrequencyForAll(
-                GlobalConstants.kLooperHZ, // 50 hz
-                motorPosition,
-                motorVelocity,
-                motorAppliedVoltage,
-                motorSupplyCurrent,
-                motorTorqueCurrent,
-                motorTempCelsius,
-                referenceVelocity,
-                referencePose);
-
-        // Basic motor config
         config.CurrentLimits.SupplyCurrentLimit = kSupplyCurrentLimit;
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
         config.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
@@ -73,7 +61,17 @@ public class WristIOTalonFX implements WristIO {
         config.Slot0.kI = WristConstants.kGains.kI();
         config.Slot0.kD = WristConstants.kGains.kD();
 
-        // Apply the configuration
+        BaseStatusSignal.setUpdateFrequencyForAll(
+                GlobalConstants.kLooperHZ, 
+                motorPosition,
+                motorVelocity,
+                motorAppliedVoltage,
+                motorSupplyCurrent,
+                motorTorqueCurrent,
+                motorTempCelsius,
+                referenceVelocity,
+                referencePose);
+
         motor.getConfigurator().apply(config);
     }
 
