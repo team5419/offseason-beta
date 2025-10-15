@@ -8,7 +8,7 @@ public class WristConstants {
 
     public static final double kGearRatio = 0;
 
-    public static final double kSupplyCurrentLimit = 10; // TODO: tune
+    public static final double kSupplyCurrentLimit = 60;
 
     public static final Gains kGains = new Gains(0, 0, 0, 0, 0, 0, 0);
 
