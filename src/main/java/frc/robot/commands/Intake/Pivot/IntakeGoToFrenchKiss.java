@@ -6,12 +6,12 @@ import frc.robot.subsystems.intake.pivot.IntakePivot;
 import frc.robot.subsystems.intake.pivot.IntakePivot.IntakePivotGoal;
 import java.util.function.Supplier;
 
-public class TakePivotToHandoff extends Command {
+public class IntakeGoToFrenchKiss extends Command {
 
     private final IntakePivot intake;
     public final Supplier<IntakePivotGoal> goal;
 
-    public TakePivotToHandoff(RobotContainer robot, Supplier<IntakePivotGoal> goal) {
+    public IntakeGoToFrenchKiss(RobotContainer robot, Supplier<IntakePivotGoal> goal) {
         intake = robot.getIntakePivot();
 
         this.goal = goal;
