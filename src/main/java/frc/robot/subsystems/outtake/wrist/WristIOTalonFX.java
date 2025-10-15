@@ -120,11 +120,7 @@ public class WristIOTalonFX implements WristIO {
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/configs/MotorOutputConfigs.html#NeutralMode
     @Override
     public void setBrakeMode(boolean enabled) {
-        if (enabled) {
-            motor.setNeutralMode(NeutralModeValue.Brake);
-        } else {
-            motor.setNeutralMode(NeutralModeValue.Coast);
-        }
+        motor.setNeutralMode(enabled ? NeutralModeValue.Brake : NeutralModeValue.Coast);
     }
 
     @Override
