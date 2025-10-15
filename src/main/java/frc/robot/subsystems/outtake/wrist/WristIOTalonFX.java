@@ -128,11 +128,12 @@ public class WristIOTalonFX implements WristIO {
 
     @Override
     public void setFF(double kA, double kG, double kS, double kV) {
-        config.Slot0.kA = kA;
+        
         config.Slot0.kG = kG;
         config.Slot0.kS = kS;
         config.Slot0.kV = kV;
-
+        config.Slot0.kA = kA;
+        
         motor.getConfigurator().apply(config);
     }
 
