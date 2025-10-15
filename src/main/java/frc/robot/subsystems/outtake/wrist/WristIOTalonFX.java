@@ -12,6 +12,7 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Current;
@@ -27,6 +28,8 @@ public class WristIOTalonFX implements WristIO {
     private TalonFXConfiguration config;
     private final NeutralOut neutralOut = new NeutralOut(); // neutral control (equivalent to stopping the motor)
     private MotionMagicVoltage reqMotionMagic = new MotionMagicVoltage(0);
+
+
     private final StatusSignal<Angle> motorPosition;
     private final StatusSignal<AngularVelocity> motorVelocity;
     private final StatusSignal<Voltage> motorAppliedVoltage;
@@ -47,6 +50,10 @@ public class WristIOTalonFX implements WristIO {
 
         referenceVelocity = motor.getClosedLoopReferenceSlope();
         referencePose = motor.getClosedLoopReference();
+
+        config.MotionMagic.MotionMagicCruiseVelocity = Units.degreesToRotations(kMotionConfigs.kCruiseVel());
+        config.MotionMagic.MotionMagicAcceleration = Units.degreesToRotations(kMotionConfigs.kAcceleration());
+        config.MotionMagic.MotionMagicJerk = Units.degreesToRotations(kMotionConfigs.kJerk());
 
         BaseStatusSignal.setUpdateFrequencyForAll(
                 GlobalConstants.kLooperHZ, // 50 hz
