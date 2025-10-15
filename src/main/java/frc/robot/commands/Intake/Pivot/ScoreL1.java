@@ -1,11 +1,10 @@
 package frc.robot.commands.Intake.Pivot;
 
-import java.util.function.Supplier;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.intake.pivot.IntakePivot;
 import frc.robot.subsystems.intake.pivot.IntakePivot.IntakePivotGoal;
+import java.util.function.Supplier;
 
 public class ScoreL1 extends Command {
 
@@ -39,5 +38,3 @@ public class ScoreL1 extends Command {
         intake.setCurrentGoal(IntakePivotGoal.IDLE);
     }
 }
-
-
