@@ -4,7 +4,6 @@ import static frc.robot.subsystems.intake.pivot.IntakePivotConstants.*;
 
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
-import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -50,7 +49,7 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
         motorVoltage = pivotMotor.getMotorVoltage();
 
         BaseStatusSignal.setUpdateFrequencyForAll(
-                GlobalConstants.kLooperHZ, 
+                GlobalConstants.kLooperHZ,
                 motorPosition,
                 motorVelocity,
                 motorAppliedVoltage,
@@ -58,11 +57,11 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
                 motorTorqueCurrent,
                 motorTempCelsius);
 
-    config = new TalonFXConfiguration();
+        config = new TalonFXConfiguration();
         config.CurrentLimits.SupplyCurrentLimit = kSupplyCurrentLimit;
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
         config.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
-        config.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; 
+        config.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
         config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         config.Feedback.SensorToMechanismRatio = kGearRatio;
 
@@ -74,13 +73,11 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
         config.Slot0.kG = kGains.kG();
         config.Slot0.kV = kGains.kV();
         pivotMotor.getConfigurator().apply(config);
-    
     }
 
     @Override
     public void updateInputs(IntakePivotIOInputs inputs) {}
 
-    
     @Override
     public void runPosition(double goal) {
         pivotMotor.setControl(magicMotion.withEnableFOC(true));
@@ -90,7 +87,6 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
     @Override
     public void resetPosition(double pos) {}
 
-    
     @Override
     public void runVolts(double volts) {}
 
