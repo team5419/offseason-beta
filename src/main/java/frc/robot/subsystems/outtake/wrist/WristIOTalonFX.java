@@ -55,7 +55,7 @@ public class WristIOTalonFX implements WristIO {
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
         config.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
         config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-        config.Feedback.SensorToMechanismRatio = 1;
+        config.Feedback.SensorToMechanismRatio = kGearRatio;
 
         config.Slot0.kP = WristConstants.kGains.kP();
         config.Slot0.kI = WristConstants.kGains.kI();
