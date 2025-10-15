@@ -10,14 +10,11 @@ import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Current;
 import edu.wpi.first.units.measure.Temperature;
-import edu.wpi.first.units.measure.Velocity;
 import edu.wpi.first.units.measure.Voltage;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
@@ -28,7 +25,6 @@ public class WristIOTalonFX implements WristIO {
     private TalonFXConfiguration config;
     private final NeutralOut neutralOut = new NeutralOut(); // neutral control (equivalent to stopping the motor)
     private MotionMagicVoltage reqMotionMagic = new MotionMagicVoltage(0);
-
 
     private final StatusSignal<Angle> motorPosition;
     private final StatusSignal<AngularVelocity> motorVelocity;
@@ -141,7 +137,7 @@ public class WristIOTalonFX implements WristIO {
 
     @Override
     public void setFF(double kA, double kG, double kS, double kV) {
-        
+
         config.Slot0.kG = kG;
         config.Slot0.kS = kS;
         config.Slot0.kV = kV;
