@@ -10,7 +10,6 @@ import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Current;
@@ -23,7 +22,7 @@ public class WristIOTalonFX implements WristIO {
 
     private TalonFX motor;
     private TalonFXConfiguration config;
-    private final NeutralOut neutralOut= new NeutralOut(); // neutral control (equivalent to stopping the motor)
+    private final NeutralOut neutralOut = new NeutralOut(); // neutral control (equivalent to stopping the motor)
     private MotionMagicVoltage reqMotionMagic = new MotionMagicVoltage(0);
     private final StatusSignal<Angle> motorPosition;
     private final StatusSignal<AngularVelocity> motorVelocity;
@@ -31,8 +30,9 @@ public class WristIOTalonFX implements WristIO {
     private final StatusSignal<Current> motorSupplyCurrent;
     private final StatusSignal<Current> motorTorqueCurrent;
     private final StatusSignal<Temperature> motorTempCelsius;
+
     public WristIOTalonFX() {
-       motor = new TalonFX(Ports.kWristID, GlobalConstants.kCANivoreName);
+        motor = new TalonFX(Ports.kWristID, GlobalConstants.kCANivoreName);
         motorPosition = motor.getPosition();
         motorAppliedVoltage = motor.getMotorVoltage();
         motorVelocity = motor.getVelocity();
@@ -56,14 +56,12 @@ public class WristIOTalonFX implements WristIO {
         config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         config.Feedback.SensorToMechanismRatio = 1;
 
-
         config.Slot0.kP = WristConstants.kGains.kP();
         config.Slot0.kI = WristConstants.kGains.kI();
         config.Slot0.kD = WristConstants.kGains.kD();
 
         // Apply the configuration
         motor.getConfigurator().apply(config);
-
     }
 
     // In WristIO, theres a wristIOInputs class that has all the inputs we want to
@@ -77,7 +75,7 @@ public class WristIOTalonFX implements WristIO {
                         motorSupplyCurrent,
                         motorTorqueCurrent,
                         motorTempCelsius)
-                        .isOK();
+                .isOK();
         inputs.position = motor.getPosition().getValueAsDouble();
         inputs.velocity = motor.getVelocity().getValueAsDouble();
         inputs.appliedVolts = motor.getMotorVoltage().getValueAsDouble();
@@ -85,7 +83,7 @@ public class WristIOTalonFX implements WristIO {
         inputs.tempCelcius = motor.getDeviceTemp().getValueAsDouble();
         inputs.motorConnected = motor.isConnected();
     }
-    
+
     // call .setControl on the motor controller with the appropriate control mode
     // and value.
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/MotionMagicDutyCycle.html
@@ -107,18 +105,16 @@ public class WristIOTalonFX implements WristIO {
         motor.setPosition(angle);
     }
 
-
     // call .setControl on the motor controller with the appropriate control mode
     // and value.
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/configs/MotorOutputConfigs.html#NeutralMode
     @Override
     public void setBrakeMode(boolean enabled) {
-        if (enabled){
+        if (enabled) {
             motor.setNeutralMode(NeutralModeValue.Brake);
-        }else{
+        } else {
             motor.setNeutralMode(NeutralModeValue.Coast);
         }
-        
     }
 
     @Override

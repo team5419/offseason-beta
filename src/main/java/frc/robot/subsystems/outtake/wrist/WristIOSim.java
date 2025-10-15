@@ -25,19 +25,13 @@ public class WristIOSim implements WristIO {
     }
 
     @Override
-    public void updateInputs(WristIOInputs inputs) {
-        
-    }
+    public void updateInputs(WristIOInputs inputs) {}
 
     @Override
-    public void setBrakeMode(boolean enabled) {
-
-    }
+    public void setBrakeMode(boolean enabled) {}
 
     @Override
-    public void runPosition(double degrees) {
-        
-    }
+    public void runPosition(double degrees) {}
 
     @Override
     public void runVolts(double volts) {
