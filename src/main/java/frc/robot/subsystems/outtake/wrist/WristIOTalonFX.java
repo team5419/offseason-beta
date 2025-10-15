@@ -87,7 +87,9 @@ public class WristIOTalonFX implements WristIO {
                         motorAppliedVoltage,
                         motorSupplyCurrent,
                         motorTorqueCurrent,
-                        motorTempCelsius)
+                        motorTempCelsius,
+                        referencePose,
+                        referenceVelocity)
                 .isOK();
         inputs.position = motorPosition.getValueAsDouble();
         inputs.velocity = motor.getVelocity().getValueAsDouble();
