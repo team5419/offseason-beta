@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LoggedTunableNumber;
 import java.util.function.DoubleSupplier;
 import lombok.Getter;
+import lombok.Setter;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
@@ -33,6 +34,8 @@ public class IntakePivot extends SubsystemBase {
         }
     }
 
+    @Getter
+    @Setter
     private IntakePivotGoal currentGoal = IntakePivotGoal.IDLE;
 
     public IntakePivot(IntakePivotIO io) {
