@@ -137,4 +137,15 @@ public class IntakeRollerIOTalonFX implements IntakeRollerIO {
         leaderMotor.getConfigurator().apply(talonConfig);
         followerMotor.getConfigurator().apply(talonConfig);
     }
+
+    @Override
+    public void setFF(double kA, double kG, double kS, double kV) {
+        talonConfig.Slot0.kA = kA;
+        talonConfig.Slot0.kG = kG;
+        talonConfig.Slot0.kS = kS;
+        talonConfig.Slot0.kV = kV;
+        leaderMotor.getConfigurator().apply(talonConfig);
+        followerMotor.getConfigurator().apply(talonConfig);
+        
+    }
 }
