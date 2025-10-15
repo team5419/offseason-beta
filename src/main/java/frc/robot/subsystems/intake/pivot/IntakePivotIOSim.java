@@ -2,21 +2,23 @@ package frc.robot.subsystems.intake.pivot;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.system.plant.DCMotor;
-import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
+import frc.robot.constants.GlobalConstants;
 
 public class IntakePivotIOSim implements IntakePivotIO {
 
     private final SingleJointedArmSim pivotSim;
     private final PIDController controller;
 
-    private final DCMotorSim sim;
+    private DCMotorSim sim;
     private double appliedVoltage = 0.0;
+    private double nominalVoltageVolts;
+    private double stallTorqueNewtonMeters;
+    private double stallCurrentAmps;
+    private double freeCurrentAmps;
 
-    public IntakePivotIOSim(DCMotor motor, double reduction, double moi) {
-        sim = new DCMotorSim(LinearSystemId.createDCMotorSystem(motor, moi, reduction), motor);
+    public IntakePivotIOSim() {
         // Initialize variables with default/mock values
         pivotSim = new SingleJointedArmSim(
                 null, // placeholder for motor
@@ -35,7 +37,7 @@ public class IntakePivotIOSim implements IntakePivotIO {
     // Updates the record with simulated data values
     @Override
     public void updateInputs(IntakePivotIOInputs inputs) {
-        sim.update(2);
+        sim.update(GlobalConstants.kLooperDT);
 
         inputs.appliedVolts = appliedVoltage;
     }
