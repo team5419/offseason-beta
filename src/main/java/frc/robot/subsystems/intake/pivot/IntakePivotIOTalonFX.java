@@ -33,7 +33,7 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
     private StatusSignal<Voltage> motorVoltage;
     private TalonFXConfiguration config;
 
-    private MotionMagicVoltage magicMotion = new MotionMagicVoltage(0);
+    private MotionMagicVoltage reqMotionMagic = new MotionMagicVoltage(0);
 
     public IntakePivotIOTalonFX() {
         pivotMotor = new TalonFX(Ports.kIntakePivotID, GlobalConstants.kCANivoreName);
@@ -80,8 +80,7 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
 
     @Override
     public void runPosition(double goal) {
-        pivotMotor.setControl(magicMotion.withEnableFOC(true));
-        pivotMotor.setPosition(goal);
+        pivotMotor.setControl(reqMotionMagic.withPosition(goal));
     }
 
     @Override
