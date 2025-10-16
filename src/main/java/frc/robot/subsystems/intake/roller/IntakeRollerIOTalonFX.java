@@ -55,20 +55,20 @@ public class IntakeRollerIOTalonFX implements IntakeRollerIO {
         motorTempCelsius = List.of(leaderMotor.getDeviceTemp(), followerMotor.getDeviceTemp());
 
         BaseStatusSignal.setUpdateFrequencyForAll(
-            GlobalConstants.kLooperHZ, // 50 hz
-            motorPosition.get(0),
-            motorPosition.get(1),
-            motorVelocity.get(0),
-            motorVelocity.get(1),
-            motorAppliedVoltage.get(0),
-            motorAppliedVoltage.get(1),
-            motorSupplyCurrent.get(0),
-            motorSupplyCurrent.get(1),
-            motorTorqueCurrent.get(0),
-            motorTorqueCurrent.get(1),
-            motorTempCelsius.get(0),
-            motorTempCelsius.get(1),
-            leaderMotor.getDutyCycle());
+                GlobalConstants.kLooperHZ, // 50 hz
+                motorPosition.get(0),
+                motorPosition.get(1),
+                motorVelocity.get(0),
+                motorVelocity.get(1),
+                motorAppliedVoltage.get(0),
+                motorAppliedVoltage.get(1),
+                motorSupplyCurrent.get(0),
+                motorSupplyCurrent.get(1),
+                motorTorqueCurrent.get(0),
+                motorTorqueCurrent.get(1),
+                motorTempCelsius.get(0),
+                motorTempCelsius.get(1),
+                leaderMotor.getDutyCycle());
 
         leaderMotor.getConfigurator().apply(talonConfig);
         followerMotor.getConfigurator().apply(talonConfig);
@@ -146,6 +146,5 @@ public class IntakeRollerIOTalonFX implements IntakeRollerIO {
         talonConfig.Slot0.kV = kV;
         leaderMotor.getConfigurator().apply(talonConfig);
         followerMotor.getConfigurator().apply(talonConfig);
-        
     }
 }
