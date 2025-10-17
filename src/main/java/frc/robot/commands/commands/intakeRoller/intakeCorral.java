@@ -1,28 +1,28 @@
 package frc.robot.commands.commands.intakeRoller;
-import frc.robot.RobotContainer;
+
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.intake.roller.IntakeRoller;
 import frc.robot.subsystems.intake.roller.IntakeRoller.IntakeRollerGoal;
 
-
-public class intakeCorral extends Command{
+public class intakeCorral extends Command {
     private final IntakeRoller roller;
 
-
-    public intakeCorral(RobotContainer robot){
-        roller = robot.getRoller();//fix later
+    public intakeCorral(RobotContainer robot) {
+        roller = robot.getRoller(); // fix later
     }
 
-    public void initialize(){}
-
-    public void execute(){
+    public void initialize() {
         roller.setGoal(IntakeRollerGoal.INTAKE);
     }
 
-    public boolean isFinished(){return false;}
+    public void execute() {}
 
-    public void end(boolean isFinished){
+    public boolean isFinished() {
+        return false;
+    }
+
+    public void end(boolean isFinished) {
         roller.setGoal(IntakeRollerGoal.IDLE);
     }
 }

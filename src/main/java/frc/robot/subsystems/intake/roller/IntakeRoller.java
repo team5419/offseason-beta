@@ -27,6 +27,7 @@ public class IntakeRoller extends SubsystemBase {
     public enum IntakeRollerGoal {
         IDLE(() -> 0), // Should be the current angle
         INTAKE(intake);
+
         @Getter
         private DoubleSupplier rollerVel;
 
@@ -41,11 +42,9 @@ public class IntakeRoller extends SubsystemBase {
         this.io = io;
     }
 
-    public void setGoal(IntakeRollerGoal goal){
+    public void setGoal(IntakeRollerGoal goal) {
         currentGoal = goal;
     }
-
-    
 
     @Override
     public void periodic() {
@@ -60,15 +59,12 @@ public class IntakeRoller extends SubsystemBase {
                 kV,
                 kA);
         io.runVelocity(currentGoal.getRollerVel().getAsDouble());
-        if (currentGoal == IntakeRollerGoal.IDLE){
+        if (currentGoal == IntakeRollerGoal.IDLE) {
             io.stop();
-        }else{
+        } else {
             io.runVelocity(currentGoal.getRollerVel().getAsDouble());
         }
-
     }
-
-    
 
     /**
      * Returns true if this subsystem is within a margin of error of the current
