@@ -1,11 +1,15 @@
 package frc.robot.subsystems.outtake.endeffector;
 
+import java.util.List;
+
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.NeutralOut;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
+
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Current;
@@ -13,7 +17,6 @@ import edu.wpi.first.units.measure.Temperature;
 import edu.wpi.first.units.measure.Voltage;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
-import java.util.List;
 
 public class EndEffectorIOTalonFX implements EndEffectorIO {
 
@@ -25,6 +28,8 @@ public class EndEffectorIOTalonFX implements EndEffectorIO {
 
     private NeutralOut neutralOut = new NeutralOut();
 
+    private VelocityVoltage reqVelTorque = new VelocityVoltage(0);
+
     private final List<StatusSignal<Angle>> motorPosition;
     private final List<StatusSignal<AngularVelocity>> motorVelocity;
     private final List<StatusSignal<Double>> motorReferencePosition;
@@ -32,6 +37,8 @@ public class EndEffectorIOTalonFX implements EndEffectorIO {
     private final List<StatusSignal<Current>> motorSupplyCurrent;
     private final List<StatusSignal<Current>> motorTorqueCurrent;
     private final List<StatusSignal<Temperature>> motorTempCelsius;
+
+
 
     public EndEffectorIOTalonFX() {
         leaderMotor = new TalonFX(Ports.kEndEffectorLeaderID, GlobalConstants.kCANivoreName);
@@ -44,7 +51,17 @@ public class EndEffectorIOTalonFX implements EndEffectorIO {
         motorTorqueCurrent = List.of(leaderMotor.getTorqueCurrent(), followerMotor.getTorqueCurrent());
         motorTempCelsius = List.of(leaderMotor.getDeviceTemp(), followerMotor.getDeviceTemp());
         motorAppliedVoltage = List.of(leaderMotor.getMotorVoltage(), followerMotor.getMotorVoltage());
-    }
+
+        talonConfig.Slot0.kA = 0.0;
+        talonConfig.Slot0.kG = 0.0;
+
+        talonConfig.Slot0.kS = 0.0;
+        talonConfig.Slot0.kV = 0.0;
+
+        talonConfig.Slot0.kP = 0.11; // This gets us closer to the target velocity
+        talonConfig.Slot0.kI = 0; // 99% of the time, this will be 0
+        talonConfig.Slot0.kD = 0.02; // Smooths out the velocity graph
+        }
 
     @Override
     public void updateInputs(EndEffectorIOInputs inputs) {
@@ -79,8 +96,26 @@ public class EndEffectorIOTalonFX implements EndEffectorIO {
     // call .setControl on the motor controller with the approrol modpriate conte and value.
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/MotionMagicVelocityVoltage.html
     @Override
-    public void runVelocity(double motorRPS, double ff) {}
+    public void runVelocity(double motorRPS) {
+        leaderMotor.setControl(reqVelTorque.withVelocity(motorRPS));
+    }
 
     @Override
-    public void setPID(double kP, double kI, double kD) {}
+    public void setFF(double kA, double kG, double kS, double kV) {
+        talonConfig.Slot0.kA = kA;
+        talonConfig.Slot0.kG = kG;
+        talonConfig.Slot0.kS = kS;
+        talonConfig.Slot0.kV = kV;
+        leaderMotor.getConfigurator().apply(talonConfig);
+        followerMotor.getConfigurator().apply(talonConfig);
+    }
+
+    @Override
+    public void setPID(double kP, double kI, double kD) {
+        talonConfig.Slot0.kP = kP;
+        talonConfig.Slot0.kI = kI;
+        talonConfig.Slot0.kD = kD;
+        leaderMotor.getConfigurator().apply(talonConfig);
+        followerMotor.getConfigurator().apply(talonConfig);
+    }
 }
