@@ -28,7 +28,7 @@ public class ElevatorIOTalonFX implements ElevatorIO {
 
     private TalonFX leaderMotor, followerMotor;
     private TalonFXConfiguration config = new TalonFXConfiguration();
-    private Follower follow = new Follower(leaderMotor.getDeviceID(), true);
+    private Follower follow;
     private MotionMagicVoltage motionMagicVoltage = new MotionMagicVoltage(0);
     private NeutralOut neutralOut = new NeutralOut();
     private VoltageOut reqVoltageOut = new VoltageOut(0);
@@ -46,6 +46,8 @@ public class ElevatorIOTalonFX implements ElevatorIO {
     public ElevatorIOTalonFX() {
         leaderMotor = new TalonFX(Ports.kEleLeaderID, GlobalConstants.kCANivoreName);
         followerMotor = new TalonFX(Ports.kEleFollowerID, GlobalConstants.kCANivoreName);
+
+        follow = new Follower(leaderMotor.getDeviceID(), true);
 
         config.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
         config.Slot0.kP = kGains.kP();
