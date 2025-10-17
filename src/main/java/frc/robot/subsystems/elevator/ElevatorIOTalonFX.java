@@ -31,6 +31,7 @@ public class ElevatorIOTalonFX implements ElevatorIO {
     private Follower follow = new Follower(leaderMotor.getDeviceID(), true);
     private MotionMagicVoltage motionMagicVoltage = new MotionMagicVoltage(0);
     private NeutralOut neutralOut = new NeutralOut();
+    private VoltageOut reqVoltageOut = new VoltageOut(0);
 
     private final List<StatusSignal<Angle>> motorPosition;
     private final List<StatusSignal<AngularVelocity>> motorVelocity;
@@ -149,7 +150,7 @@ public class ElevatorIOTalonFX implements ElevatorIO {
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/MotionMagicDutyCycle.html
     @Override
     public void runPosition(double eleHeight) {
-        this.motionMagicVoltage.Position = eleHeight;
+        motionMagicVoltage.withPosition(eleHeight);
         leaderMotor.setControl(this.motionMagicVoltage);
     }
 
@@ -162,7 +163,7 @@ public class ElevatorIOTalonFX implements ElevatorIO {
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/VoltageOut.html
     @Override
     public void runVolts(double volts) {
-        leaderMotor.setControl(new VoltageOut(volts));
+        leaderMotor.setControl(reqVoltageOut.withOutput(volts));
     }
 
     // call .setControl on the motor controller with the appropriate control mode and value.
