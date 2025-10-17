@@ -7,7 +7,9 @@ import javax.security.auth.kerberos.DelegationPermission;
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
+import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -103,12 +105,12 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
 
     @Override
     public void runVolts(double volts) {
-        pivotMotor.setVoltage(volts);
+        pivotMotor.setControl(new DutyCycleOut(volts));
     }
 
     @Override
     public void stop() {
-        pivotMotor.;
+        pivotMotor.setControl(new NeutralOut());
     }
 
     @Override
