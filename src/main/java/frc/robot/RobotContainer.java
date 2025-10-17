@@ -39,6 +39,7 @@ import frc.robot.subsystems.outtake.wrist.WristIO;
 import frc.robot.subsystems.outtake.wrist.WristIOSim;
 import frc.robot.subsystems.outtake.wrist.WristIOTalonFX;
 import frc.robot.subsystems.intake.roller.IntakeRoller;
+import frc.robot.subsystems.beambreak.Beambreak;
 import frc.robot.subsystems.swerve.Swerve;
 import frc.robot.subsystems.swerve.SwerveConstants;
 import frc.robot.subsystems.swerve.gyro.GyroIO;
@@ -80,6 +81,9 @@ public class RobotContainer {
 
     @Getter
     private final SendableChooser<Command> autoChooser;
+
+    @Getter
+    private final Beambreak beambreak;
 
     public RobotContainer() {
         // Get driver station to stop

@@ -6,14 +6,17 @@ import frc.robot.subsystems.intake.roller.IntakeRoller;
 import frc.robot.subsystems.intake.roller.IntakeRoller.IntakeRollerGoal;
 import frc.robot.subsystems.outtake.endeffector.EndEffector;
 import frc.robot.subsystems.outtake.endeffector.EndEffector.EndEffectorRollerGoal;
+import frc.robot.subsystems.beambreak.Beambreak;
 
 public class intakeToEndEffector extends Command {
     private final IntakeRoller roller;
     private final EndEffector endEffector;
+    private final Beambreak beamBreak;
 
     public intakeToEndEffector(RobotContainer robot) {
         roller = robot.getIntakeRoller(); // fix later
         endEffector = robot.getEndEffector();
+        beamBreak = robot.getBeambreak();
     }
 
     public void initialize() {
@@ -24,7 +27,7 @@ public class intakeToEndEffector extends Command {
     public void execute() {}
 
     public boolean isFinished() {
-        return false;
+        return beamBreak.gamepieceInEndEffector();
     }
 
     public void end(boolean isFinished) {
