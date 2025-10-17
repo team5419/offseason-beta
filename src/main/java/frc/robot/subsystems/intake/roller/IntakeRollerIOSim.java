@@ -8,7 +8,7 @@ public class IntakeRollerIOSim implements IntakeRollerIO {
     }
 
     @Override
-    public void runVelocity(double motorRPS, double ff) {
+    public void runVelocity(double motorRPS) {
         // TODO: implement
     }
 
