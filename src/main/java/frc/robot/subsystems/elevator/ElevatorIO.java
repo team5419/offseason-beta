@@ -25,7 +25,7 @@ public interface ElevatorIO {
 
     default void updateInputs(ElevatorIOInputs inputs) {}
 
-    default void runPosition(double eleHeight, double feedforward) {}
+    default void runPosition(double eleHeight) {}
 
     default void resetPosition(double pos) {}
 

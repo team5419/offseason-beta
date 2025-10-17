@@ -7,7 +7,7 @@ import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
-import com.ctre.phoenix6.controls.MotionMagicDutyCycle;
+import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -22,13 +22,15 @@ import edu.wpi.first.units.measure.Temperature;
 import edu.wpi.first.units.measure.Voltage;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
-import java.util.List;
+import java.util.List;-
 
 public class ElevatorIOTalonFX implements ElevatorIO {
 
     private TalonFX leaderMotor, followerMotor;
     private TalonFXConfiguration config = new TalonFXConfiguration();
     private Follower follow = new Follower(leaderMotor.getDeviceID(), true);
+    private MotionMagicVoltage motionMagicVoltage = new MotionMagicVoltage(0);
+    private NeutralOut neutralOut = new NeutralOut();
 
     private final List<StatusSignal<Angle>> motorPosition;
     private final List<StatusSignal<AngularVelocity>> motorVelocity;
@@ -141,12 +143,14 @@ public class ElevatorIOTalonFX implements ElevatorIO {
         inputs.referenceError = motorReferenceError.stream()
                 .mapToDouble(StatusSignal::getValueAsDouble)
                 .toArray();
+    }
 
     // call .setControl on the motor controller with the appropriate control mode and value.
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/MotionMagicDutyCycle.html
     @Override
-    public void runPosition(double eleHeight, double feedforward) {
-        leaderMotor.setControl(new MotionMagicDutyCycle(eleHeight));
+    public void runPosition(double eleHeight) {
+        this.motionMagicVoltage.Position = eleHeight;
+        leaderMotor.setControl(this.motionMagicVoltage);
     }
 
     @Override
@@ -165,7 +169,7 @@ public class ElevatorIOTalonFX implements ElevatorIO {
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/configs/MotorOutputConfigs.html#NeutralMode
     @Override
     public void stop() {
-        leaderMotor.setControl(new NeutralOut());
+        leaderMotor.setControl(neutralOut);
     }
 
     @Override

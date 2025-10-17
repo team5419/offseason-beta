@@ -75,4 +75,8 @@ public class Elevator extends SubsystemBase {
     public boolean atGoal() {
         return false;
     }
+
+    public void runPosition(double eleHeight) {}
+
+    public void stop() {}
 }
