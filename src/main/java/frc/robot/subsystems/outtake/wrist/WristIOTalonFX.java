@@ -7,6 +7,7 @@ import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.NeutralOut;
+import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
@@ -25,6 +26,8 @@ public class WristIOTalonFX implements WristIO {
     private TalonFXConfiguration config;
     private final NeutralOut neutralOut = new NeutralOut(); 
     private MotionMagicVoltage reqMotionMagic = new MotionMagicVoltage(0);
+    private final VoltageOut reqVoltage = new VoltageOut(0.0).withEnableFOC(true).withUpdateFreqHz(0.0);
+
 
     private final StatusSignal<Angle> motorPosition;
     private final StatusSignal<AngularVelocity> motorVelocity;
@@ -34,7 +37,7 @@ public class WristIOTalonFX implements WristIO {
     private final StatusSignal<Temperature> motorTempCelsius;
     private final StatusSignal<Double> referenceVelocity;
     private final StatusSignal<Double> referencePose;
-
+    
     public WristIOTalonFX() {
         motor = new TalonFX(Ports.kWristID, GlobalConstants.kCANivoreName);
 
@@ -108,9 +111,11 @@ public class WristIOTalonFX implements WristIO {
     // call .setControl on the motor controller with the appropriate control mode
     // and value.
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/VoltageOut.html
+
     @Override
     public void runVolts(double volts) {
-        motor.setVoltage(volts);
+        
+        motor.setControl(reqVoltage.withOutput(volts));
     }
 
     @Override
