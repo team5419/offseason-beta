@@ -21,13 +21,19 @@ public class Wrist extends SubsystemBase {
     private static final LoggedTunableNumber kV = new LoggedTunableNumber("Wrist/Gains/kV", kGains.kV());
     private static final LoggedTunableNumber kA = new LoggedTunableNumber("Wrist/Gains/kA", kGains.kA());
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("Wrist/Gains/kG", kGains.kG());
+    private static final LoggedTunableNumber L1Tunable = new LoggedTunableNumber("Wrist/Position/L1", 1);
+    private static final LoggedTunableNumber lowGoalTunable = new LoggedTunableNumber("Wrist/Position/lowGoal", 2);
+    private static final LoggedTunableNumber L4Tunable = new LoggedTunableNumber("Wrist/Position/L4", 3);
 
     public enum WristGoal {
-        IDLE(() -> 0);
+        IDLE(() -> 0),
+        L1(L1Tunable),
+        lowGoal(lowGoalTunable),
+        L4(L4Tunable);
 
         private DoubleSupplier wristAngle;
 
-        private WristGoal(java.util.function.DoubleSupplier wristAngle) {
+        private WristGoal(DoubleSupplier wristAngle) {
             this.wristAngle = wristAngle;
         }
 
@@ -56,13 +62,21 @@ public class Wrist extends SubsystemBase {
     }
 
     // Put methods for controlling this subsystem using io interface methods
-    public void resetPosition() {}
+    public void resetPosition(double angle) {
+        io.resetPosition(angle);
+    }
 
-    public void stop() {}
+    public void stop() {
+        io.stop();
+    }
 
-    public void runVolts() {}
+    public void runVolts(double volts) {
+        io.runVolts(volts);
+    }
 
-    public void runPosition() {}
+    public void runPosition(double goal) {
+        io.runPosition(goal);
+    }
 
     // set the desiredLevel variable of the wrist
     public void setDesiredLevel(ElevatorGoal goal) {}

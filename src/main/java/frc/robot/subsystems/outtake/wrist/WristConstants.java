@@ -6,9 +6,11 @@ public class WristConstants {
 
     public static final double kAngleTolerance = 0;
 
-    public static final double kGearRatio = 0;
+    public static final double kGearRatio = 1;
 
     public static final double kSupplyCurrentLimit = 5; // TODO Tune
+
+    public static final boolean SupplyCurrentLimitEnabled = true;
 
     public static final Gains kGains = new Gains(0, 0, 0, 0, 0, 0, 0);
 

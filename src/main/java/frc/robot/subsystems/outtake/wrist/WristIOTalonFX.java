@@ -7,7 +7,6 @@ import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.NeutralOut;
-import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
@@ -25,7 +24,6 @@ public class WristIOTalonFX implements WristIO {
     private TalonFX motor;
     private TalonFXConfiguration config;
     private MotionMagicVoltage reqMotionMagic = new MotionMagicVoltage(0);
-    private VoltageOut runningVoltageOut = new VoltageOut(2);
     private final NeutralOut neutralOut = new NeutralOut();
 
     // defining the status signals, which represent info from the motors
@@ -59,10 +57,10 @@ public class WristIOTalonFX implements WristIO {
 
         // Basic motor config
         config.CurrentLimits.SupplyCurrentLimit = kSupplyCurrentLimit;
-        config.CurrentLimits.SupplyCurrentLimitEnable = true;
+        config.CurrentLimits.SupplyCurrentLimitEnable = SupplyCurrentLimitEnabled;
         config.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
         config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-        config.Feedback.SensorToMechanismRatio = 1;
+        config.Feedback.SensorToMechanismRatio = kGearRatio;
 
         setPID(kGains.kP(), kGains.kI(), kGains.kD());
         setFF(kGains.kA(), kGains.kG(), kGains.kS(), kGains.kV());
@@ -101,7 +99,7 @@ public class WristIOTalonFX implements WristIO {
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/VoltageOut.html
     @Override
     public void runVolts(double volts) {
-        motor.setControl(runningVoltageOut);
+        motor.setVoltage(volts);
     }
 
     @Override
