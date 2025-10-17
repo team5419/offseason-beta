@@ -38,6 +38,7 @@ import frc.robot.subsystems.outtake.wrist.Wrist;
 import frc.robot.subsystems.outtake.wrist.WristIO;
 import frc.robot.subsystems.outtake.wrist.WristIOSim;
 import frc.robot.subsystems.outtake.wrist.WristIOTalonFX;
+import frc.robot.subsystems.intake.roller.IntakeRoller;
 import frc.robot.subsystems.swerve.Swerve;
 import frc.robot.subsystems.swerve.SwerveConstants;
 import frc.robot.subsystems.swerve.gyro.GyroIO;
