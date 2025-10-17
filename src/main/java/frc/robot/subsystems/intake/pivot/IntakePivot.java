@@ -24,9 +24,9 @@ public class IntakePivot extends SubsystemBase {
 
     public enum IntakePivotGoal {
         IDLE(() -> 0), // TODO: set idle angle
-        INTAKE(() -> 0), // TODO: Set intake angle
-        SCORE1(() -> 0), // TODO: set scoring angle
-        HANDOFF(() -> 0); // TODO: set handoff angle
+        TO_INTAKE(() -> 0), // TODO: Set intake angle
+        TO_SCOREL1(() -> 0), // TODO: set scoring angle
+        TO_INTAKE_HANDOFF(() -> 0); // TODO: set handoff angle
 
         @Getter
         private DoubleSupplier pivotAngle;
