@@ -2,6 +2,8 @@ package frc.robot.subsystems.intake.pivot;
 
 import static frc.robot.subsystems.intake.pivot.IntakePivotConstants.*;
 
+import javax.security.auth.kerberos.DelegationPermission;
+
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -17,6 +19,9 @@ import edu.wpi.first.units.measure.Temperature;
 import edu.wpi.first.units.measure.Voltage;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
+import edu.wpi.first.units.AngleUnit;
+import edu.wpi.first.units.Units;
+import edu.wpi.first.units.measure.*;
 
 public class IntakePivotIOTalonFX implements IntakePivotIO {
 
@@ -76,25 +81,35 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
     }
 
     @Override
-    public void updateInputs(IntakePivotIOInputs inputs) {}
+    public void updateInputs(IntakePivotIOInputs inputs) {
+        inputs.position = motorPosition.getValue().in(Units.Degrees);
+        inputs.velocity = motorVelocity.getValue().in(Units.DegreesPerSecond);
+        inputs.appliedVolts = motorAppliedVoltage.getValue().in(Units.Volts); 
+        inputs.tempCelcius = motorTempCelsius.getValue().in(Units.Celsius); // °C
+        inputs.supplyCurrentAmps = motorSupplyCurrent.getValue().in(Units.Amps);
+        inputs.referencePose = motorReference.getValue(); 
+        inputs.referenceVelocity = motorReferenceVelocity.getValue(); 
+    }
 
-    // call .setControl on the motor controller with the appropriate control mode and value.
-    // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/MotionMagicDutyCycle.html
     @Override
     public void runPosition(double goal) {
         pivotMotor.setControl(reqMotionMagic.withPosition(goal));
     }
 
     @Override
-    public void resetPosition(double pos) {}
-
-    // call .setControl on the motor controller with the appropriate control mode and value.
-    // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/VoltageOut.html
-    @Override
-    public void runVolts(double volts) {}
+    public void resetPosition(double pos) {
+        pivotMotor.setPosition(pos);
+    }
 
     @Override
-    public void stop() {}
+    public void runVolts(double volts) {
+        pivotMotor.setVoltage(volts);
+    }
+
+    @Override
+    public void stop() {
+        pivotMotor.;
+    }
 
     @Override
     public void setBrakeMode(boolean enabled) {
