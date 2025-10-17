@@ -7,8 +7,6 @@ import frc.robot.lib.LoggedTunableNumber;
 import java.util.function.DoubleSupplier;
 import lombok.Getter;
 import lombok.Setter;
-
-import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
@@ -75,5 +73,13 @@ public class Elevator extends SubsystemBase {
     @AutoLogOutput(key = "Elevator/At Goal")
     public boolean atGoal() {
         return false;
+    }
+
+    public void runPosition(ElevatorGoal goal) {
+        io.runPosition(goal.getEleHeight().getAsDouble());
+    }
+
+    public void runVolts(double volts) {
+        io.runVolts(volts);
     }
 }

@@ -29,7 +29,7 @@ public class ElevatorIOTalonFX implements ElevatorIO {
     private TalonFX leaderMotor, followerMotor;
     private TalonFXConfiguration config = new TalonFXConfiguration();
     private Follower follow;
-    private MotionMagicVoltage motionMagicVoltage = new MotionMagicVoltage(0);
+    private MotionMagicVoltage motionMagicVoltage = new MotionMagicVoltage(0).withUpdateFreqHz(0);
     private NeutralOut neutralOut = new NeutralOut();
     private VoltageOut reqVoltageOut = new VoltageOut(0);
 
@@ -152,8 +152,7 @@ public class ElevatorIOTalonFX implements ElevatorIO {
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/MotionMagicDutyCycle.html
     @Override
     public void runPosition(double eleHeight) {
-        motionMagicVoltage.withPosition(eleHeight);
-        leaderMotor.setControl(this.motionMagicVoltage);
+        leaderMotor.setControl(motionMagicVoltage.withPosition(eleHeight));
     }
 
     @Override

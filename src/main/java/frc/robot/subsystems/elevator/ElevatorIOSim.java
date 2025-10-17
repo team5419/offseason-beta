@@ -9,7 +9,6 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.simulation.ElevatorSim;
 import frc.robot.constants.GlobalConstants;
-
 import org.littletonrobotics.junction.AutoLogOutput;
 
 public class ElevatorIOSim implements ElevatorIO {
@@ -33,11 +32,12 @@ public class ElevatorIOSim implements ElevatorIO {
         final double dummyMotorTemp = 42.0;
         final double current = eSim.getCurrentDrawAmps() / 2.0;
 
-        inputs.position = new double[] { eSim.getPositionMeters(), eSim.getPositionMeters() };
-        inputs.velocityRotationsPerSecond = new double[] { eSim.getVelocityMetersPerSecond(), eSim.getVelocityMetersPerSecond() };
-        inputs.appliedVolts = new double[] { appliedVolts, appliedVolts };
-        inputs.tempCelsius = new double[] { dummyMotorTemp, dummyMotorTemp };
-        inputs.supplyCurrentAmps = new double[] { current, current };
+        inputs.position = new double[] {eSim.getPositionMeters(), eSim.getPositionMeters()};
+        inputs.velocityRotationsPerSecond =
+                new double[] {eSim.getVelocityMetersPerSecond(), eSim.getVelocityMetersPerSecond()};
+        inputs.appliedVolts = new double[] {appliedVolts, appliedVolts};
+        inputs.tempCelsius = new double[] {dummyMotorTemp, dummyMotorTemp};
+        inputs.supplyCurrentAmps = new double[] {current, current};
     }
 
     @Override
