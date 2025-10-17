@@ -22,7 +22,7 @@ import edu.wpi.first.units.measure.Temperature;
 import edu.wpi.first.units.measure.Voltage;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
-import java.util.List;-
+import java.util.List;
 
 public class ElevatorIOTalonFX implements ElevatorIO {
 

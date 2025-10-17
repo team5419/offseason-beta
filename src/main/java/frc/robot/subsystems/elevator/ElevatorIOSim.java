@@ -30,8 +30,8 @@ public class ElevatorIOSim implements ElevatorIO {
     }
 
     @Override
-    public void runPosition(double setpointMeters, double feedforward) {
-        // TODO: implement
+    public void runPosition(double eleHeight) {
+        // TODO: implement  
     }
 
     @Override
