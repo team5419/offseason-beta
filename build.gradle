@@ -91,7 +91,6 @@ task(replayWatch, type: JavaExec) {
 dependencies {
     annotationProcessor wpi.java.deps.wpilibAnnotations()
 
-    
 
     implementation wpi.java.deps.wpilib()
     implementation wpi.java.vendor.java()
@@ -114,7 +113,7 @@ dependencies {
     nativeRelease wpi.java.vendor.jniRelease(wpi.platforms.desktop)
     simulationRelease wpi.sim.enableRelease()
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.1'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
@@ -180,10 +179,6 @@ gversion {
     dateFormat   = "yyyy-MM-dd HH:mm:ss z"
     timeZone     = "PST" // Use preferred time zone
     indent       = "  "
-}
-
-repositories {
-    mavenCentral()
 }
 
 
