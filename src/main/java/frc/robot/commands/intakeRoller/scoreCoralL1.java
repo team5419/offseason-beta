@@ -1,4 +1,4 @@
-package frc.robot.commands.commands;
+package frc.robot.commands.intakeRoller;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -18,7 +18,7 @@ public class scoreCoralL1 extends SequentialCommandGroup {
 
     public scoreCoralL1(RobotContainer robot) {
         roller = robot.getIntakeRoller(); // fix later
-        beamBreak = robot.getBeambreak();
+        beamBreak = robot.getBeamBreak();
         intakePivot = robot.getIntakePivot();
 
         addCommands(

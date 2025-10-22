@@ -1,4 +1,4 @@
-package frc.robot.commands.commands.intakeRoller;
+package frc.robot.commands.intakeRoller;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
@@ -12,7 +12,7 @@ public class intakeCorral extends Command {
 
     public intakeCorral(RobotContainer robot) {
         roller = robot.getIntakeRoller(); // fix later
-        beamBreak = robot.getBeambreak();
+        beamBreak = robot.getBeamBreak();
     }
 
     public void initialize() {

@@ -23,16 +23,15 @@ public class IntakeRoller extends SubsystemBase {
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("Intake Roller/Gains/kG", kGains.kG());
 
     private static final LoggedTunableNumber intake = new LoggedTunableNumber("Roller/Intake", -80.0);
-    private static final LoggedTunableNumber outtakeEndEffector = new LoggedTunableNumber("Roller/OuttakeEndEffector", 80.0);
-    private static final LoggedTunableNumber outtakeCorral = new LoggedTunableNumber("Roller/OuttakeRoller", 80.0);
+    private static final LoggedTunableNumber outtakeEndEffector =
+            new LoggedTunableNumber("Roller/OuttakeEndEffector", 20.0);
+    private static final LoggedTunableNumber outtakeCorral = new LoggedTunableNumber("Roller/OuttakeRoller", 10.0);
 
     public enum IntakeRollerGoal {
         IDLE(() -> 0), // Should be the current angle
         INTAKE(intake),
         OUTTAKEENDEFFECTOR(outtakeEndEffector),
         OUTTAKECORRAL(outtakeCorral);
-
-
 
         @Getter
         private DoubleSupplier rollerVel;

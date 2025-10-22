@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.swerve.DriveCommands;
+import frc.robot.commands.drive.DriveCommands;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
 import frc.robot.lib.RumbleThread;
@@ -27,9 +27,11 @@ import frc.robot.subsystems.intake.pivot.IntakePivotIO;
 import frc.robot.subsystems.intake.pivot.IntakePivotIOSim;
 import frc.robot.subsystems.intake.pivot.IntakePivotIOTalonFX;
 import frc.robot.subsystems.intake.roller.IntakeRoller;
+import frc.robot.subsystems.intake.roller.IntakeRoller.IntakeRollerGoal;
 import frc.robot.subsystems.intake.roller.IntakeRollerIO;
 import frc.robot.subsystems.intake.roller.IntakeRollerIOSim;
 import frc.robot.subsystems.intake.roller.IntakeRollerIOTalonFX;
+import frc.robot.subsystems.beambreak.Beambreak;
 import frc.robot.subsystems.outtake.endeffector.EndEffector;
 import frc.robot.subsystems.outtake.endeffector.EndEffectorIO;
 import frc.robot.subsystems.outtake.endeffector.EndEffectorIOSim;
@@ -38,8 +40,6 @@ import frc.robot.subsystems.outtake.wrist.Wrist;
 import frc.robot.subsystems.outtake.wrist.WristIO;
 import frc.robot.subsystems.outtake.wrist.WristIOSim;
 import frc.robot.subsystems.outtake.wrist.WristIOTalonFX;
-import frc.robot.subsystems.intake.roller.IntakeRoller;
-import frc.robot.subsystems.beambreak.Beambreak;
 import frc.robot.subsystems.swerve.Swerve;
 import frc.robot.subsystems.swerve.SwerveConstants;
 import frc.robot.subsystems.swerve.gyro.GyroIO;
@@ -76,14 +76,17 @@ public class RobotContainer {
     @Getter
     private EndEffector endEffector;
 
+    @Getter 
+    private Beambreak beamBreak;
+
     @Getter
     private Swerve swerve;
 
     @Getter
     private final SendableChooser<Command> autoChooser;
 
-    @Getter
-    private final Beambreak beambreak;
+    // @Getter
+    // private final Beambreak beambreak;
 
     public RobotContainer() {
         // Get driver station to stop
@@ -119,8 +122,12 @@ public class RobotContainer {
         driver.start(); // ! Unbound
         driver.back(); // ! Unbound
 
-        driver.a(); // ! Unbound
-        driver.b(); // ! Unbound
+        driver.a()
+                .onTrue(new InstantCommand(() -> intakeRoller.setGoal(IntakeRollerGoal.INTAKE)))
+                .onFalse(new InstantCommand(() -> intakeRoller.setGoal(IntakeRollerGoal.IDLE))); // ! Unbound
+        driver.b()
+                .onTrue(new InstantCommand(() -> intakeRoller.setGoal(IntakeRollerGoal.OUTTAKECORRAL))) // ! Unbound
+                .onFalse(new InstantCommand(() -> intakeRoller.setGoal(IntakeRollerGoal.IDLE))); // ! Unbound
         driver.x(); // ! Unbound
         driver.y(); // ! Unbound
 

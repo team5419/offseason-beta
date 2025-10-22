@@ -1,4 +1,4 @@
-package frc.robot.commands.commands.intakeRoller;
+package frc.robot.commands.intakeRoller;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
@@ -16,7 +16,7 @@ public class intakeToEndEffector extends Command {
     public intakeToEndEffector(RobotContainer robot) {
         roller = robot.getIntakeRoller(); // fix later
         endEffector = robot.getEndEffector();
-        beamBreak = robot.getBeambreak();
+        beamBreak = robot.getBeamBreak();
     }
 
     public void initialize() {
