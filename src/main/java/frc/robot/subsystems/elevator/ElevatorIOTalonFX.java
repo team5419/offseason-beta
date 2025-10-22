@@ -29,7 +29,8 @@ public class ElevatorIOTalonFX implements ElevatorIO {
     private TalonFX leaderMotor, followerMotor;
     private TalonFXConfiguration config = new TalonFXConfiguration();
     private Follower follow;
-    private MotionMagicVoltage motionMagicVoltage = new MotionMagicVoltage(0).withUpdateFreqHz(GlobalConstants.kLooperDT);
+    private MotionMagicVoltage motionMagicVoltage =
+            new MotionMagicVoltage(0).withUpdateFreqHz(GlobalConstants.kLooperDT);
     private NeutralOut neutralOut = new NeutralOut();
     private VoltageOut reqVoltageOut = new VoltageOut(0);
 

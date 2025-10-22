@@ -19,7 +19,6 @@ import frc.robot.constants.Ports;
 import frc.robot.lib.RumbleThread;
 import frc.robot.subsystems.apriltagvision.AprilTagVision;
 import frc.robot.subsystems.elevator.Elevator;
-import frc.robot.subsystems.elevator.Elevator.ElevatorGoal;
 import frc.robot.subsystems.elevator.ElevatorIO;
 import frc.robot.subsystems.elevator.ElevatorIOSim;
 import frc.robot.subsystems.elevator.ElevatorIOTalonFX;
@@ -46,7 +45,6 @@ import frc.robot.subsystems.swerve.gyro.GyroIOPigeon2;
 import frc.robot.subsystems.swerve.module.ModuleIO;
 import frc.robot.subsystems.swerve.module.ModuleIOSim;
 import frc.robot.subsystems.swerve.module.ModuleIOTalonFX;
-
 import java.io.File;
 import lombok.Getter;
 

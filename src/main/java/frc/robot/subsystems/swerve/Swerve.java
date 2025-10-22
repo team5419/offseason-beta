@@ -54,7 +54,6 @@ import frc.robot.subsystems.swerve.gyro.GyroIO;
 import frc.robot.subsystems.swerve.gyro.GyroIOInputsAutoLogged;
 import frc.robot.subsystems.swerve.module.Module;
 import frc.robot.subsystems.swerve.module.ModuleIO;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
