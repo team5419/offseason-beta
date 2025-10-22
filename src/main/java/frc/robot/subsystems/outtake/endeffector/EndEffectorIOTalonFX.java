@@ -2,8 +2,6 @@ package frc.robot.subsystems.outtake.endeffector;
 
 import static frc.robot.subsystems.outtake.endeffector.EndEffectorConstants.*;
 
-import java.util.List;
-
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -11,7 +9,6 @@ import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
-
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Current;
@@ -19,6 +16,7 @@ import edu.wpi.first.units.measure.Temperature;
 import edu.wpi.first.units.measure.Voltage;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
+import java.util.List;
 
 public class EndEffectorIOTalonFX implements EndEffectorIO {
 
@@ -31,7 +29,6 @@ public class EndEffectorIOTalonFX implements EndEffectorIO {
     private NeutralOut neutralOut = new NeutralOut();
 
     private VelocityVoltage reqVelTorque = new VelocityVoltage(0);
-    
 
     private final List<StatusSignal<Angle>> motorPosition;
     private final List<StatusSignal<AngularVelocity>> motorVelocity;
@@ -40,8 +37,6 @@ public class EndEffectorIOTalonFX implements EndEffectorIO {
     private final List<StatusSignal<Current>> motorSupplyCurrent;
     private final List<StatusSignal<Current>> motorTorqueCurrent;
     private final List<StatusSignal<Temperature>> motorTempCelsius;
-
-
 
     public EndEffectorIOTalonFX() {
         leaderMotor = new TalonFX(Ports.kEndEffectorLeaderID, GlobalConstants.kCANivoreName);
@@ -64,13 +59,13 @@ public class EndEffectorIOTalonFX implements EndEffectorIO {
         talonConfig.Slot0.kP = 0.11; // This gets us closer to the target velocity
         talonConfig.Slot0.kI = 0; // 99% of the time, this will be 0
         talonConfig.Slot0.kD = 0.02; // Smooths out the velocity grap
-        
+
         talonConfig.CurrentLimits.SupplyCurrentLimit = kSupplyCurrentLimit;
         talonConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
 
         leaderMotor.getConfigurator().apply(talonConfig);
-        followerMotor.getConfigurator().apply(talonConfig); 
-        }
+        followerMotor.getConfigurator().apply(talonConfig);
+    }
 
     @Override
     public void updateInputs(EndEffectorIOInputs inputs) {
