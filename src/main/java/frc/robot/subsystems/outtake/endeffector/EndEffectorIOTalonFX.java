@@ -1,5 +1,7 @@
 package frc.robot.subsystems.outtake.endeffector;
 
+import static frc.robot.subsystems.outtake.endeffector.EndEffectorConstants.*;
+
 import java.util.List;
 
 import com.ctre.phoenix6.BaseStatusSignal;
@@ -18,8 +20,6 @@ import edu.wpi.first.units.measure.Voltage;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
 
-// import static frc.robot.subsystems.outtake.endeffector.EndEffectorConstants.
-
 public class EndEffectorIOTalonFX implements EndEffectorIO {
 
     private TalonFX leaderMotor, followerMotor;
@@ -31,6 +31,7 @@ public class EndEffectorIOTalonFX implements EndEffectorIO {
     private NeutralOut neutralOut = new NeutralOut();
 
     private VelocityVoltage reqVelTorque = new VelocityVoltage(0);
+    
 
     private final List<StatusSignal<Angle>> motorPosition;
     private final List<StatusSignal<AngularVelocity>> motorVelocity;
