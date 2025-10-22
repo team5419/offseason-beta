@@ -18,6 +18,8 @@ import edu.wpi.first.units.measure.Voltage;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
 
+// import static frc.robot.subsystems.outtake.endeffector.EndEffectorConstants.
+
 public class EndEffectorIOTalonFX implements EndEffectorIO {
 
     private TalonFX leaderMotor, followerMotor;
@@ -60,7 +62,13 @@ public class EndEffectorIOTalonFX implements EndEffectorIO {
 
         talonConfig.Slot0.kP = 0.11; // This gets us closer to the target velocity
         talonConfig.Slot0.kI = 0; // 99% of the time, this will be 0
-        talonConfig.Slot0.kD = 0.02; // Smooths out the velocity graph
+        talonConfig.Slot0.kD = 0.02; // Smooths out the velocity grap
+        
+        talonConfig.CurrentLimits.SupplyCurrentLimit = kSupplyCurrentLimit;
+        talonConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
+
+        leaderMotor.getConfigurator().apply(talonConfig);
+        followerMotor.getConfigurator().apply(talonConfig); 
         }
 
     @Override
