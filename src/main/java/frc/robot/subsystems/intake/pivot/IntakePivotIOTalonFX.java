@@ -2,8 +2,6 @@ package frc.robot.subsystems.intake.pivot;
 
 import static frc.robot.subsystems.intake.pivot.IntakePivotConstants.*;
 
-import javax.security.auth.kerberos.DelegationPermission;
-
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -14,6 +12,8 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import edu.wpi.first.units.Units;
+import edu.wpi.first.units.measure.*;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Current;
@@ -21,9 +21,6 @@ import edu.wpi.first.units.measure.Temperature;
 import edu.wpi.first.units.measure.Voltage;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
-import edu.wpi.first.units.AngleUnit;
-import edu.wpi.first.units.Units;
-import edu.wpi.first.units.measure.*;
 
 public class IntakePivotIOTalonFX implements IntakePivotIO {
 
@@ -86,11 +83,11 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
     public void updateInputs(IntakePivotIOInputs inputs) {
         inputs.position = motorPosition.getValue().in(Units.Degrees);
         inputs.velocity = motorVelocity.getValue().in(Units.DegreesPerSecond);
-        inputs.appliedVolts = motorAppliedVoltage.getValue().in(Units.Volts); 
+        inputs.appliedVolts = motorAppliedVoltage.getValue().in(Units.Volts);
         inputs.tempCelcius = motorTempCelsius.getValue().in(Units.Celsius); // °C
         inputs.supplyCurrentAmps = motorSupplyCurrent.getValue().in(Units.Amps);
-        inputs.referencePose = motorReference.getValue(); 
-        inputs.referenceVelocity = motorReferenceVelocity.getValue(); 
+        inputs.referencePose = motorReference.getValue();
+        inputs.referenceVelocity = motorReferenceVelocity.getValue();
     }
 
     @Override
