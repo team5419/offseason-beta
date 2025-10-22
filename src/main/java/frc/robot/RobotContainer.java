@@ -26,6 +26,7 @@ import frc.robot.subsystems.intake.pivot.IntakePivot;
 import frc.robot.subsystems.intake.pivot.IntakePivotIO;
 import frc.robot.subsystems.intake.pivot.IntakePivotIOSim;
 import frc.robot.subsystems.intake.pivot.IntakePivotIOTalonFX;
+import frc.robot.subsystems.intake.pivot.IntakePivot.IntakePivotGoal;
 import frc.robot.subsystems.intake.roller.IntakeRoller;
 import frc.robot.subsystems.intake.roller.IntakeRollerIO;
 import frc.robot.subsystems.intake.roller.IntakeRollerIOSim;
@@ -126,9 +127,9 @@ public class RobotContainer {
 
         driver.leftBumper(); // ! Unbound
         driver.rightBumper(); // ! Unbound
-
-        driver.leftTrigger(0.1); // ! Unbound
-        driver.rightTrigger(0.1); // ! Unbound
+        //Intake
+        driver.leftTrigger(0.1);
+        driver.rightTrigger(0.1);
     }
 
     private void configureOperatorBindings() {
@@ -156,7 +157,11 @@ public class RobotContainer {
      * Use this function to test new features without
      * changing the current button bindings
      */
-    private void configureDevBindings() {}
+    private void configureDevBindings() {
+       driver.leftBumper()
+                .onTrue(new InstantCommand(() -> intakePivot.setCurrentGoal(IntakePivotGoal.TO_INTAKE)))
+                .onFalse(new InstantCommand(() -> intakePivot.setCurrentGoal(IntakePivotGoal.IDLE)));
+    }
 
     private void buildRobot() {
         Elevator tempElevator = null;

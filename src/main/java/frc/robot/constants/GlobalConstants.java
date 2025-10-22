@@ -18,7 +18,7 @@ public class GlobalConstants {
     /** This constant is used in LoggedTunableNumber.java */
     public static final boolean kTuningMode = true;
     /** Set this to true to use dev bindings instead of normal bindings */
-    public static final boolean kDevMode = false;
+    public static final boolean kDevMode = true;
 
     public static final double kCANErrorTimeThreshold = 0.5;
     public static final double kCANivoreErrorTimeThreshold = 0.5;
