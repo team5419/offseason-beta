@@ -8,6 +8,7 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.util.Units;
@@ -61,6 +62,10 @@ public class WristIOTalonFX implements WristIO {
         config.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
         config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         config.Feedback.SensorToMechanismRatio = kGearRatio;
+        config.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
+        config.MotionMagic.MotionMagicCruiseVelocity = kMotionConfigs.kCruiseVel();
+        config.MotionMagic.MotionMagicAcceleration = kMotionConfigs.kAcceleration();
+        config.MotionMagic.MotionMagicJerk = kMotionConfigs.kJerk();
 
         setPID(kGains.kP(), kGains.kI(), kGains.kD());
         setFF(kGains.kA(), kGains.kG(), kGains.kS(), kGains.kV());

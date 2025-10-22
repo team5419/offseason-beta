@@ -22,13 +22,13 @@ public class Wrist extends SubsystemBase {
     private static final LoggedTunableNumber kA = new LoggedTunableNumber("Wrist/Gains/kA", kGains.kA());
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("Wrist/Gains/kG", kGains.kG());
     private static final LoggedTunableNumber L1Tunable = new LoggedTunableNumber("Wrist/Position/L1", 1);
-    private static final LoggedTunableNumber lowGoalTunable = new LoggedTunableNumber("Wrist/Position/lowGoal", 2);
+    private static final LoggedTunableNumber LowGoalTunable = new LoggedTunableNumber("Wrist/Position/LowGoal", 2);
     private static final LoggedTunableNumber L4Tunable = new LoggedTunableNumber("Wrist/Position/L4", 3);
 
     public enum WristGoal {
         IDLE(() -> 0),
         L1(L1Tunable),
-        lowGoal(lowGoalTunable),
+        LowGoal(LowGoalTunable),
         L4(L4Tunable);
 
         private DoubleSupplier wristAngle;
