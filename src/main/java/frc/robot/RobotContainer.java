@@ -23,10 +23,10 @@ import frc.robot.subsystems.elevator.ElevatorIO;
 import frc.robot.subsystems.elevator.ElevatorIOSim;
 import frc.robot.subsystems.elevator.ElevatorIOTalonFX;
 import frc.robot.subsystems.intake.pivot.IntakePivot;
+import frc.robot.subsystems.intake.pivot.IntakePivot.IntakePivotGoal;
 import frc.robot.subsystems.intake.pivot.IntakePivotIO;
 import frc.robot.subsystems.intake.pivot.IntakePivotIOSim;
 import frc.robot.subsystems.intake.pivot.IntakePivotIOTalonFX;
-import frc.robot.subsystems.intake.pivot.IntakePivot.IntakePivotGoal;
 import frc.robot.subsystems.intake.roller.IntakeRoller;
 import frc.robot.subsystems.intake.roller.IntakeRollerIO;
 import frc.robot.subsystems.intake.roller.IntakeRollerIOSim;
@@ -127,7 +127,7 @@ public class RobotContainer {
 
         driver.leftBumper(); // ! Unbound
         driver.rightBumper(); // ! Unbound
-        //Intake
+        // Intake
         driver.leftTrigger(0.1);
         driver.rightTrigger(0.1);
     }
@@ -158,7 +158,7 @@ public class RobotContainer {
      * changing the current button bindings
      */
     private void configureDevBindings() {
-       driver.leftBumper()
+        driver.leftBumper()
                 .onTrue(new InstantCommand(() -> intakePivot.setCurrentGoal(IntakePivotGoal.TO_INTAKE)))
                 .onFalse(new InstantCommand(() -> intakePivot.setCurrentGoal(IntakePivotGoal.IDLE)));
     }
