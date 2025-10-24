@@ -4,10 +4,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.outtake.wrist.Wrist;
 import frc.robot.subsystems.outtake.wrist.Wrist.WristGoal;
-
 import java.util.function.Supplier;
-
-
 
 public class WristToPosition extends Command {
 
@@ -20,6 +17,10 @@ public class WristToPosition extends Command {
         addRequirements(wrist);
     }
 
+    @Override
+    public void execute() {
+        wrist.runPosition(goal.get());
+    }
 
     @Override
     public boolean isFinished() {
