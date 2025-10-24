@@ -25,6 +25,10 @@ public class Ports {
 
     public static final int kPigeonID = 51;
 
+    public static final int kIntakeBeambreakPort = 0; // TODO: GET PORTS
+    public static final int kHandoffBeambreakPort = 0; // TODO: GET PORTS
+    public static final int kEndBeambreakPort = 0; // TODO: GET PORTS
+
     public static final int kLedPort = 9; // TODO: GET PORTS
 
     // subsystem motors
