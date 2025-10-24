@@ -25,37 +25,33 @@ public class WristIOSim implements WristIO {
     }
 
     @Override
-    public void updateInputs(WristIOInputs inputs) {
-        // TODO: implement
-    }
+    public void updateInputs(WristIOInputs inputs) {}
 
     @Override
-    public void setBrakeMode(boolean enabled) {
-        // TODO: implement
-    }
+    public void setBrakeMode(boolean enabled) {}
 
     @Override
-    public void runPosition(double degrees) {
-        // TODO: implement
-    }
+    public void runPosition(double degrees) {}
 
     @Override
     public void runVolts(double volts) {
-        // TODO: implement
+        pivotSim.setInputVoltage(volts);
     }
 
     @Override
     public void setPID(double P, double I, double D) {
-        // TODO: implement
+        controller.setD(D);
+        controller.setI(I);
+        controller.setP(P);
     }
 
     @Override
     public void stop() {
-        // TODO: implement
+        System.out.println("on it!");
     }
 
     @Override
     public void resetPosition(double degrees) {
-        // TODO: implement
+        System.out.println("um");
     }
 }
