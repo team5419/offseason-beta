@@ -11,6 +11,7 @@ import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class IntakePivot extends SubsystemBase {
+
     private IntakePivotIO io;
     private IntakePivotIOInputsAutoLogged inputs = new IntakePivotIOInputsAutoLogged();
 
@@ -42,11 +43,13 @@ public class IntakePivot extends SubsystemBase {
 
     public IntakePivot(IntakePivotIO io) {
         this.io = io;
-        io.resetPosition(67.5);
     }
 
     @Override
     public void periodic() {
+        io.updateInputs(inputs);
+        Logger.processInputs("Intake Pivot", inputs);
+
         LoggedTunableNumber.ifChanged(hashCode(), () -> io.setPID(kP.get(), kI.get(), kD.get()), kP, kI, kD);
         LoggedTunableNumber.ifChanged(
                 hashCode(),
@@ -55,14 +58,24 @@ public class IntakePivot extends SubsystemBase {
                 kG,
                 kV,
                 kA);
-        io.runPosition(currentGoal.getPivotAngle().getAsDouble());
-        io.updateInputs(inputs);
-        Logger.processInputs("Intake Pivot", inputs);
+
+        // io.runPosition(30);
+        // io.runPosition(currentGoal.getPivotAngle().getAsDouble());
+        Logger.recordOutput("Intake Pivot/Goal", currentGoal);
     }
 
     /** Returns true if this subsystem is within a margin of error of the current goal */
     @AutoLogOutput(key = "Intake Pivot/At Goal")
     public boolean atGoal() {
         return false;
+        // TODO: FIX ASAP
+    }
+
+    public void runVolts(double volts) {
+        // io.runVolts(volts);
+    }
+
+    public void runPosition(double pos) {
+        io.runPosition(pos);
     }
 }

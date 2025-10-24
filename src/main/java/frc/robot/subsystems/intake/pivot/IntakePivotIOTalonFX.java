@@ -12,7 +12,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import edu.wpi.first.units.Units;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.*;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
@@ -35,12 +35,13 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
     private StatusSignal<Current> motorSupplyCurrent;
     private StatusSignal<Current> motorTorqueCurrent;
     private StatusSignal<Voltage> motorVoltage;
-    private TalonFXConfiguration config;
+    private TalonFXConfiguration config = new TalonFXConfiguration();
 
     private MotionMagicVoltage reqMotionMagic = new MotionMagicVoltage(0);
 
     public IntakePivotIOTalonFX() {
-        pivotMotor = new TalonFX(Ports.kIntakePivotID, GlobalConstants.kCANivoreName);
+        pivotMotor = new TalonFX(Ports.kIntakePivotID);
+
         motorPosition = pivotMotor.getPosition();
         motorAppliedVoltage = pivotMotor.getMotorVoltage();
         motorVelocity = pivotMotor.getVelocity();
@@ -52,20 +53,10 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
         motorTorqueCurrent = pivotMotor.getTorqueCurrent();
         motorVoltage = pivotMotor.getMotorVoltage();
 
-        BaseStatusSignal.setUpdateFrequencyForAll(
-                GlobalConstants.kLooperHZ,
-                motorPosition,
-                motorVelocity,
-                motorAppliedVoltage,
-                motorSupplyCurrent,
-                motorTorqueCurrent,
-                motorTempCelsius);
-
-        config = new TalonFXConfiguration();
         config.CurrentLimits.SupplyCurrentLimit = kSupplyCurrentLimit;
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
         config.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
-        config.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        config.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
         config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         config.Feedback.SensorToMechanismRatio = kGearRatio;
 
@@ -76,28 +67,55 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
         config.Slot0.kA = kGains.kA();
         config.Slot0.kG = kGains.kG();
         config.Slot0.kV = kGains.kV();
+
+        config.MotionMagic.MotionMagicCruiseVelocity =
+                edu.wpi.first.math.util.Units.degreesToRotations(kMotionConfigs.kCruiseVel());
+        config.MotionMagic.MotionMagicAcceleration =
+                edu.wpi.first.math.util.Units.degreesToRotations(kMotionConfigs.kAcceleration());
+        config.MotionMagic.MotionMagicJerk = edu.wpi.first.math.util.Units.degreesToRotations(kMotionConfigs.kJerk());
+
+        BaseStatusSignal.setUpdateFrequencyForAll(
+                GlobalConstants.kLooperHZ,
+                motorPosition,
+                motorVelocity,
+                motorAppliedVoltage,
+                motorSupplyCurrent,
+                motorTorqueCurrent,
+                motorReference,
+                motorReferenceVelocity,
+                motorVoltage,
+                motorTempCelsius);
+
         pivotMotor.getConfigurator().apply(config);
+
+        resetPosition(67.5);
     }
 
     @Override
     public void updateInputs(IntakePivotIOInputs inputs) {
-        inputs.position = motorPosition.getValue().in(Units.Degrees);
-        inputs.velocity = motorVelocity.getValue().in(Units.DegreesPerSecond);
-        inputs.appliedVolts = motorAppliedVoltage.getValue().in(Units.Volts);
-        inputs.tempCelcius = motorTempCelsius.getValue().in(Units.Celsius); // °C
-        inputs.supplyCurrentAmps = motorSupplyCurrent.getValue().in(Units.Amps);
-        inputs.referencePose = motorReference.getValue();
-        inputs.referenceVelocity = motorReferenceVelocity.getValue();
+        inputs.position = motorPosition.getValueAsDouble();
+        inputs.velocity = motorVelocity.getValueAsDouble();
+        inputs.appliedVolts = motorAppliedVoltage.getValueAsDouble();
+        inputs.tempCelcius = motorTempCelsius.getValueAsDouble(); // °C
+        inputs.supplyCurrentAmps = motorSupplyCurrent.getValueAsDouble();
+        inputs.referencePose = motorReference.getValueAsDouble();
+        inputs.referenceVelocity = motorReferenceVelocity.getValueAsDouble();
     }
 
     @Override
     public void runPosition(double goal) {
-        pivotMotor.setControl(reqMotionMagic.withPosition(goal));
+        System.out.println("Intake Pivot Goal: " + goal);
+        System.out.println("Intake Pivot p: " + config.Slot0.kP);
+
+        // pivotMotor.setControl(reqMotionMagic
+        //         .withPosition(edu.wpi.first.math.util.Units.degreesToRotations(goal))
+        //         .withSlot(0));
+        pivotMotor.setControl(reqMotionMagic.withPosition(goal/360));
     }
 
     @Override
     public void resetPosition(double pos) {
-        pivotMotor.setPosition(pos);
+        pivotMotor.setPosition(edu.wpi.first.math.util.Units.degreesToRotations(pos));
     }
 
     @Override
