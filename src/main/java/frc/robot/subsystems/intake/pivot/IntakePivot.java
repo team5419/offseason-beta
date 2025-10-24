@@ -22,8 +22,13 @@ public class IntakePivot extends SubsystemBase {
     private static final LoggedTunableNumber kA = new LoggedTunableNumber("Intake Pivot/Gains/kA", kGains.kA());
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("Intake Pivot/Gains/kG", kGains.kG());
 
+    private IntakePivotGoal currentGoal;
+
     public enum IntakePivotGoal {
-        IDLE(() -> 0); // Should be the current angle
+        IDLE(() -> 0), // TODO: set idle angle
+        TO_INTAKE(() -> 0), // TODO: Set intake angle
+        TO_SCOREL1(() -> 0), // TODO: set scoring angle
+        TO_INTAKE_HANDOFF(() -> 0); // TODO: set handoff angle
 
         @Getter
         private DoubleSupplier pivotAngle;
@@ -35,6 +40,10 @@ public class IntakePivot extends SubsystemBase {
 
     public IntakePivot(IntakePivotIO io) {
         this.io = io;
+    }
+
+    public void setGoal(IntakePivotGoal goal){
+        currentGoal = goal;
     }
 
     @Override

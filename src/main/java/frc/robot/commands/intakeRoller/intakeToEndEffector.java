@@ -4,10 +4,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.beambreak.Beambreak;
 import frc.robot.subsystems.intake.pivot.IntakePivot;
+import frc.robot.subsystems.intake.pivot.IntakePivot.IntakePivotGoal;
 import frc.robot.subsystems.intake.roller.IntakeRoller;
 import frc.robot.subsystems.intake.roller.IntakeRoller.IntakeRollerGoal;
 import frc.robot.subsystems.outtake.endeffector.EndEffector;
 import frc.robot.subsystems.outtake.wrist.Wrist;
+import frc.robot.subsystems.outtake.wrist.Wrist.WristGoal;
 
 public class intakeToEndEffector extends Command {
     private final IntakeRoller roller;
@@ -25,8 +27,8 @@ public class intakeToEndEffector extends Command {
     }
 
     public void initialize() {
-        // pivot.setGoal(handoff)
-        // wrist.setDesiredLevel(handoff)
+        pivot.setGoal(IntakePivotGoal.TO_INTAKE_HANDOFF);
+        wrist.setGoal(WristGoal.HANDOFF);
 
         if (pivot.atGoal() && wrist.atGoal()) {
             roller.setGoal(IntakeRollerGoal.OUTTAKEENDEFFECTOR);
