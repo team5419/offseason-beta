@@ -4,7 +4,7 @@ import static frc.robot.subsystems.outtake.wrist.WristConstants.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LoggedTunableNumber;
-import frc.robot.subsystems.elevator.Elevator.ElevatorGoal;
+import frc.robot.lib.util.EqualsUtil;
 import java.util.function.DoubleSupplier;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
@@ -13,6 +13,7 @@ public class Wrist extends SubsystemBase {
 
     private WristIO io;
     private WristIOInputsAutoLogged inputs = new WristIOInputsAutoLogged();
+    private double desiredLevel;
 
     private static final LoggedTunableNumber kP = new LoggedTunableNumber("Wrist/Gains/kP", kGains.kP());
     private static final LoggedTunableNumber kI = new LoggedTunableNumber("Wrist/Gains/kI", kGains.kI());
@@ -24,6 +25,7 @@ public class Wrist extends SubsystemBase {
     private static final LoggedTunableNumber L1Tunable = new LoggedTunableNumber("Wrist/Position/L1", 1);
     private static final LoggedTunableNumber LowGoalTunable = new LoggedTunableNumber("Wrist/Position/LowGoal", 2);
     private static final LoggedTunableNumber L4Tunable = new LoggedTunableNumber("Wrist/Position/L4", 3);
+    private WristGoal currentGoal = WristGoal.IDLE;
 
     public enum WristGoal {
         IDLE(() -> 0),
@@ -78,8 +80,9 @@ public class Wrist extends SubsystemBase {
         io.runPosition(goal);
     }
 
-    // set the desiredLevel variable of the wrist
-    public void setDesiredLevel(ElevatorGoal goal) {}
+    public void setCurrentGoal(WristGoal goal) {
+        currentGoal = goal;
+    }
 
     /**
      * Returns true if this subsystem is within a margin of error of the current
@@ -87,6 +90,6 @@ public class Wrist extends SubsystemBase {
      */
     @AutoLogOutput
     public boolean atGoal() {
-        return false;
+        return EqualsUtil.epsilonEquals(inputs.position, currentGoal.wristAngle.getAsDouble(), kAngleTolerance);
     }
 }

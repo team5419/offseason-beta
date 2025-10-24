@@ -14,7 +14,7 @@ public class WristIOSim implements WristIO {
                 null, // placeholder for motor
                 1.0, // gear ratio placeholder
                 1.0, // moment of inertia placeholder
-                0.0, // x length placeholder
+                0.0, // length placeholder
                 0.0, // min angle placeholder
                 180.0, // max angle placeholder
                 false, // simulation flag
