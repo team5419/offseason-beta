@@ -114,7 +114,7 @@ public class RobotContainer {
         driver.start(); // ! Unbound
         driver.back(); // ! Unbound
 
-        driver.a(); // ! Unbound
+        driver.a().onTrue(new InstantCommand(() -> wrist.runPosition(0))); // ! Unbound
         driver.b(); // ! Unbound
         driver.x(); // ! Unbound
         driver.y(); // ! Unbound
@@ -169,17 +169,17 @@ public class RobotContainer {
         if (GlobalConstants.getMode() == GlobalConstants.Mode.REPLAY) return;
         switch (GlobalConstants.getRobotType()) {
             case BETA -> {
-                tempElevator = new Elevator(new ElevatorIOTalonFX());
-                tempIntakePivot = new IntakePivot(new IntakePivotIOTalonFX());
-                tempIntakeRoller = new IntakeRoller(new IntakeRollerIOTalonFX());
+                // tempElevator = new Elevator(new ElevatorIOTalonFX());
+                // tempIntakePivot = new IntakePivot(new IntakePivotIOTalonFX());
+                // tempIntakeRoller = new IntakeRoller(new IntakeRollerIOTalonFX());
                 tempWrist = new Wrist(new WristIOTalonFX());
-                tempEndEffector = new EndEffector(new EndEffectorIOTalonFX());
-                tempSwerve = new Swerve(
-                        new GyroIOPigeon2(),
-                        new ModuleIOTalonFX(SwerveConstants.TunerConstants.getFrontLeft()),
-                        new ModuleIOTalonFX(SwerveConstants.TunerConstants.getFrontRight()),
-                        new ModuleIOTalonFX(SwerveConstants.TunerConstants.getBackLeft()),
-                        new ModuleIOTalonFX(SwerveConstants.TunerConstants.getBackRight()));
+                // tempEndEffector = new EndEffector(new EndEffectorIOTalonFX());
+                // tempSwerve = new Swerve(
+                //         new GyroIOPigeon2(),
+                //         new ModuleIOTalonFX(SwerveConstants.TunerConstants.getFrontLeft()),
+                //         new ModuleIOTalonFX(SwerveConstants.TunerConstants.getFrontRight()),
+                //         new ModuleIOTalonFX(SwerveConstants.TunerConstants.getBackLeft()),
+                //         new ModuleIOTalonFX(SwerveConstants.TunerConstants.getBackRight()));
             }
 
             case SIMBOT -> {

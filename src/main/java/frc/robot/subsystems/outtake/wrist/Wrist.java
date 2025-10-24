@@ -5,6 +5,8 @@ import static frc.robot.subsystems.outtake.wrist.WristConstants.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LoggedTunableNumber;
 import frc.robot.subsystems.elevator.Elevator.ElevatorGoal;
+import lombok.Setter;
+
 import java.util.function.DoubleSupplier;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
@@ -23,7 +25,12 @@ public class Wrist extends SubsystemBase {
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("Wrist/Gains/kG", kGains.kG());
 
     public enum WristGoal {
-        IDLE(() -> 0);
+        IDLE(() -> 0),
+        L2(() -> 0),
+        L3(() -> 0),
+        L4(() -> 0),
+        HANDOFF(()-> 0),
+        ALGAE(()-> 0);
 
         private DoubleSupplier wristAngle;
 
@@ -35,6 +42,9 @@ public class Wrist extends SubsystemBase {
             return wristAngle.getAsDouble();
         }
     }
+
+    @Setter
+    public WristGoal currentGoal = WristGoal.IDLE;
 
     public Wrist(WristIO io) {
         this.io = io;
@@ -62,7 +72,9 @@ public class Wrist extends SubsystemBase {
 
     public void runVolts() {}
 
-    public void runPosition() {}
+    public void runPosition(double position) {
+        io.runPosition(position);
+    }
 
     // set the desiredLevel variable of the wrist
     public void setDesiredLevel(ElevatorGoal goal) {}

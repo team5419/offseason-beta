@@ -39,7 +39,7 @@ public class WristIOTalonFX implements WristIO {
     private final StatusSignal<Double> referencePose;
     
     public WristIOTalonFX() {
-        motor = new TalonFX(Ports.kWristID, GlobalConstants.kCANivoreName);
+        motor = new TalonFX(Ports.kWristID);
 
         motorPosition = motor.getPosition();
         motorAppliedVoltage = motor.getMotorVoltage();
@@ -56,7 +56,7 @@ public class WristIOTalonFX implements WristIO {
 
         config.CurrentLimits.SupplyCurrentLimit = kSupplyCurrentLimit;
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
-        config.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        config.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
         config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         config.Feedback.SensorToMechanismRatio = kGearRatio;
 
@@ -76,6 +76,8 @@ public class WristIOTalonFX implements WristIO {
                 referencePose);
 
         motor.getConfigurator().apply(config);
+
+        resetPosition(67.5);
     }
 
     // In WristIO, theres a wristIOInputs class that has all the inputs we want to
@@ -105,7 +107,7 @@ public class WristIOTalonFX implements WristIO {
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/MotionMagicDutyCycle.html
     @Override
     public void runPosition(double goal) {
-        motor.setControl(reqMotionMagic.withPosition(goal));
+        motor.setControl(reqMotionMagic.withPosition(goal/360)); // TODO use the units class
     }
 
     // call .setControl on the motor controller with the appropriate control mode
@@ -120,7 +122,7 @@ public class WristIOTalonFX implements WristIO {
 
     @Override
     public void resetPosition(double angle) {
-        motor.setPosition(angle);
+        motor.setPosition(angle/360);//TODO use the units class
     }
 
     // call .setControl on the motor controller with the appropriate control mode
