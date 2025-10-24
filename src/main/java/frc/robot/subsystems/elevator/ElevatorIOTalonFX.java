@@ -2,6 +2,7 @@ package frc.robot.subsystems.elevator;
 
 import static frc.robot.subsystems.elevator.ElevatorConstants.kGains;
 import static frc.robot.subsystems.elevator.ElevatorConstants.kGearRatio;
+import static frc.robot.subsystems.elevator.ElevatorConstants.kMotionMagicConfigs;
 
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
@@ -29,8 +30,7 @@ public class ElevatorIOTalonFX implements ElevatorIO {
     private TalonFX leaderMotor, followerMotor;
     private TalonFXConfiguration config = new TalonFXConfiguration();
     private Follower follow;
-    private MotionMagicVoltage motionMagicVoltage =
-            new MotionMagicVoltage(0).withUpdateFreqHz(GlobalConstants.kLooperDT);
+    private MotionMagicVoltage motionMagicVoltage = new MotionMagicVoltage(0).withUpdateFreqHz(0);
     private NeutralOut neutralOut = new NeutralOut();
     private VoltageOut reqVoltageOut = new VoltageOut(0);
 
@@ -61,6 +61,13 @@ public class ElevatorIOTalonFX implements ElevatorIO {
         config.Slot0.GravityType = GravityTypeValue.Elevator_Static;
         config.Slot0.StaticFeedforwardSign = StaticFeedforwardSignValue.UseVelocitySign;
         config.Feedback.SensorToMechanismRatio = kGearRatio;
+
+        config.MotionMagic.MotionMagicCruiseVelocity = kMotionMagicConfigs.vel();
+        config.MotionMagic.MotionMagicAcceleration = kMotionMagicConfigs.accel();
+        config.MotionMagic.MotionMagicJerk = kMotionMagicConfigs.jerk();
+
+        config.CurrentLimits.SupplyCurrentLimit = 20;
+        config.CurrentLimits.SupplyCurrentLimitEnable = true;
 
         leaderMotor.getConfigurator().apply(config);
         followerMotor.getConfigurator().apply(config);
@@ -158,7 +165,8 @@ public class ElevatorIOTalonFX implements ElevatorIO {
 
     @Override
     public void resetPosition(double pos) {
-        leaderMotor.setPosition(0);
+        leaderMotor.setPosition(pos);
+        followerMotor.setPosition(pos);
     }
 
     // call .setControl on the motor controller with the appropriate control mode and value.
