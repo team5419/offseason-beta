@@ -23,7 +23,8 @@ public class EndEffector extends SubsystemBase {
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("End Effector Roller/Gains/kG", kGains.kG());
 
     public enum EndEffectorRollerGoal {
-        IDLE(() -> 0); // Should be the current angle
+        IDLE(() -> 0), OUTTAKING(() -> 10), ;
+        
 
         @Getter
         private DoubleSupplier rollerVel;
@@ -51,13 +52,14 @@ public class EndEffector extends SubsystemBase {
                 kA);
     }
 
-    public void runn(double volts) {
+    public void run(double volts) {
         io.runVolts(volts);
     }
 
     public void stop() {
         io.stop();
     }
+
 
     /**
      * Returns true if this subsystem is within a margin of error of the current
