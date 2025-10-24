@@ -22,8 +22,11 @@ public class EndEffector extends SubsystemBase {
     private static final LoggedTunableNumber kA = new LoggedTunableNumber("End Effector Roller/Gains/kA", kGains.kA());
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("End Effector Roller/Gains/kG", kGains.kG());
 
+    private EndEffectorRollerGoal currentGoal;
+
     public enum EndEffectorRollerGoal {
-        IDLE(() -> 0); // Should be the current angle
+        IDLE(() -> 0), // Should be the current angle
+        INTAKE(() -> 0); //temporary
 
         @Getter
         private DoubleSupplier rollerVel;
@@ -31,6 +34,10 @@ public class EndEffector extends SubsystemBase {
         private EndEffectorRollerGoal(DoubleSupplier rollerVel) {
             this.rollerVel = rollerVel;
         }
+    }
+
+    public void setGoal(EndEffectorRollerGoal goal){
+        currentGoal = goal;
     }
 
     public EndEffector(EndEffectorIO io) {
