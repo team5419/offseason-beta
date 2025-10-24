@@ -74,7 +74,7 @@ public class RobotContainer {
     @Getter
     private EndEffector endEffector;
 
-    @Getter
+    // @Getter
     private Swerve swerve;
 
     @Getter
@@ -206,7 +206,7 @@ public class RobotContainer {
         if (tempWrist == null) tempWrist = new Wrist(new WristIO() {});
         if (tempEndEffector == null) tempEndEffector = new EndEffector(new EndEffectorIO() {});
 
-        swerve = tempSwerve;
+        // swerve = tempSwerve;
         elevator = tempElevator;
         intakePivot = tempIntakePivot;
         intakeRoller = tempIntakeRoller;

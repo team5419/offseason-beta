@@ -2,9 +2,13 @@ package frc.robot.subsystems.elevator;
 
 import static frc.robot.subsystems.elevator.ElevatorConstants.*;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.simulation.ElevatorSim;
+import frc.robot.constants.GlobalConstants;
 import org.littletonrobotics.junction.AutoLogOutput;
 
 public class ElevatorIOSim implements ElevatorIO {
@@ -22,25 +26,41 @@ public class ElevatorIOSim implements ElevatorIO {
     }
 
     @Override
-    public void updateInputs(ElevatorIOInputs inputs) {}
+    public void updateInputs(ElevatorIOInputs inputs) {
+        eSim.update(GlobalConstants.kLooperDT);
 
-    @Override
-    public void runVolts(double volts) {
-        // TODO: implement
+        final double dummyMotorTemp = 42.0;
+        final double current = eSim.getCurrentDrawAmps() / 2.0;
+
+        inputs.position = new double[] {eSim.getPositionMeters(), eSim.getPositionMeters()};
+        inputs.velocityRotationsPerSecond =
+                new double[] {eSim.getVelocityMetersPerSecond(), eSim.getVelocityMetersPerSecond()};
+        inputs.appliedVolts = new double[] {appliedVolts, appliedVolts};
+        inputs.tempCelsius = new double[] {dummyMotorTemp, dummyMotorTemp};
+        inputs.supplyCurrentAmps = new double[] {current, current};
     }
 
     @Override
-    public void runPosition(double setpointMeters, double feedforward) {
-        // TODO: implement
+    public void runVolts(double volts) {
+        appliedVolts = MathUtil.clamp(volts, -12.0, 12.0);
+        eSim.setInputVoltage(appliedVolts);
+    }
+
+    @Override
+    public void runPosition(double eleHeight) {
+        if (DriverStation.isDisabled()) {
+            return;
+        }
+        runVolts(controller.calculate(eSim.getPositionMeters(), Units.feetToMeters(eleHeight)));
     }
 
     @Override
     public void stop() {
-        // TODO: implement
+        runVolts(0.0);
     }
 
     @Override
     public void setPID(double kP, double kI, double kD) {
-        // TODO: implement
+        controller.setPID(kP, kI, kD);
     }
 }
