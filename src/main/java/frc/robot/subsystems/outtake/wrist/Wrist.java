@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LoggedTunableNumber;
 import frc.robot.lib.util.EqualsUtil;
 import java.util.function.DoubleSupplier;
+import lombok.Getter;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
@@ -13,7 +14,6 @@ public class Wrist extends SubsystemBase {
 
     private WristIO io;
     private WristIOInputsAutoLogged inputs = new WristIOInputsAutoLogged();
-    private double desiredLevel;
 
     private static final LoggedTunableNumber kP = new LoggedTunableNumber("Wrist/Gains/kP", kGains.kP());
     private static final LoggedTunableNumber kI = new LoggedTunableNumber("Wrist/Gains/kI", kGains.kI());
@@ -25,6 +25,8 @@ public class Wrist extends SubsystemBase {
     private static final LoggedTunableNumber L1Tunable = new LoggedTunableNumber("Wrist/Position/L1", 1);
     private static final LoggedTunableNumber LowGoalTunable = new LoggedTunableNumber("Wrist/Position/LowGoal", 2);
     private static final LoggedTunableNumber L4Tunable = new LoggedTunableNumber("Wrist/Position/L4", 3);
+
+    @Getter
     private WristGoal currentGoal = WristGoal.IDLE;
 
     public enum WristGoal {
@@ -78,10 +80,6 @@ public class Wrist extends SubsystemBase {
 
     public void runPosition(double goal) {
         io.runPosition(goal);
-    }
-
-    public void setCurrentGoal(WristGoal goal) {
-        currentGoal = goal;
     }
 
     /**

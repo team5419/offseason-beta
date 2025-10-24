@@ -109,7 +109,7 @@ public class WristIOTalonFX implements WristIO {
 
     @Override
     public void resetPosition(double angle) {
-        motor.setControl(reqMotionMagic.withPosition(Units.degreesToRotations(angle)));
+        motor.setPosition(angle);
     }
 
     // call .setControl on the motor controller with the appropriate control mode and value.
