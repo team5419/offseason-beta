@@ -18,6 +18,7 @@ import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
 import frc.robot.lib.RumbleThread;
 import frc.robot.subsystems.apriltagvision.AprilTagVision;
+import frc.robot.subsystems.beambreak.Beambreak;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.elevator.ElevatorIO;
 import frc.robot.subsystems.elevator.ElevatorIOSim;
@@ -31,7 +32,6 @@ import frc.robot.subsystems.intake.roller.IntakeRoller.IntakeRollerGoal;
 import frc.robot.subsystems.intake.roller.IntakeRollerIO;
 import frc.robot.subsystems.intake.roller.IntakeRollerIOSim;
 import frc.robot.subsystems.intake.roller.IntakeRollerIOTalonFX;
-import frc.robot.subsystems.beambreak.Beambreak;
 import frc.robot.subsystems.outtake.endeffector.EndEffector;
 import frc.robot.subsystems.outtake.endeffector.EndEffectorIO;
 import frc.robot.subsystems.outtake.endeffector.EndEffectorIOSim;
@@ -76,7 +76,7 @@ public class RobotContainer {
     @Getter
     private EndEffector endEffector;
 
-    @Getter 
+    @Getter
     private Beambreak beamBreak;
 
     @Getter
