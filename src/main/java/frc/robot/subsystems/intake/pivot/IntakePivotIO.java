@@ -3,6 +3,7 @@ package frc.robot.subsystems.intake.pivot;
 import org.littletonrobotics.junction.AutoLog;
 
 public interface IntakePivotIO {
+
     @AutoLog
     class IntakePivotIOInputs {
         public boolean motorConnected = true;
