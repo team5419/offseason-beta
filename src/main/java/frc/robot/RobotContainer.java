@@ -163,7 +163,7 @@ public class RobotContainer {
     }
 
     private void buildRobot() {
-        
+
         Elevator tempElevator = null;
         IntakePivot tempIntakePivot = null;
         IntakeRoller tempIntakeRoller = null;

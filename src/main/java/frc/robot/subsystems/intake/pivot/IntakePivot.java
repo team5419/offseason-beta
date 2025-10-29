@@ -50,14 +50,14 @@ public class IntakePivot extends SubsystemBase {
         io.updateInputs(inputs);
         Logger.processInputs("Intake Pivot", inputs);
 
-        LoggedTunableNumber.ifChanged(hashCode(), () -> io.setPID(kP.get(), kI.get(), kD.get()), kP, kI, kD);
-        LoggedTunableNumber.ifChanged(
-                hashCode(),
-                () -> io.setFF(kS.getAsDouble(), kG.getAsDouble(), kV.getAsDouble(), kA.getAsDouble()),
-                kS,
-                kG,
-                kV,
-                kA);
+        // LoggedTunableNumber.ifChanged(hashCode(), () -> io.setPID(kP.get(), kI.get(), kD.get()), kP, kI, kD);
+        // LoggedTunableNumber.ifChanged(
+        //         hashCode(),
+        //         () -> io.setFF(kS.getAsDouble(), kG.getAsDouble(), kV.getAsDouble(), kA.getAsDouble()),
+        //         kS,
+        //         kG,
+        //         kV,
+        //         kA);
 
         // io.runPosition(30);
         // io.runPosition(currentGoal.getPivotAngle().getAsDouble());

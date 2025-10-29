@@ -102,13 +102,13 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
                         motorReference,
                         motorReferenceVelocity)
                 .isOK();
-        inputs.position = motorPosition.getValueAsDouble();
+        inputs.position = Units.rotationsToDegrees(motorPosition.getValueAsDouble());
         inputs.velocity = motorVelocity.getValueAsDouble();
         inputs.appliedVolts = motorAppliedVoltage.getValueAsDouble();
         inputs.tempCelcius = motorTempCelsius.getValueAsDouble(); // °C
         inputs.supplyCurrentAmps = motorSupplyCurrent.getValueAsDouble();
-        inputs.referencePose = motorReference.getValueAsDouble();
-        inputs.referenceVelocity = motorReferenceVelocity.getValueAsDouble();
+        inputs.referencePose = Units.rotationsToDegrees(motorReference.getValueAsDouble());
+        inputs.referenceVelocity = Units.rotationsToDegrees(motorReferenceVelocity.getValueAsDouble());
     }
 
     @Override
@@ -119,7 +119,7 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
         // pivotMotor.setControl(reqMotionMagic
         //         .withPosition(edu.wpi.first.math.util.Units.degreesToRotations(goal))
         //         .withSlot(0));
-        pivotMotor.setControl(reqMotionMagic.withPosition(goal/360));
+        pivotMotor.setControl(reqMotionMagic.withPosition(goal / 360));
     }
 
     @Override
