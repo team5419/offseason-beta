@@ -93,6 +93,15 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
 
     @Override
     public void updateInputs(IntakePivotIOInputs inputs) {
+        inputs.motorConnected = BaseStatusSignal.refreshAll(
+                        motorPosition,
+                        motorVelocity,
+                        motorAppliedVoltage,
+                        motorTempCelsius,
+                        motorSupplyCurrentAmps,
+                        motorReference,
+                        motorReferenceVelocity)
+                .isOK();
         inputs.position = motorPosition.getValueAsDouble();
         inputs.velocity = motorVelocity.getValueAsDouble();
         inputs.appliedVolts = motorAppliedVoltage.getValueAsDouble();
