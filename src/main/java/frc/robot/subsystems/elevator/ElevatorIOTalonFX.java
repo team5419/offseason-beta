@@ -154,6 +154,22 @@ public class ElevatorIOTalonFX implements ElevatorIO {
         inputs.referenceError = motorReferenceError.stream()
                 .mapToDouble(StatusSignal::getValueAsDouble)
                 .toArray();
+        
+        inputs.appliedVolts = motorAppliedVoltage.stream()
+                .mapToDouble(StatusSignal::getValueAsDouble)
+                .toArray();
+
+        inputs.supplyCurrentAmps = motorSupplyCurrent.stream()
+                .mapToDouble(StatusSignal::getValueAsDouble)
+                .toArray();
+
+        inputs.statorCurrentAmps = motorTorqueCurrent.stream()
+                .mapToDouble(StatusSignal::getValueAsDouble)
+                .toArray();
+                
+        inputs.tempCelsius = motorTempCelsius.stream()
+                .mapToDouble(StatusSignal::getValueAsDouble)
+                .toArray();
     }
 
     // call .setControl on the motor controller with the appropriate control mode and value.
