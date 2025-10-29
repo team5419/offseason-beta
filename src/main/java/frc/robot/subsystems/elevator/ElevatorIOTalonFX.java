@@ -56,10 +56,6 @@ public class ElevatorIOTalonFX implements ElevatorIO {
         config.Slot0.kD = kGains.kD();
         config.Slot0.kS = kGains.kS();
         config.Slot0.kV = kGains.kV();
-        config.Slot0.kG = kGains.kG();
-        config.Slot0.kA = kGains.kA();
-        config.Slot0.GravityType = GravityTypeValue.Elevator_Static;
-        config.Slot0.StaticFeedforwardSign = StaticFeedforwardSignValue.UseVelocitySign;
         config.Feedback.SensorToMechanismRatio = kGearRatio;
 
         config.MotionMagic.MotionMagicCruiseVelocity = kMotionMagicConfigs.vel();
@@ -166,7 +162,7 @@ public class ElevatorIOTalonFX implements ElevatorIO {
         inputs.statorCurrentAmps = motorTorqueCurrent.stream()
                 .mapToDouble(StatusSignal::getValueAsDouble)
                 .toArray();
-                
+
         inputs.tempCelsius = motorTempCelsius.stream()
                 .mapToDouble(StatusSignal::getValueAsDouble)
                 .toArray();
