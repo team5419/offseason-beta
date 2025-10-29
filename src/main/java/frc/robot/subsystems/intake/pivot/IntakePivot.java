@@ -42,7 +42,7 @@ public class IntakePivot extends SubsystemBase {
         this.io = io;
     }
 
-    public void setGoal(IntakePivotGoal goal){
+    public void setGoal(IntakePivotGoal goal) {
         currentGoal = goal;
     }
 

@@ -20,14 +20,8 @@ public class BeambreakIOReal implements BeambreakIO {
 
     @Override
     public void readInputs(BeambreakInputs inputs) {
-<<<<<<< HEAD
-        inputs.intakeTriggered = intake.get();
-        inputs.handoffTriggered = handoff.get();
-        inputs.endTriggered = end.get();
-=======
         inputs.intakeTriggered = !intake.get();
         inputs.handoffTriggered = !handoff.get();
         inputs.endTriggered = !end.get();
->>>>>>> 8aab5b8ba39bc9138556511a9e2bfb38d64d7dd4
     }
 }
