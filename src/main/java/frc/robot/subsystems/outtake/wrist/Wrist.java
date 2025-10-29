@@ -4,8 +4,9 @@ import static frc.robot.subsystems.outtake.wrist.WristConstants.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LoggedTunableNumber;
-import frc.robot.subsystems.elevator.Elevator.ElevatorGoal;
+import frc.robot.lib.util.EqualsUtil;
 import java.util.function.DoubleSupplier;
+import lombok.Getter;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
@@ -21,13 +22,22 @@ public class Wrist extends SubsystemBase {
     private static final LoggedTunableNumber kV = new LoggedTunableNumber("Wrist/Gains/kV", kGains.kV());
     private static final LoggedTunableNumber kA = new LoggedTunableNumber("Wrist/Gains/kA", kGains.kA());
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("Wrist/Gains/kG", kGains.kG());
+    private static final LoggedTunableNumber L1Tunable = new LoggedTunableNumber("Wrist/Position/L1", 1);
+    private static final LoggedTunableNumber LowGoalTunable = new LoggedTunableNumber("Wrist/Position/LowGoal", 2);
+    private static final LoggedTunableNumber L4Tunable = new LoggedTunableNumber("Wrist/Position/L4", 3);
+
+    @Getter
+    private WristGoal currentGoal = WristGoal.IDLE;
 
     public enum WristGoal {
-        IDLE(() -> 0);
+        IDLE(() -> 0),
+        L1(L1Tunable),
+        LowGoal(LowGoalTunable),
+        L4(L4Tunable);
 
         private DoubleSupplier wristAngle;
 
-        private WristGoal(java.util.function.DoubleSupplier wristAngle) {
+        private WristGoal(DoubleSupplier wristAngle) {
             this.wristAngle = wristAngle;
         }
 
@@ -56,16 +66,21 @@ public class Wrist extends SubsystemBase {
     }
 
     // Put methods for controlling this subsystem using io interface methods
-    public void resetPosition() {}
+    public void resetPosition(double angle) {
+        io.resetPosition(angle);
+    }
 
-    public void stop() {}
+    public void stop() {
+        io.stop();
+    }
 
-    public void runVolts() {}
+    public void runVolts(double volts) {
+        io.runVolts(volts);
+    }
 
-    public void runPosition() {}
-
-    // set the desiredLevel variable of the wrist
-    public void setDesiredLevel(ElevatorGoal goal) {}
+    public void runPosition(double goal) {
+        io.runPosition(goal);
+    }
 
     /**
      * Returns true if this subsystem is within a margin of error of the current
@@ -73,6 +88,6 @@ public class Wrist extends SubsystemBase {
      */
     @AutoLogOutput
     public boolean atGoal() {
-        return false;
+        return EqualsUtil.epsilonEquals(inputs.position, currentGoal.wristAngle.getAsDouble(), kAngleTolerance);
     }
 }
