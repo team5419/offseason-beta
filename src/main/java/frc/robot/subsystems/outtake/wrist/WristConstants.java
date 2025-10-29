@@ -12,6 +12,8 @@ public class WristConstants {
 
     public static final boolean SupplyCurrentLimitEnabled = true;
 
+    public static final double kSupplyCurrentLimit = 60;
+
     public static final Gains kGains = new Gains(0, 0, 0, 0, 0, 0, 0);
 
     public static final MotionConfigs kMotionConfigs = new MotionConfigs(0, 0, 0);
