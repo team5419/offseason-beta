@@ -8,6 +8,8 @@ public class IntakePivotConstants {
 
     public static final double kGearRatio = 14;
 
+    public static final double kZeroPos = 0;
+
     public static final Gains kGains =
             switch (GlobalConstants.getRobotType()) {
                 case BETA -> new Gains(175, 0, 0, 0.15, 2.5, 0, 0.08);

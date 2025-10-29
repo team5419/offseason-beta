@@ -1,0 +1,5 @@
+- put value in resetPosition in the subsystem constants file (zeroPos or something) (:p)
+- change goal/360 to units.degrees to rotations (:p)
+- change goal to goalDegrees so we know what units (:p)
+- make duty cycle out into a class variable and voltage out (:p)
+- make neutral out a class variable (:p)

@@ -8,12 +8,12 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.NeutralOut;
+import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.units.measure.*;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Current;
@@ -38,7 +38,8 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
     private TalonFXConfiguration config = new TalonFXConfiguration();
 
     private MotionMagicVoltage reqMotionMagic = new MotionMagicVoltage(0);
-
+    private VoltageOut voltageOut = new VoltageOut(0);
+    private NeutralOut neutralOut = new NeutralOut();
     public IntakePivotIOTalonFX() {
         pivotMotor = new TalonFX(Ports.kIntakePivotID);
 
@@ -68,10 +69,8 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
         config.Slot0.kG = kGains.kG();
         config.Slot0.kV = kGains.kV();
 
-        config.MotionMagic.MotionMagicCruiseVelocity =
-                edu.wpi.first.math.util.Units.degreesToRotations(kMotionConfigs.kCruiseVel());
-        config.MotionMagic.MotionMagicAcceleration =
-                edu.wpi.first.math.util.Units.degreesToRotations(kMotionConfigs.kAcceleration());
+        config.MotionMagic.MotionMagicCruiseVelocity = Units.degreesToRotations(kMotionConfigs.kCruiseVel());
+        config.MotionMagic.MotionMagicAcceleration = Units.degreesToRotations(kMotionConfigs.kAcceleration());
         config.MotionMagic.MotionMagicJerk = edu.wpi.first.math.util.Units.degreesToRotations(kMotionConfigs.kJerk());
 
         BaseStatusSignal.setUpdateFrequencyForAll(
@@ -112,29 +111,29 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
     }
 
     @Override
-    public void runPosition(double goal) {
-        System.out.println("Intake Pivot Goal: " + goal);
+    public void runPosition(double goalDegrees) {
+        System.out.println("Intake Pivot Goal: " + goalDegrees);
         System.out.println("Intake Pivot p: " + config.Slot0.kP);
 
         // pivotMotor.setControl(reqMotionMagic
         //         .withPosition(edu.wpi.first.math.util.Units.degreesToRotations(goal))
         //         .withSlot(0));
-        pivotMotor.setControl(reqMotionMagic.withPosition(goal / 360));
+        pivotMotor.setControl(reqMotionMagic.withPosition(Units.degreesToRotations(goalDegrees)));
     }
 
     @Override
     public void resetPosition(double pos) {
-        pivotMotor.setPosition(edu.wpi.first.math.util.Units.degreesToRotations(pos));
-    }
+        pivotMotor.setPosition(Units.degreesToRotations(kZeroPos));
+    }   
 
     @Override
     public void runVolts(double volts) {
-        pivotMotor.setControl(new DutyCycleOut(volts));
+        pivotMotor.setControl(voltageOut);
     }
 
     @Override
     public void stop() {
-        pivotMotor.setControl(new NeutralOut());
+        pivotMotor.setControl(neutralOut);
     }
 
     @Override
