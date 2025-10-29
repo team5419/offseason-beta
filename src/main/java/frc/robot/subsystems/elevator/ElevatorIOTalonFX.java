@@ -3,6 +3,7 @@ package frc.robot.subsystems.elevator;
 import static frc.robot.subsystems.elevator.ElevatorConstants.kGains;
 import static frc.robot.subsystems.elevator.ElevatorConstants.kGearRatio;
 import static frc.robot.subsystems.elevator.ElevatorConstants.kMotionMagicConfigs;
+import static frc.robot.subsystems.elevator.ElevatorConstants.kSupplyCurrentLimit;
 
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
@@ -62,7 +63,7 @@ public class ElevatorIOTalonFX implements ElevatorIO {
         config.MotionMagic.MotionMagicAcceleration = kMotionMagicConfigs.accel();
         config.MotionMagic.MotionMagicJerk = kMotionMagicConfigs.jerk();
 
-        config.CurrentLimits.SupplyCurrentLimit = 20;
+        config.CurrentLimits.SupplyCurrentLimit = kSupplyCurrentLimit;
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
 
         leaderMotor.getConfigurator().apply(config);

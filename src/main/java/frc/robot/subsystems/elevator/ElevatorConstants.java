@@ -25,6 +25,8 @@ public class ElevatorConstants {
 
     public static final ElevatorHeights kElevatorHeights = new ElevatorHeights(0, 1.6, 3.4, 6.73);
 
+    public static final double kSupplyCurrentLimit = 20.0;
+
     public record MotionMagicConfigs(double vel, double accel, double jerk) {}
 
     public record ElevatorHeights(double stow, double l2, double l3, double l4) {}
