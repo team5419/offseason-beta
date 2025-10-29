@@ -12,14 +12,14 @@ import frc.robot.subsystems.outtake.endeffector.EndEffector.EndEffectorRollerGoa
 import frc.robot.subsystems.outtake.wrist.Wrist;
 import frc.robot.subsystems.outtake.wrist.Wrist.WristGoal;
 
-public class intakeToEndEffector extends Command {
+public class HandoffCoral extends Command {
     private final IntakeRoller roller;
     private final EndEffector endEffector;
     private final Wrist wrist;
     private final IntakePivot pivot;
     private final Beambreak beamBreak;
 
-    public intakeToEndEffector(RobotContainer robot) {
+    public HandoffCoral(RobotContainer robot) {
         roller = robot.getIntakeRoller(); // fix later
         endEffector = robot.getEndEffector();
         beamBreak = robot.getBeamBreak();
