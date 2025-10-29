@@ -13,10 +13,8 @@ import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.ctre.phoenix6.signals.StaticFeedforwardSignValue;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Current;
@@ -151,7 +149,7 @@ public class ElevatorIOTalonFX implements ElevatorIO {
         inputs.referenceError = motorReferenceError.stream()
                 .mapToDouble(StatusSignal::getValueAsDouble)
                 .toArray();
-        
+
         inputs.appliedVolts = motorAppliedVoltage.stream()
                 .mapToDouble(StatusSignal::getValueAsDouble)
                 .toArray();
