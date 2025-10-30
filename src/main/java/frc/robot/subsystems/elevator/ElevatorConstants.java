@@ -1,5 +1,6 @@
 package frc.robot.subsystems.elevator;
 
+import edu.wpi.first.math.util.Units;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.lib.Gains;
 
@@ -16,6 +17,8 @@ public class ElevatorConstants {
                     // TODO: tune
                 default -> 5.0;
             };
+
+    public static final double sprocketPitchRadius = Units.inchesToMeters(2.607);
 
     public static final MotionMagicConfigs kMotionMagicConfigs =
             switch (GlobalConstants.getRobotType()) {

@@ -9,8 +9,8 @@ import org.littletonrobotics.junction.mechanism.*;
 
 public class SimVisualizer {
 
-    private static final double MECHANISM_WIDTH = Units.feetToMeters(5);
-    private static final double MECHANISM_HEIGHT = Units.feetToMeters(5);
+    private static final double MECHANISM_WIDTH = Units.feetToMeters(4);
+    private static final double MECHANISM_HEIGHT = Units.feetToMeters(10);
     private static final Color8Bit MECHANISM_COLOR = new Color8Bit(Color.kBlack);
 
     private static final double ORIGIN_X = 0.1;
@@ -19,10 +19,9 @@ public class SimVisualizer {
     private static final double intakePivotOffsetX = Units.inchesToMeters(23.283);
     private static final double intakePivotOffsetY = Units.inchesToMeters(11.589);
 
-    // Real geometry
-    private static final double wristToGround = Units.inchesToMeters(43.332);
     private static final double elevatorToGround = Units.inchesToMeters(5.36);
-    private static final double mechanismOffset = Units.inchesToMeters(21.71);
+    private static final double startingElevatorHeight = 0.9; // meters
+    private static final double mechanismOffset = Units.inchesToMeters(1);
 
     private final LoggedMechanism2d mechanism2d;
 
@@ -49,15 +48,15 @@ public class SimVisualizer {
 
         // Elevator
         elevatorMeasured = elevatorRoot.append(new LoggedMechanismLigament2d(
-                "Elevator Measured", Units.inchesToMeters(0.0), 90, 6.0, new Color8Bit(Color.kFirstBlue)));
+                "Elevator Measured", startingElevatorHeight, 90, 6.0, new Color8Bit(Color.kFirstBlue)));
 
         // Wrist attached to top of elevator
         wristMeasured = elevatorMeasured.append(new LoggedMechanismLigament2d(
-                "Wrist Measured", Units.inchesToMeters(10.0), 0.0, 8.0, new Color8Bit(Color.kFirstRed)));
+                "Wrist Measured", Units.inchesToMeters(12.63), 0.0, 8.0, new Color8Bit(Color.kFirstRed)));
 
         // Intake pivot from its own offset root
         intakeMeasured = intakeRoot.append(new LoggedMechanismLigament2d(
-                "Intake Measured", Units.inchesToMeters(12.0), 0.0, 8.0, new Color8Bit(Color.kYellow)));
+                "Intake Measured", Units.inchesToMeters(20.0), 0.0, 8.0, new Color8Bit(Color.kYellow)));
     }
 
     public void update() {
@@ -65,7 +64,7 @@ public class SimVisualizer {
         double elevatorTravel = robot.getElevator().inputs.position[0];
         double elevatorHeight = elevatorToGround + elevatorTravel;
 
-        elevatorMeasured.setLength(Math.max(0.05, elevatorHeight));
+        elevatorMeasured.setLength(startingElevatorHeight + elevatorHeight);
 
         wristMeasured.setAngle(robot.getWrist().inputs.position);
         intakeMeasured.setAngle(robot.getIntakePivot().inputs.position);

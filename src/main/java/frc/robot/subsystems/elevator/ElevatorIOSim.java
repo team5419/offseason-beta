@@ -22,7 +22,7 @@ public class ElevatorIOSim implements ElevatorIO {
 
     public ElevatorIOSim() {
         controller = new PIDController(kGains.kP(), kGains.kI(), kGains.kD());
-        eSim = new ElevatorSim(DCMotor.getKrakenX60(2), 10, 10, .1, 0, 7, false, 0);
+        eSim = new ElevatorSim(DCMotor.getKrakenX60(2), 5, 10, sprocketPitchRadius, 0, 1, false, 0);
     }
 
     @Override
