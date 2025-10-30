@@ -11,7 +11,7 @@ import org.littletonrobotics.junction.Logger;
 public class Elevator extends SubsystemBase {
 
     private ElevatorIO io;
-    private ElevatorIOInputsAutoLogged inputs = new ElevatorIOInputsAutoLogged();
+    public ElevatorIOInputsAutoLogged inputs = new ElevatorIOInputsAutoLogged();
 
     private static final LoggedTunableNumber kP = new LoggedTunableNumber("Elevator/Gains/kP", kGains.kP());
     private static final LoggedTunableNumber kI = new LoggedTunableNumber("Elevator/Gains/kI", kGains.kI());
@@ -59,6 +59,10 @@ public class Elevator extends SubsystemBase {
                 kG,
                 kV,
                 kA);
+    }
+
+    public void runPosition(double meters) {
+        io.runPosition(meters, 0.0);
     }
 
     public void setDesiredLevel(ElevatorGoal goal) {}

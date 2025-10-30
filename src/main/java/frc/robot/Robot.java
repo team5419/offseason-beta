@@ -31,6 +31,7 @@ import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 public class Robot extends LoggedRobot {
 
     private RobotContainer robotContainer;
+    private SimVisualizer simVisualizer;
 
     private Command autonomousCommand;
     public PowerDistribution PDH;
@@ -64,6 +65,7 @@ public class Robot extends LoggedRobot {
         canErrorTimer.start();
 
         robotContainer = new RobotContainer();
+        simVisualizer = new SimVisualizer(robotContainer);
 
         Leds.getInstance();
         RobotState.getInstance();
@@ -126,6 +128,8 @@ public class Robot extends LoggedRobot {
         Logger.recordOutput("Auto/Auto Is Finished", RobotState.getInstance().isAutoFinished());
 
         Threads.setCurrentThreadPriority(true, 10);
+
+        simVisualizer.update();
     }
 
     @Override

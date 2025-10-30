@@ -7,7 +7,7 @@ public class ElevatorConstants {
 
     public static final Gains kGains =
             switch (GlobalConstants.getRobotType()) {
-                    // TODO: tune
+                case SIMBOT -> new Gains(50, 0.0, 2.0, 0.33329, 0.00083, 0.0, 0);
                 default -> new Gains(0.05, 0.0, 0.0, 0.01, 0.00103, 0.0, 0);
             };
 

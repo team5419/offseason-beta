@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.RobotBase;
  */
 public class GlobalConstants {
 
-    private static RobotType kRobotType = RobotType.BETA;
+    private static RobotType kRobotType = RobotType.SIMBOT;
     private static Alert invalidRobotAlert =
             new Alert("Invalid robot selected, using alpha bot as default.", AlertType.kError);
 

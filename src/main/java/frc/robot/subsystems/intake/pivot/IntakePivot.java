@@ -12,7 +12,7 @@ import org.littletonrobotics.junction.Logger;
 public class IntakePivot extends SubsystemBase {
 
     private IntakePivotIO io;
-    private IntakePivotIOInputsAutoLogged inputs = new IntakePivotIOInputsAutoLogged();
+    public IntakePivotIOInputsAutoLogged inputs = new IntakePivotIOInputsAutoLogged();
 
     private static final LoggedTunableNumber kP = new LoggedTunableNumber("Intake Pivot/Gains/kP", kGains.kP());
     private static final LoggedTunableNumber kI = new LoggedTunableNumber("Intake Pivot/Gains/kI", kGains.kI());
@@ -55,5 +55,9 @@ public class IntakePivot extends SubsystemBase {
     @AutoLogOutput(key = "Intake Pivot/At Goal")
     public boolean atGoal() {
         return false;
+    }
+
+    public void runPosition(double angle) {
+        io.runPosition(angle);
     }
 }
