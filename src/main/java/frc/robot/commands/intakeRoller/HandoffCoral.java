@@ -1,7 +1,7 @@
 package frc.robot.commands.intakeRoller;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.beambreak.Beambreak;
 import frc.robot.subsystems.intake.pivot.IntakePivot;
@@ -19,7 +19,7 @@ public class HandoffCoral extends Command {
     private final Wrist wrist;
     private final IntakePivot pivot;
     private final Beambreak beamBreak;
-    private final Timer timer; 
+    private final Timer timer;
     private final Double timeOutTime = 10.0;
 
     public HandoffCoral(RobotContainer robot) {
@@ -45,7 +45,7 @@ public class HandoffCoral extends Command {
     }
 
     public boolean isFinished() {
-        return beamBreak.gamepieceInEndEffector() || timer.hasElapsed(timeOutTime); //in case of mechanical failure
+        return beamBreak.gamepieceInEndEffector() || timer.hasElapsed(timeOutTime); // in case of mechanical failure
     }
 
     public void end(boolean isFinished) {
