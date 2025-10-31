@@ -67,7 +67,7 @@ public class Elevator extends SubsystemBase {
                 kG,
                 kV,
                 kA);
-        
+
         Logger.recordOutput("Current Goal", currentGoal.toString());
     }
 
