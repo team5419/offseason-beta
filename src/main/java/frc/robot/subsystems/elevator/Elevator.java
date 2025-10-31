@@ -66,6 +66,8 @@ public class Elevator extends SubsystemBase {
                 kG,
                 kV,
                 kA);
+        
+        Logger.recordOutput("Current Goal", currentGoal.toString());
     }
 
     public void setDesiredLevel(ElevatorGoal goal) {}
@@ -76,7 +78,8 @@ public class Elevator extends SubsystemBase {
     }
 
     public void runPosition(ElevatorGoal goal) {
-        io.runPosition(goal.getEleHeight().getAsDouble());
+        currentGoal = goal;
+        io.runPosition(currentGoal.getEleHeight().getAsDouble());
     }
 
     public void runVolts(double volts) {
