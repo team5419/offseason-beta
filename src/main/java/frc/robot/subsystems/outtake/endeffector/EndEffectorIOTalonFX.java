@@ -50,25 +50,22 @@ public class EndEffectorIOTalonFX implements EndEffectorIO {
         motorTempCelsius = List.of(leaderMotor.getDeviceTemp(), followerMotor.getDeviceTemp());
         motorAppliedVoltage = List.of(leaderMotor.getMotorVoltage(), followerMotor.getMotorVoltage());
 
-        talonConfig.Slot0.kA = 0.0;
-        talonConfig.Slot0.kG = 0.0;
+        talonConfig.Slot0.kA = kGains.kA();
+        talonConfig.Slot0.kG = kGains.kG();
 
-        talonConfig.Slot0.kS = 0.0;
-        talonConfig.Slot0.kV = 0.0;
+        talonConfig.Slot0.kS = kGains.kS();
+        talonConfig.Slot0.kV = kGains.kV();
 
-        talonConfig.Slot0.kP = 0.11; // This gets us closer to the target velocity
-        talonConfig.Slot0.kI = 0; // 99% of the time, this will be 0
-        talonConfig.Slot0.kD = 0.02; // Smooths out the velocity grap
+        talonConfig.Slot0.kP = kGains.kP(); // This gets us closer to the target velocity
+        talonConfig.Slot0.kI = kGains.kI(); // 99% of the time, this will be 0
+        talonConfig.Slot0.kD = kGains.kD(); // Smooths out the velocity grap
 
         talonConfig.CurrentLimits.SupplyCurrentLimit = kSupplyCurrentLimit;
         talonConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
 
         leaderMotor.getConfigurator().apply(talonConfig);
         followerMotor.getConfigurator().apply(talonConfig);
-    }
 
-    @Override
-    public void updateInputs(EndEffectorIOInputs inputs) {
         BaseStatusSignal.setUpdateFrequencyForAll(
                 GlobalConstants.kLooperHZ,
                 motorPosition.get(0),
@@ -82,6 +79,17 @@ public class EndEffectorIOTalonFX implements EndEffectorIO {
                 motorTempCelsius.get(0),
                 motorTempCelsius.get(1),
                 leaderMotor.getDutyCycle());
+    }
+
+    @Override
+    public void updateInputs(EndEffectorIOInputs inputs) {
+        inputs.leaderMotorConnected = BaseStatusSignal.refreshAll(
+        motorPosition.get(0), motorPosition.get(1),
+        motorVelocity.get(0), motorVelocity.get(1),
+        motorAppliedVoltage.get(0), motorAppliedVoltage.get(1),
+        motorSupplyCurrent.get(0), motorSupplyCurrent.get(1),
+        motorTempCelsius.get(0), motorTempCelsius.get(1)).isOK();
+
     }
     // call .setControl on the motor controller with the appropriate control mode and value.
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/VoltageOut.html

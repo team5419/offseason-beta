@@ -5,7 +5,8 @@ import org.littletonrobotics.junction.AutoLog;
 public interface EndEffectorIO {
     @AutoLog
     class EndEffectorIOInputs {
-        public boolean[] motorConnected = {true, true};
+        public boolean leaderMotorConnected = true;
+        public boolean followerMotorConnected = true;
         public double[] position = {0.0, 0.0};
         public double[] appliedVolts = {0.0, 0.0};
         public double[] velocity = {0.0, 0.0};
