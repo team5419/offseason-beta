@@ -22,7 +22,7 @@ public class ScoreCoralL1 extends SequentialCommandGroup {
         intakePivot = robot.getIntakePivot();
 
         addCommands(
-                new InstantCommand(() -> intakePivot.setGoal(IntakePivotGoal.TO_SCOREL1)),
+                new InstantCommand(() -> intakePivot.runPosition(IntakePivotGoal.TO_SCOREL1)),
                 new WaitCommand(0.7),
                 new InstantCommand(() -> roller.setGoal(IntakeRollerGoal.OUTTAKECORRAL)),
                 new WaitUntilCommand(() -> !beamBreak.coralInIntake()),

@@ -32,8 +32,8 @@ public class HandoffCoral extends Command {
     }
 
     public void initialize() {
-        pivot.setGoal(IntakePivotGoal.TO_INTAKE_HANDOFF);
-        wrist.setGoal(WristGoal.HANDOFF);
+        pivot.runPosition(IntakePivotGoal.TO_INTAKE_HANDOFF);
+        wrist.runPosition(WristGoal.HANDOFF);
         timer.start();
     }
 

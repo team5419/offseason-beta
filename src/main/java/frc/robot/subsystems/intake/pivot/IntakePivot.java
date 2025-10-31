@@ -4,8 +4,10 @@ import static frc.robot.subsystems.elevator.ElevatorConstants.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LoggedTunableNumber;
+import frc.robot.lib.util.EqualsUtil;
 import java.util.function.DoubleSupplier;
 import lombok.Getter;
+import lombok.Setter;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
@@ -22,11 +24,9 @@ public class IntakePivot extends SubsystemBase {
     private static final LoggedTunableNumber kA = new LoggedTunableNumber("Intake Pivot/Gains/kA", kGains.kA());
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("Intake Pivot/Gains/kG", kGains.kG());
 
-    private IntakePivotGoal currentGoal;
-
     public enum IntakePivotGoal {
         IDLE(() -> 0), // TODO: set idle angle
-        TO_INTAKE(() -> 0), // TODO: Set intake angle
+        TO_INTAKE(() -> 17), // TODO: Set intake angle
         TO_SCOREL1(() -> 0), // TODO: set scoring angle
         TO_INTAKE_HANDOFF(() -> 0); // TODO: set handoff angle
 
@@ -38,18 +38,20 @@ public class IntakePivot extends SubsystemBase {
         }
     }
 
+    @Getter
+    @Setter
+    private IntakePivotGoal currentGoal = IntakePivotGoal.IDLE;
+
     public IntakePivot(IntakePivotIO io) {
         this.io = io;
-    }
-
-    public void setGoal(IntakePivotGoal goal) {
-        currentGoal = goal;
     }
 
     @Override
     public void periodic() {
         io.updateInputs(inputs);
         Logger.processInputs("Intake Pivot", inputs);
+        Logger.recordOutput("Intake Pivot/Goal", currentGoal);
+
         LoggedTunableNumber.ifChanged(hashCode(), () -> io.setPID(kP.get(), kI.get(), kD.get()), kP, kI, kD);
         LoggedTunableNumber.ifChanged(
                 hashCode(),
@@ -58,11 +60,22 @@ public class IntakePivot extends SubsystemBase {
                 kG,
                 kV,
                 kA);
+        // TODO LINE ABOVE CHANGES PID VALUE EVERY CYCLE ON ALPHA, CHECK IF IT DOES ON BETA+
+
     }
 
-    /** Returns true if this subsystem is within a margin of error of the current goal */
     @AutoLogOutput(key = "Intake Pivot/At Goal")
     public boolean atGoal() {
-        return false;
+        return EqualsUtil.epsilonEquals(
+                inputs.position, currentGoal.getPivotAngle().getAsDouble());
+    }
+
+    public void runVolts(double volts) {
+        io.runVolts(volts);
+    }
+
+    public void runPosition(IntakePivotGoal goal) {
+        currentGoal = goal;
+        io.runPosition(goal.getPivotAngle().getAsDouble());
     }
 }

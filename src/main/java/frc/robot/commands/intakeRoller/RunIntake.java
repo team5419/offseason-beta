@@ -21,7 +21,7 @@ public class RunIntake extends Command {
 
     public void initialize() {
         roller.setGoal(IntakeRollerGoal.INTAKE);
-        pivot.setGoal(IntakePivotGoal.TO_INTAKE);
+        pivot.runPosition(IntakePivotGoal.TO_INTAKE);
     }
 
     public void execute() {}
@@ -32,6 +32,6 @@ public class RunIntake extends Command {
 
     public void end(boolean isFinished) {
         roller.setGoal(IntakeRollerGoal.IDLE);
-        pivot.setGoal(IntakePivotGoal.IDLE);
+        pivot.runPosition(IntakePivotGoal.IDLE);
     }
 }
