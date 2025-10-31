@@ -222,6 +222,14 @@ public class RobotContainer {
     private void configNamedCommands() {
         NamedCommands.registerCommand(
                 "Record Time", new InstantCommand(() -> RobotState.getInstance().setAutoFinished(true)));
+        NamedCommands.registerCommand(
+                "Intake Coral", new InstantCommand());
+        NamedCommands.registerCommand(
+                "Align For Handoff", new InstantCommand());
+        NamedCommands.registerCommand(
+                "Handoff Coral", new InstantCommand());
+        NamedCommands.registerCommand(
+                "Score Coral", new InstantCommand());
     }
 
     public Command getAutonomousCommand() {
