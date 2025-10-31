@@ -91,6 +91,9 @@ public class RobotContainer {
         SmartDashboard.putData("Auto Chooser", autoChooser);
 
         configureDefaultCommands();
+
+        configureDevBindings();
+
         if (GlobalConstants.kDevMode) {
             configureDevBindings();
         } else {
@@ -159,6 +162,7 @@ public class RobotContainer {
     private void configureDevBindings() {}
 
     private void buildRobot() {
+
         Elevator tempElevator = null;
         IntakePivot tempIntakePivot = null;
         IntakeRoller tempIntakeRoller = null;

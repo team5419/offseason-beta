@@ -35,7 +35,7 @@ public class Ports {
     public static final int kEleLeaderID = 19; // TODO: GET PORTS
     public static final int kEleFollowerID = 18; // TODO: GET PORTS
 
-    public static final int kIntakePivotID = 0; // TODO: GET PORTS
+    public static final int kIntakePivotID = 27; // TODO: GET PORTS
 
     public static final int kIntakeRollerLeaderID = 0; // TODO: GET PORTS
     public static final int kIntakeRollerFollowerID = 0; // TODO: GET PORTS
