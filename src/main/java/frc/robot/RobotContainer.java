@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.swerve.DriveCommands;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
@@ -119,10 +120,11 @@ public class RobotContainer {
                         .alongWith(new InstantCommand(() -> elevator.runPosition(1.0)))
                         .alongWith(new InstantCommand(() -> intakePivot.runPosition(0)))); // ! Unbound
 
-        driver.povUp(); // ! Unbound
-        driver.povDown(); // ! Unbound
-        driver.povLeft(); // ! Unbound
-        driver.povRight(); // ! Unbound
+        // driver.a().onTrue(elevator.sysIdDynamic(Direction.kForward)); // ! Unbound
+        // driver.b().onTrue(elevator.sysIdDynamic(Direction.kReverse));
+        // ; // ! Unbound
+        // driver.x().onTrue(elevator.sysIdQuasistatic(Direction.kForward)); // ! Unbound
+        // driver.y().onTrue(elevator.sysIdQuasistatic(Direction.kReverse)); // ! Unbound
 
         driver.leftBumper(); // ! Unbound
         driver.rightBumper(); // ! Unbound

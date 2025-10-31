@@ -13,11 +13,16 @@ public class SimVisualizer {
     private static final double MECHANISM_HEIGHT = Units.feetToMeters(10);
     private static final Color8Bit MECHANISM_COLOR = new Color8Bit(Color.kBlack);
 
-    private static final double ORIGIN_X = 0.1;
-    private static final double ORIGIN_Y = 0.1;
+    // X: Centered on the chassis base (assuming a 30" wide chassis for the visualization)
+    // Y: 1.0 grid square up from the very bottom of the drawing (bottom of grey base)
+    // Scale: 1 square ≈ 2.3943 inches
+    private static final double ORIGIN_X = Units.inchesToMeters(12);
+    private static final double ORIGIN_Y = Units.inchesToMeters(2.394);
 
-    private static final double intakePivotOffsetX = Units.inchesToMeters(23.283);
-    private static final double intakePivotOffsetY = Units.inchesToMeters(11.589);
+    // **UPDATED** based on white dot at 9.5 horizontal squares (22.746 in)
+    private static final double intakePivotOffsetX = Units.inchesToMeters(22.746);
+    // **UPDATED** based on white dot at 4.0 vertical squares (9.577 in)
+    private static final double intakePivotOffsetY = Units.inchesToMeters(9.577);
 
     private static final double elevatorToGround = Units.inchesToMeters(5.36);
     private static final double startingElevatorHeight = 0.9; // meters

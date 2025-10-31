@@ -2,7 +2,11 @@ package frc.robot.subsystems.elevator;
 
 import static frc.robot.subsystems.elevator.ElevatorConstants.*;
 
+import edu.wpi.first.units.Units;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.lib.LoggedTunableNumber;
 import java.util.function.DoubleSupplier;
 import lombok.Getter;
@@ -69,5 +73,29 @@ public class Elevator extends SubsystemBase {
 
     public boolean atGoal() {
         return false;
+    }
+
+    private final SysIdRoutine sysIdRoutine = new SysIdRoutine(
+            new SysIdRoutine.Config(
+                    Units.Volts.per(Units.Seconds).of(0.5), // ramp rate: 0.5 V/s (gentle)
+                    Units.Volts.of(2.0), // step voltage: 2V
+                    Units.Seconds.of(10.0), // timeout
+                    (state) -> Logger.recordOutput("Elevator/SysIdState", state.toString())),
+            new SysIdRoutine.Mechanism(
+                    (voltage) -> io.runVolts(voltage.in(Units.Volts)), // Apply voltage
+                    (log) -> {
+                        log.motor("elevator")
+                                .voltage(Units.Volts.of(inputs.appliedVolts[0]))
+                                .linearPosition(Units.Meter.of(inputs.position[0]))
+                                .linearVelocity(Units.MetersPerSecond.of(inputs.velocityRotationsPerSecond[0]));
+                    },
+                    this));
+
+    public Command sysIdQuasistatic(Direction direction) {
+        return sysIdRoutine.quasistatic(direction);
+    }
+
+    public Command sysIdDynamic(Direction direction) {
+        return sysIdRoutine.dynamic(direction);
     }
 }
