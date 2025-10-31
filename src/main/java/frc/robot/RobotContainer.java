@@ -21,20 +21,23 @@ import frc.robot.subsystems.apriltagvision.AprilTagVision;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.elevator.ElevatorIO;
 import frc.robot.subsystems.elevator.ElevatorIOSim;
+import frc.robot.subsystems.elevator.ElevatorIOTalonFX;
 import frc.robot.subsystems.intake.pivot.IntakePivot;
-import frc.robot.subsystems.intake.pivot.IntakePivot.IntakePivotGoal;
 import frc.robot.subsystems.intake.pivot.IntakePivotIO;
 import frc.robot.subsystems.intake.pivot.IntakePivotIOSim;
 import frc.robot.subsystems.intake.pivot.IntakePivotIOTalonFX;
 import frc.robot.subsystems.intake.roller.IntakeRoller;
 import frc.robot.subsystems.intake.roller.IntakeRollerIO;
 import frc.robot.subsystems.intake.roller.IntakeRollerIOSim;
+import frc.robot.subsystems.intake.roller.IntakeRollerIOTalonFX;
 import frc.robot.subsystems.outtake.endeffector.EndEffector;
 import frc.robot.subsystems.outtake.endeffector.EndEffectorIO;
 import frc.robot.subsystems.outtake.endeffector.EndEffectorIOSim;
+import frc.robot.subsystems.outtake.endeffector.EndEffectorIOTalonFX;
 import frc.robot.subsystems.outtake.wrist.Wrist;
 import frc.robot.subsystems.outtake.wrist.WristIO;
 import frc.robot.subsystems.outtake.wrist.WristIOSim;
+import frc.robot.subsystems.outtake.wrist.WristIOTalonFX;
 import frc.robot.subsystems.swerve.Swerve;
 import frc.robot.subsystems.swerve.SwerveConstants;
 import frc.robot.subsystems.swerve.gyro.GyroIO;
@@ -92,7 +95,7 @@ public class RobotContainer {
         configureDevBindings();
 
         if (GlobalConstants.kDevMode) {
-            // TODO: MOVE HERE
+            configureDevBindings();
         } else {
             configureDriverBindings();
             configureOperatorBindings();
@@ -126,9 +129,9 @@ public class RobotContainer {
 
         driver.leftBumper(); // ! Unbound
         driver.rightBumper(); // ! Unbound
-        // Intake
-        driver.leftTrigger(0.1);
-        driver.rightTrigger(0.1);
+
+        driver.leftTrigger(0.1); // ! Unbound
+        driver.rightTrigger(0.1); // ! Unbound
     }
 
     private void configureOperatorBindings() {
@@ -156,11 +159,7 @@ public class RobotContainer {
      * Use this function to test new features without
      * changing the current button bindings
      */
-    private void configureDevBindings() {
-        driver.leftBumper().onTrue(new InstantCommand(() -> intakePivot.setCurrentGoal(IntakePivotGoal.IDLE)));
-        driver.a().whileTrue(new InstantCommand(() -> intakePivot.runPosition(30)));
-        driver.b().whileTrue(new InstantCommand(() -> intakePivot.runPosition(60)));
-    }
+    private void configureDevBindings() {}
 
     private void buildRobot() {
 
@@ -174,11 +173,11 @@ public class RobotContainer {
         if (GlobalConstants.getMode() == GlobalConstants.Mode.REPLAY) return;
         switch (GlobalConstants.getRobotType()) {
             case BETA -> {
-                // tempElevator = new Elevator(new ElevatorIOTalonFX());
+                tempElevator = new Elevator(new ElevatorIOTalonFX());
                 tempIntakePivot = new IntakePivot(new IntakePivotIOTalonFX());
-                // //tempIntakeRoller = new IntakeRoller(new IntakeRollerIOTalonFX());
-                // tempWrist = new Wrist(new WristIOTalonFX());
-                // tempEndEffector = new EndEffector(new EndEffectorIOTalonFX());
+                tempIntakeRoller = new IntakeRoller(new IntakeRollerIOTalonFX());
+                tempWrist = new Wrist(new WristIOTalonFX());
+                tempEndEffector = new EndEffector(new EndEffectorIOTalonFX());
                 tempSwerve = new Swerve(
                         new GyroIOPigeon2(),
                         new ModuleIOTalonFX(SwerveConstants.TunerConstants.getFrontLeft()),

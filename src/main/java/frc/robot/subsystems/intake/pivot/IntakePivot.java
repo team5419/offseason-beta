@@ -4,6 +4,7 @@ import static frc.robot.subsystems.elevator.ElevatorConstants.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LoggedTunableNumber;
+import frc.robot.lib.util.EqualsUtil;
 import java.util.function.DoubleSupplier;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,33 +50,32 @@ public class IntakePivot extends SubsystemBase {
     public void periodic() {
         io.updateInputs(inputs);
         Logger.processInputs("Intake Pivot", inputs);
-
-        // LoggedTunableNumber.ifChanged(hashCode(), () -> io.setPID(kP.get(), kI.get(), kD.get()), kP, kI, kD);
-        // LoggedTunableNumber.ifChanged(
-        //         hashCode(),
-        //         () -> io.setFF(kS.getAsDouble(), kG.getAsDouble(), kV.getAsDouble(), kA.getAsDouble()),
-        //         kS,
-        //         kG,
-        //         kV,
-        //         kA);
-
-        // io.runPosition(30);
-        // io.runPosition(currentGoal.getPivotAngle().getAsDouble());
         Logger.recordOutput("Intake Pivot/Goal", currentGoal);
+
+        LoggedTunableNumber.ifChanged(hashCode(), () -> io.setPID(kP.get(), kI.get(), kD.get()), kP, kI, kD);
+        LoggedTunableNumber.ifChanged(
+                hashCode(),
+                () -> io.setFF(kS.getAsDouble(), kG.getAsDouble(), kV.getAsDouble(), kA.getAsDouble()),
+                kS,
+                kG,
+                kV,
+                kA);
+        // TODO LINE ABOVE CHANGES PID VALUE EVERY CYCLE ON ALPHA, CHECK IF IT DOES ON BETA+
+
     }
 
-    /** Returns true if this subsystem is within a margin of error of the current goal */
     @AutoLogOutput(key = "Intake Pivot/At Goal")
     public boolean atGoal() {
-        return false;
-        // TODO: FIX ASAP
+        return EqualsUtil.epsilonEquals(
+                inputs.position, currentGoal.getPivotAngle().getAsDouble());
     }
 
     public void runVolts(double volts) {
-        // io.runVolts(volts);
+        io.runVolts(volts);
     }
 
-    public void runPosition(double pos) {
-        io.runPosition(pos);
+    public void runPosition(IntakePivotGoal goal) {
+        currentGoal = goal;
+        io.runPosition(goal.getPivotAngle().getAsDouble());
     }
 }
