@@ -22,19 +22,33 @@ public class IntakeRoller extends SubsystemBase {
     private static final LoggedTunableNumber kA = new LoggedTunableNumber("Intake Roller/Gains/kA", kGains.kA());
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("Intake Roller/Gains/kG", kGains.kG());
 
-    public enum IntakePivotGoal {
-        IDLE(() -> 0); // Should be the current angle
+    private static final LoggedTunableNumber intake = new LoggedTunableNumber("Roller/Intake", -80.0);
+    private static final LoggedTunableNumber outtakeEndEffector =
+            new LoggedTunableNumber("Roller/OuttakeEndEffector", 20.0);
+    private static final LoggedTunableNumber outtakeCorral = new LoggedTunableNumber("Roller/OuttakeRoller", 10.0);
+
+    public enum IntakeRollerGoal {
+        IDLE(() -> 0), // Should be the current angle
+        INTAKE(intake),
+        OUTTAKEENDEFFECTOR(outtakeEndEffector),
+        OUTTAKECORRAL(outtakeCorral);
 
         @Getter
         private DoubleSupplier rollerVel;
 
-        private IntakePivotGoal(DoubleSupplier rollerVel) {
+        private IntakeRollerGoal(DoubleSupplier rollerVel) {
             this.rollerVel = rollerVel;
         }
     }
 
+    IntakeRollerGoal currentGoal = IntakeRollerGoal.IDLE;
+
     public IntakeRoller(IntakeRollerIO io) {
         this.io = io;
+    }
+
+    public void setGoal(IntakeRollerGoal goal) {
+        currentGoal = goal;
     }
 
     @Override
@@ -49,6 +63,12 @@ public class IntakeRoller extends SubsystemBase {
                 kG,
                 kV,
                 kA);
+        io.runVelocity(currentGoal.getRollerVel().getAsDouble());
+        if (currentGoal == IntakeRollerGoal.IDLE) {
+            io.stop();
+        } else {
+            io.runVelocity(currentGoal.getRollerVel().getAsDouble());
+        }
     }
 
     /**
