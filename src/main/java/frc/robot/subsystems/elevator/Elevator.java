@@ -35,7 +35,7 @@ public class Elevator extends SubsystemBase {
     private ElevatorGoal currentGoal = ElevatorGoal.STOW;
 
     public enum ElevatorGoal {
-        IDLE(() -> 0), // Should be the current height
+        IDLE(() -> 0),
         STOW(stow),
         L1(stow),
         L2(l2),

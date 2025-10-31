@@ -167,8 +167,6 @@ public class ElevatorIOTalonFX implements ElevatorIO {
                 .toArray();
     }
 
-    // call .setControl on the motor controller with the appropriate control mode and value.
-    // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/MotionMagicDutyCycle.html
     @Override
     public void runPosition(double eleHeight) {
         leaderMotor.setControl(motionMagicVoltage.withPosition(eleHeight));
