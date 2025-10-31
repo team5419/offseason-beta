@@ -180,15 +180,11 @@ public class ElevatorIOTalonFX implements ElevatorIO {
         followerMotor.setPosition(pos);
     }
 
-    // call .setControl on the motor controller with the appropriate control mode and value.
-    // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/VoltageOut.html
     @Override
     public void runVolts(double volts) {
         leaderMotor.setControl(reqVoltageOut.withOutput(volts));
     }
 
-    // call .setControl on the motor controller with the appropriate control mode and value.
-    // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/configs/MotorOutputConfigs.html#NeutralMode
     @Override
     public void stop() {
         leaderMotor.setControl(neutralOut);
