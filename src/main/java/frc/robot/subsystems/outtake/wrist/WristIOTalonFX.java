@@ -119,24 +119,7 @@ public class WristIOTalonFX implements WristIO {
         inputs.tempCelcius = motor.getDeviceTemp().getValueAsDouble();
         inputs.motorConnected = motor.isConnected();
     }
-    public void updateInputs(WristIOInputs inputs) {
-        inputs.motorConnected = BaseStatusSignal.refreshAll(
-                        motorPosition,
-                        motorVelocity,
-                        motorAppliedVoltage,
-                        motorSupplyCurrent,
-                        motorTorqueCurrent,
-                        motorTempCelsius,
-                        referencePose,
-                        referenceVelocity)
-                .isOK();
-        inputs.position = motorPosition.getValueAsDouble();
-        inputs.velocity = motor.getVelocity().getValueAsDouble();
-        inputs.appliedVolts = motor.getMotorVoltage().getValueAsDouble();
-        inputs.supplyCurrentAmps = motor.getSupplyCurrent().getValueAsDouble();
-        inputs.tempCelcius = motor.getDeviceTemp().getValueAsDouble();
-        inputs.motorConnected = motor.isConnected();
-    }
+    
 
     // call .setControl on the motor controller with the appropriate control mode
     // and value.
@@ -175,9 +158,7 @@ public class WristIOTalonFX implements WristIO {
     public void setBrakeMode(boolean enabled) {
         motor.setNeutralMode(enabled ? NeutralModeValue.Brake : NeutralModeValue.Coast);
     }
-    public void setBrakeMode(boolean enabled) {
-        motor.setNeutralMode(enabled ? NeutralModeValue.Brake : NeutralModeValue.Coast);
-    }
+    
 
     @Override
     public void setPID(double P, double I, double D) {
@@ -187,24 +168,8 @@ public class WristIOTalonFX implements WristIO {
 
         motor.getConfigurator().apply(config);
     }
-    public void setPID(double P, double I, double D) {
-        config.Slot0.kP = P;
-        config.Slot0.kI = I;
-        config.Slot0.kD = D;
-
-        motor.getConfigurator().apply(config);
-    }
-
+   
     @Override
-    public void setFF(double kA, double kG, double kS, double kV) {
-
-        config.Slot0.kG = kG;
-        config.Slot0.kS = kS;
-        config.Slot0.kV = kV;
-        config.Slot0.kA = kA;
-
-        motor.getConfigurator().apply(config);
-    }
     public void setFF(double kA, double kG, double kS, double kV) {
 
         config.Slot0.kG = kG;
@@ -219,7 +184,5 @@ public class WristIOTalonFX implements WristIO {
     public void stop() {
         motor.setControl(neutralOut);
     }
-    public void stop() {
-        motor.setControl(neutralOut);
-    }
+    
 }
