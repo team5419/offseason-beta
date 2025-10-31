@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.swerve.DriveCommands;
-import frc.robot.commands.wrist.WristToPosition;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
 import frc.robot.lib.RumbleThread;
@@ -22,25 +21,30 @@ import frc.robot.subsystems.apriltagvision.AprilTagVision;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.elevator.ElevatorIO;
 import frc.robot.subsystems.elevator.ElevatorIOSim;
+import frc.robot.subsystems.elevator.ElevatorIOTalonFX;
 import frc.robot.subsystems.intake.pivot.IntakePivot;
 import frc.robot.subsystems.intake.pivot.IntakePivotIO;
 import frc.robot.subsystems.intake.pivot.IntakePivotIOSim;
+import frc.robot.subsystems.intake.pivot.IntakePivotIOTalonFX;
 import frc.robot.subsystems.intake.roller.IntakeRoller;
 import frc.robot.subsystems.intake.roller.IntakeRollerIO;
 import frc.robot.subsystems.intake.roller.IntakeRollerIOSim;
+import frc.robot.subsystems.intake.roller.IntakeRollerIOTalonFX;
 import frc.robot.subsystems.outtake.endeffector.EndEffector;
 import frc.robot.subsystems.outtake.endeffector.EndEffectorIO;
 import frc.robot.subsystems.outtake.endeffector.EndEffectorIOSim;
+import frc.robot.subsystems.outtake.endeffector.EndEffectorIOTalonFX;
 import frc.robot.subsystems.outtake.wrist.Wrist;
-import frc.robot.subsystems.outtake.wrist.Wrist.WristGoal;
 import frc.robot.subsystems.outtake.wrist.WristIO;
 import frc.robot.subsystems.outtake.wrist.WristIOSim;
 import frc.robot.subsystems.outtake.wrist.WristIOTalonFX;
 import frc.robot.subsystems.swerve.Swerve;
 import frc.robot.subsystems.swerve.SwerveConstants;
 import frc.robot.subsystems.swerve.gyro.GyroIO;
+import frc.robot.subsystems.swerve.gyro.GyroIOPigeon2;
 import frc.robot.subsystems.swerve.module.ModuleIO;
 import frc.robot.subsystems.swerve.module.ModuleIOSim;
+import frc.robot.subsystems.swerve.module.ModuleIOTalonFX;
 import java.io.File;
 import lombok.Getter;
 
@@ -70,7 +74,7 @@ public class RobotContainer {
     @Getter
     private EndEffector endEffector;
 
-    @Getter
+    // @Getter
     private Swerve swerve;
 
     @Getter
@@ -87,6 +91,9 @@ public class RobotContainer {
         SmartDashboard.putData("Auto Chooser", autoChooser);
 
         configureDefaultCommands();
+
+        configureDevBindings();
+
         if (GlobalConstants.kDevMode) {
             configureDevBindings();
         } else {
@@ -110,8 +117,8 @@ public class RobotContainer {
         driver.start(); // ! Unbound
         driver.back(); // ! Unbound
 
-        driver.a().onTrue(new WristToPosition(this, () -> WristGoal.ALGAE)); // ! Unbound
-        driver.b().onTrue(new WristToPosition(this, () -> WristGoal.L2)); // ! Unbound
+        driver.a(); // ! Unbound
+        driver.b(); // ! Unbound
         driver.x(); // ! Unbound
         driver.y(); // ! Unbound
 
@@ -155,6 +162,7 @@ public class RobotContainer {
     private void configureDevBindings() {}
 
     private void buildRobot() {
+
         Elevator tempElevator = null;
         IntakePivot tempIntakePivot = null;
         IntakeRoller tempIntakeRoller = null;
@@ -165,17 +173,17 @@ public class RobotContainer {
         if (GlobalConstants.getMode() == GlobalConstants.Mode.REPLAY) return;
         switch (GlobalConstants.getRobotType()) {
             case BETA -> {
-                // tempElevator = new Elevator(new ElevatorIOTalonFX());
-                // tempIntakePivot = new IntakePivot(new IntakePivotIOTalonFX());
-                // tempIntakeRoller = new IntakeRoller(new IntakeRollerIOTalonFX());
+                tempElevator = new Elevator(new ElevatorIOTalonFX());
+                tempIntakePivot = new IntakePivot(new IntakePivotIOTalonFX());
+                tempIntakeRoller = new IntakeRoller(new IntakeRollerIOTalonFX());
                 tempWrist = new Wrist(new WristIOTalonFX());
-                // tempEndEffector = new EndEffector(new EndEffectorIOTalonFX());
-                // tempSwerve = new Swerve(
-                //         new GyroIOPigeon2(),
-                //         new ModuleIOTalonFX(SwerveConstants.TunerConstants.getFrontLeft()),
-                //         new ModuleIOTalonFX(SwerveConstants.TunerConstants.getFrontRight()),
-                //         new ModuleIOTalonFX(SwerveConstants.TunerConstants.getBackLeft()),
-                //         new ModuleIOTalonFX(SwerveConstants.TunerConstants.getBackRight()));
+                tempEndEffector = new EndEffector(new EndEffectorIOTalonFX());
+                tempSwerve = new Swerve(
+                        new GyroIOPigeon2(),
+                        new ModuleIOTalonFX(SwerveConstants.TunerConstants.getFrontLeft()),
+                        new ModuleIOTalonFX(SwerveConstants.TunerConstants.getFrontRight()),
+                        new ModuleIOTalonFX(SwerveConstants.TunerConstants.getBackLeft()),
+                        new ModuleIOTalonFX(SwerveConstants.TunerConstants.getBackRight()));
             }
 
             case SIMBOT -> {
@@ -202,7 +210,7 @@ public class RobotContainer {
         if (tempWrist == null) tempWrist = new Wrist(new WristIO() {});
         if (tempEndEffector == null) tempEndEffector = new EndEffector(new EndEffectorIO() {});
 
-        swerve = tempSwerve;
+        // swerve = tempSwerve;
         elevator = tempElevator;
         intakePivot = tempIntakePivot;
         intakeRoller = tempIntakeRoller;

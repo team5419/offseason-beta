@@ -6,6 +6,10 @@ public class WristConstants {
 
     public static final double kAngleTolerance = 0;
 
+    public static final double kTopDegree = 90;
+
+    public static final double kBottomDegree = 0;
+
     public static final double kGearRatio = 14;
 
     public static final double kSupplyCurrentLimit = 60;
