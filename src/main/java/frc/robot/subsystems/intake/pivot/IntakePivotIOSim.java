@@ -12,6 +12,7 @@ public class IntakePivotIOSim implements IntakePivotIO {
     private final SingleJointedArmSim pivotSim;
 
     private PIDController controller;
+    private double appliedVolts = 0.0;
 
     public IntakePivotIOSim() {
         pivotSim = new SingleJointedArmSim(
@@ -34,6 +35,7 @@ public class IntakePivotIOSim implements IntakePivotIO {
         inputs.position = Units.radiansToDegrees(pivotSim.getAngleRads());
         inputs.velocity = Units.radiansToDegrees(pivotSim.getVelocityRadPerSec());
         inputs.supplyCurrentAmps = pivotSim.getCurrentDrawAmps();
+        inputs.appliedVolts = appliedVolts;
     }
 
     @Override
@@ -41,11 +43,13 @@ public class IntakePivotIOSim implements IntakePivotIO {
 
     @Override
     public void runPosition(double degrees) {
-        pivotSim.setInputVoltage(controller.calculate(pivotSim.getAngleRads(), Units.degreesToRadians(degrees)));
+        appliedVolts = controller.calculate(pivotSim.getAngleRads(), Units.degreesToRadians(degrees));
+        pivotSim.setInputVoltage(appliedVolts);
     }
 
     @Override
     public void runVolts(double volts) {
+        appliedVolts = volts;
         pivotSim.setInputVoltage(volts);
     }
 
@@ -56,6 +60,7 @@ public class IntakePivotIOSim implements IntakePivotIO {
 
     @Override
     public void stop() {
+        appliedVolts = 0.0;
         pivotSim.setInputVoltage(0);
     }
 

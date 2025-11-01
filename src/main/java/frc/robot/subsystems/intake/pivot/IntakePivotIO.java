@@ -3,12 +3,13 @@ package frc.robot.subsystems.intake.pivot;
 import org.littletonrobotics.junction.AutoLog;
 
 public interface IntakePivotIO {
+
     @AutoLog
     class IntakePivotIOInputs {
         public boolean motorConnected = true;
-        public double position = 0.0; // degrees
+        public double position = 0.0;
         public double appliedVolts = 0.0;
-        public double velocity = 0.0; // degrees per second
+        public double velocity = 0.0;
         public double tempCelcius = 0.0;
         public double supplyCurrentAmps = 0.0;
         public double referencePose = 0.0;
@@ -17,7 +18,6 @@ public interface IntakePivotIO {
 
     default void updateInputs(IntakePivotIOInputs inputs) {}
 
-    /** runs the pivot to a specific position goal */
     default void runPosition(double goal) {}
 
     default void runVolts(double volts) {}

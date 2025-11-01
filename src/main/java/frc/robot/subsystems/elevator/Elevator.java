@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.lib.LoggedTunableNumber;
 import java.util.function.DoubleSupplier;
 import lombok.Getter;
+import lombok.Setter;
+import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class Elevator extends SubsystemBase {
@@ -27,14 +29,20 @@ public class Elevator extends SubsystemBase {
 
     private static final LoggedTunableNumber stow =
             new LoggedTunableNumber("Elevator/Stow Height", kElevatorHeights.stow());
+    private static final LoggedTunableNumber l1 = new LoggedTunableNumber("Elevator/L1", kElevatorHeights.l1());
     private static final LoggedTunableNumber l2 = new LoggedTunableNumber("Elevator/L2", kElevatorHeights.l2());
     private static final LoggedTunableNumber l3 = new LoggedTunableNumber("Elevator/L3", kElevatorHeights.l3());
     private static final LoggedTunableNumber l4 = new LoggedTunableNumber("Elevator/L4", kElevatorHeights.l4());
 
+    @Getter
+    @Setter
+    @AutoLogOutput(key = "Elevator/Current Goal")
+    private ElevatorGoal currentGoal = ElevatorGoal.STOW;
+
     public enum ElevatorGoal {
-        IDLE(() -> 0), // Should be the current height
+        IDLE(() -> 0),
         STOW(stow),
-        L1(stow),
+        L1(l1),
         L2(l2),
         L3(l3),
         L4(l4);
@@ -63,14 +71,13 @@ public class Elevator extends SubsystemBase {
                 kG,
                 kV,
                 kA);
-    }
 
-    public void runPosition(double meters) {
-        io.runPosition(meters, 0.0);
+        Logger.recordOutput("Current Goal", currentGoal.toString());
     }
 
     public void setDesiredLevel(ElevatorGoal goal) {}
 
+    @AutoLogOutput(key = "Elevator/At Goal")
     public boolean atGoal() {
         return false;
     }
@@ -97,5 +104,18 @@ public class Elevator extends SubsystemBase {
 
     public Command sysIdDynamic(Direction direction) {
         return sysIdRoutine.dynamic(direction);
+    }
+
+    public void runPosition(ElevatorGoal goal) {
+        currentGoal = goal;
+        io.runPosition(currentGoal.getEleHeight().getAsDouble());
+    }
+
+    public void runPosition(double meters) {
+        io.runPosition(meters);
+    }
+
+    public void runVolts(double volts) {
+        io.runVolts(volts);
     }
 }

@@ -48,11 +48,11 @@ public class ElevatorIOSim implements ElevatorIO {
     }
 
     @Override
-    public void runPosition(double setpointMeters, double feedforward) {
+    public void runPosition(double setpointMeters) {
         if (DriverStation.isDisabled()) {
             return;
         }
-        runVolts(controller.calculate(eSim.getPositionMeters(), Units.feetToMeters(setpointMeters)) + feedforward);
+        runVolts(controller.calculate(eSim.getPositionMeters(), Units.feetToMeters(setpointMeters)));
     }
 
     @Override

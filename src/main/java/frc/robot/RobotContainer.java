@@ -72,7 +72,7 @@ public class RobotContainer {
     @Getter
     private EndEffector endEffector;
 
-    @Getter
+    // @Getter
     private Swerve swerve;
 
     @Getter
@@ -89,6 +89,9 @@ public class RobotContainer {
         SmartDashboard.putData("Auto Chooser", autoChooser);
 
         configureDefaultCommands();
+
+        configureDevBindings();
+
         if (GlobalConstants.kDevMode) {
             configureDevBindings();
         } else {
@@ -161,6 +164,7 @@ public class RobotContainer {
     private void configureDevBindings() {}
 
     private void buildRobot() {
+
         Elevator tempElevator = null;
         IntakePivot tempIntakePivot = null;
         IntakeRoller tempIntakeRoller = null;
@@ -208,7 +212,7 @@ public class RobotContainer {
         if (tempWrist == null) tempWrist = new Wrist(new WristIO() {});
         if (tempEndEffector == null) tempEndEffector = new EndEffector(new EndEffectorIO() {});
 
-        swerve = tempSwerve;
+        // swerve = tempSwerve;
         elevator = tempElevator;
         intakePivot = tempIntakePivot;
         intakeRoller = tempIntakeRoller;
