@@ -12,7 +12,7 @@ import org.littletonrobotics.junction.Logger;
 public class Wrist extends SubsystemBase {
 
     private WristIO io;
-    private WristIOInputsAutoLogged inputs = new WristIOInputsAutoLogged();
+    public WristIOInputsAutoLogged inputs = new WristIOInputsAutoLogged();
 
     private static final LoggedTunableNumber kP = new LoggedTunableNumber("Wrist/Gains/kP", kGains.kP());
     private static final LoggedTunableNumber kI = new LoggedTunableNumber("Wrist/Gains/kI", kGains.kI());
@@ -62,7 +62,9 @@ public class Wrist extends SubsystemBase {
 
     public void runVolts() {}
 
-    public void runPosition() {}
+    public void runPosition(double goalDegs) {
+        io.runPosition(goalDegs);
+    }
 
     // set the desiredLevel variable of the wrist
     public void setDesiredLevel(ElevatorGoal goal) {}

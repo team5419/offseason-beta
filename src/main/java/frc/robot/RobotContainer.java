@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.elevator.ElevateToPosition;
 import frc.robot.commands.swerve.DriveCommands;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
@@ -74,7 +75,7 @@ public class RobotContainer {
     @Getter
     private EndEffector endEffector;
 
-    // @Getter
+    @Getter
     private Swerve swerve;
 
     @Getter
@@ -121,11 +122,6 @@ public class RobotContainer {
         driver.b(); // ! Unbound
         driver.x(); // ! Unbound
         driver.y(); // ! Unbound
-
-        driver.povUp(); // ! Unbound
-        driver.povDown(); // ! Unbound
-        driver.povLeft(); // ! Unbound
-        driver.povRight(); // ! Unbound
 
         driver.leftBumper(); // ! Unbound
         driver.rightBumper(); // ! Unbound
@@ -210,7 +206,7 @@ public class RobotContainer {
         if (tempWrist == null) tempWrist = new Wrist(new WristIO() {});
         if (tempEndEffector == null) tempEndEffector = new EndEffector(new EndEffectorIO() {});
 
-        // swerve = tempSwerve;
+        swerve = tempSwerve;
         elevator = tempElevator;
         intakePivot = tempIntakePivot;
         intakeRoller = tempIntakeRoller;
@@ -222,6 +218,7 @@ public class RobotContainer {
     private void configNamedCommands() {
         NamedCommands.registerCommand(
                 "Record Time", new InstantCommand(() -> RobotState.getInstance().setAutoFinished(true)));
+        NamedCommands.registerCommand("Elevate To L4", new ElevateToPosition(elevator, () -> Elevator.ElevatorGoal.L4));
     }
 
     public Command getAutonomousCommand() {

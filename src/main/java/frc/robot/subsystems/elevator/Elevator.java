@@ -2,7 +2,11 @@ package frc.robot.subsystems.elevator;
 
 import static frc.robot.subsystems.elevator.ElevatorConstants.*;
 
+import edu.wpi.first.units.Units;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.lib.LoggedTunableNumber;
 import java.util.function.DoubleSupplier;
 import lombok.Getter;
@@ -13,7 +17,7 @@ import org.littletonrobotics.junction.Logger;
 public class Elevator extends SubsystemBase {
 
     private ElevatorIO io;
-    private ElevatorIOInputsAutoLogged inputs = new ElevatorIOInputsAutoLogged();
+    public ElevatorIOInputsAutoLogged inputs = new ElevatorIOInputsAutoLogged();
 
     private static final LoggedTunableNumber kP = new LoggedTunableNumber("Elevator/Gains/kP", kGains.kP());
     private static final LoggedTunableNumber kI = new LoggedTunableNumber("Elevator/Gains/kI", kGains.kI());
@@ -69,6 +73,7 @@ public class Elevator extends SubsystemBase {
                 kA);
 
         Logger.recordOutput("Current Goal", currentGoal.toString());
+        io.runPosition(currentGoal.getEleHeight().getAsDouble());
     }
 
     public void setDesiredLevel(ElevatorGoal goal) {}
@@ -78,9 +83,37 @@ public class Elevator extends SubsystemBase {
         return false;
     }
 
+    private final SysIdRoutine sysIdRoutine = new SysIdRoutine(
+            new SysIdRoutine.Config(
+                    Units.Volts.per(Units.Seconds).of(0.5), // ramp rate: 0.5 V/s (gentle)
+                    Units.Volts.of(2.0), // step voltage: 2V
+                    Units.Seconds.of(10.0), // timeout
+                    (state) -> Logger.recordOutput("Elevator/SysIdState", state.toString())),
+            new SysIdRoutine.Mechanism(
+                    (voltage) -> io.runVolts(voltage.in(Units.Volts)), // Apply voltage
+                    (log) -> {
+                        log.motor("elevator")
+                                .voltage(Units.Volts.of(inputs.appliedVolts[0]))
+                                .linearPosition(Units.Meter.of(inputs.position[0]))
+                                .linearVelocity(Units.MetersPerSecond.of(inputs.velocityRotationsPerSecond[0]));
+                    },
+                    this));
+
+    public Command sysIdQuasistatic(Direction direction) {
+        return sysIdRoutine.quasistatic(direction);
+    }
+
+    public Command sysIdDynamic(Direction direction) {
+        return sysIdRoutine.dynamic(direction);
+    }
+
     public void runPosition(ElevatorGoal goal) {
         currentGoal = goal;
-        io.runPosition(currentGoal.getEleHeight().getAsDouble());
+        // io.runPosition(currentGoal.getEleHeight().getAsDouble());
+    }
+
+    public void runPosition(double meters) {
+        io.runPosition(meters);
     }
 
     public void runVolts(double volts) {
