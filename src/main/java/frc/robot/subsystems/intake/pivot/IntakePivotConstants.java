@@ -10,7 +10,6 @@ public class IntakePivotConstants {
                 default -> 14;
             };
 
-
     public static final double kTopPosition =
             switch (GlobalConstants.getRobotType()) {
                 case BETA -> 0;

@@ -4,14 +4,16 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
+import frc.robot.commands.elevator.ElevateToPosition;
 import frc.robot.commands.swerve.DriveCommands;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
@@ -44,6 +46,7 @@ import frc.robot.subsystems.swerve.gyro.GyroIOPigeon2;
 import frc.robot.subsystems.swerve.module.ModuleIO;
 import frc.robot.subsystems.swerve.module.ModuleIOSim;
 import frc.robot.subsystems.swerve.module.ModuleIOTalonFX;
+import java.io.File;
 import lombok.Getter;
 
 public class RobotContainer {
@@ -72,7 +75,7 @@ public class RobotContainer {
     @Getter
     private EndEffector endEffector;
 
-    // @Getter
+    @Getter
     private Swerve swerve;
 
     @Getter
@@ -115,19 +118,10 @@ public class RobotContainer {
         driver.start(); // ! Unbound
         driver.back(); // ! Unbound
 
-        driver.a().onTrue(new InstantCommand(() -> wrist.runPosition(45))); // ! Unbound
-        driver.b().onTrue(new InstantCommand(() -> elevator.runPosition(1.0))); // ! Unbound
-        driver.x().onTrue(new InstantCommand(() -> intakePivot.runPosition(45))); // ! Unbound
-        driver.y()
-                .onTrue(new InstantCommand(() -> wrist.runPosition(0))
-                        .alongWith(new InstantCommand(() -> elevator.runPosition(1.0)))
-                        .alongWith(new InstantCommand(() -> intakePivot.runPosition(0)))); // ! Unbound
-
-        // driver.a().onTrue(elevator.sysIdDynamic(Direction.kForward)); // ! Unbound
-        // driver.b().onTrue(elevator.sysIdDynamic(Direction.kReverse));
-        // ; // ! Unbound
-        // driver.x().onTrue(elevator.sysIdQuasistatic(Direction.kForward)); // ! Unbound
-        // driver.y().onTrue(elevator.sysIdQuasistatic(Direction.kReverse)); // ! Unbound
+        driver.a(); // ! Unbound
+        driver.b(); // ! Unbound
+        driver.x(); // ! Unbound
+        driver.y(); // ! Unbound
 
         driver.leftBumper(); // ! Unbound
         driver.rightBumper(); // ! Unbound
@@ -212,7 +206,7 @@ public class RobotContainer {
         if (tempWrist == null) tempWrist = new Wrist(new WristIO() {});
         if (tempEndEffector == null) tempEndEffector = new EndEffector(new EndEffectorIO() {});
 
-        // swerve = tempSwerve;
+        swerve = tempSwerve;
         elevator = tempElevator;
         intakePivot = tempIntakePivot;
         intakeRoller = tempIntakeRoller;
@@ -224,6 +218,7 @@ public class RobotContainer {
     private void configNamedCommands() {
         NamedCommands.registerCommand(
                 "Record Time", new InstantCommand(() -> RobotState.getInstance().setAutoFinished(true)));
+        NamedCommands.registerCommand("Elevate To L4", new ElevateToPosition(elevator, () -> Elevator.ElevatorGoal.L4));
     }
 
     public Command getAutonomousCommand() {
@@ -233,16 +228,15 @@ public class RobotContainer {
     public SendableChooser<Command> buildAutoChooser() {
         SendableChooser<Command> chooser = new SendableChooser<>();
         chooser.setDefaultOption("Do nothing", new InstantCommand());
-        // File autosDir = new File(Filesystem.getDeployDirectory(), "pathplanner/autos");
-        // for (File f : autosDir.listFiles()) {
-        //     if (!f.isDirectory()) {
-        //         String fileName[] = f.getName().split("\\.");
-        //         String autoName = fileName[0];
-        //         chooser.addOption(
-        //                 autoName, AutoBuilder.buildAuto(autoName).beforeStarting(() ->
-        // System.out.println(autoName)));
-        //     }
-        // }
+        File autosDir = new File(Filesystem.getDeployDirectory(), "pathplanner/autos");
+        for (File f : autosDir.listFiles()) {
+            if (!f.isDirectory()) {
+                String fileName[] = f.getName().split("\\.");
+                String autoName = fileName[0];
+                chooser.addOption(
+                        autoName, AutoBuilder.buildAuto(autoName).beforeStarting(() -> System.out.println(autoName)));
+            }
+        }
         return chooser;
     }
 }

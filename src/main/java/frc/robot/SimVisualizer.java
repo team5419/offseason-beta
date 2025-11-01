@@ -1,6 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
@@ -9,23 +8,18 @@ import org.littletonrobotics.junction.mechanism.*;
 
 public class SimVisualizer {
 
-    private static final double MECHANISM_WIDTH = Units.feetToMeters(4);
+    private static final double MECHANISM_WIDTH = Units.feetToMeters(6);
     private static final double MECHANISM_HEIGHT = Units.feetToMeters(10);
     private static final Color8Bit MECHANISM_COLOR = new Color8Bit(Color.kBlack);
 
-    // X: Centered on the chassis base (assuming a 30" wide chassis for the visualization)
-    // Y: 1.0 grid square up from the very bottom of the drawing (bottom of grey base)
-    // Scale: 1 square ≈ 2.3943 inches
     private static final double ORIGIN_X = Units.inchesToMeters(12);
     private static final double ORIGIN_Y = Units.inchesToMeters(2.394);
 
-    // **UPDATED** based on white dot at 9.5 horizontal squares (22.746 in)
     private static final double intakePivotOffsetX = Units.inchesToMeters(22.746);
-    // **UPDATED** based on white dot at 4.0 vertical squares (9.577 in)
     private static final double intakePivotOffsetY = Units.inchesToMeters(9.577);
 
     private static final double elevatorToGround = Units.inchesToMeters(5.36);
-    private static final double startingElevatorHeight = 0.9; // meters
+    private static final double startingElevatorHeight = 0.9;
     private static final double mechanismOffset = Units.inchesToMeters(1);
 
     private final LoggedMechanism2d mechanism2d;
@@ -46,26 +40,21 @@ public class SimVisualizer {
 
         mechanism2d = new LoggedMechanism2d(MECHANISM_WIDTH, MECHANISM_HEIGHT, MECHANISM_COLOR);
 
-        // Elevator base is the mechanism offset above ground
         elevatorRoot = mechanism2d.getRoot("Elevator Root", ORIGIN_X, ORIGIN_Y + mechanismOffset);
 
         intakeRoot = mechanism2d.getRoot("Intake Root", ORIGIN_X + intakePivotOffsetX, ORIGIN_Y + intakePivotOffsetY);
 
-        // Elevator
         elevatorMeasured = elevatorRoot.append(new LoggedMechanismLigament2d(
                 "Elevator Measured", startingElevatorHeight, 90, 6.0, new Color8Bit(Color.kFirstBlue)));
 
-        // Wrist attached to top of elevator
         wristMeasured = elevatorMeasured.append(new LoggedMechanismLigament2d(
                 "Wrist Measured", Units.inchesToMeters(12.63), 0.0, 8.0, new Color8Bit(Color.kFirstRed)));
 
-        // Intake pivot from its own offset root
         intakeMeasured = intakeRoot.append(new LoggedMechanismLigament2d(
                 "Intake Measured", Units.inchesToMeters(20.0), 0.0, 8.0, new Color8Bit(Color.kYellow)));
     }
 
     public void update() {
-        // Elevator must always be above ground
         double elevatorTravel = robot.getElevator().inputs.position[0];
         double elevatorHeight = elevatorToGround + elevatorTravel;
 

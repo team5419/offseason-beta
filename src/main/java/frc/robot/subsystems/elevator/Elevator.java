@@ -73,6 +73,7 @@ public class Elevator extends SubsystemBase {
                 kA);
 
         Logger.recordOutput("Current Goal", currentGoal.toString());
+        io.runPosition(currentGoal.getEleHeight().getAsDouble());
     }
 
     public void setDesiredLevel(ElevatorGoal goal) {}
@@ -108,7 +109,7 @@ public class Elevator extends SubsystemBase {
 
     public void runPosition(ElevatorGoal goal) {
         currentGoal = goal;
-        io.runPosition(currentGoal.getEleHeight().getAsDouble());
+        // io.runPosition(currentGoal.getEleHeight().getAsDouble());
     }
 
     public void runPosition(double meters) {
