@@ -14,13 +14,15 @@ import frc.robot.subsystems.outtake.wrist.Wrist;
 import frc.robot.subsystems.outtake.wrist.Wrist.WristGoal;
 
 public class HandoffCoral extends Command {
+    
+    private static final double kTimeOutTime = 10.0;
     private final IntakeRoller roller;
     private final EndEffector endEffector;
     private final Wrist wrist;
     private final IntakePivot pivot;
     private final Beambreak beamBreak;
     private final Timer timer;
-    private final Double timeOutTime = 10.0;
+    
 
     public HandoffCoral(RobotContainer robot) {
         roller = robot.getIntakeRoller(); // fix later
@@ -48,7 +50,7 @@ public class HandoffCoral extends Command {
 
     public boolean isFinished() {
         return beamBreak.gamepieceInEndEffector()
-                || timer.hasElapsed(timeOutTime)
+                || timer.hasElapsed(kTimeOutTime)
                 || !beamBreak.coralInIntake(); // in case of mechanical failure
     }
 
