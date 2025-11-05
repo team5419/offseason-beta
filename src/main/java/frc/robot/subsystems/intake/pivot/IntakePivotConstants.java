@@ -6,7 +6,7 @@ public class IntakePivotConstants {
 
     public static final double kGearRatio =
             switch (GlobalConstants.getRobotType()) {
-                case BETA -> 14;
+                case BETA -> 80;
                 default -> 14;
             };
 
