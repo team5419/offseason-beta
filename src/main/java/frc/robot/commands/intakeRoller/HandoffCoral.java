@@ -1,5 +1,6 @@
 package frc.robot.commands.intakeRoller;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.beambreak.Beambreak;
@@ -12,37 +13,39 @@ import frc.robot.subsystems.outtake.endeffector.EndEffector.EndEffectorRollerGoa
 import frc.robot.subsystems.outtake.wrist.Wrist;
 import frc.robot.subsystems.outtake.wrist.Wrist.WristGoal;
 
-public class IntakeToEndEffector extends Command {
+public class HandoffCoral extends Command {
     private final IntakeRoller roller;
     private final EndEffector endEffector;
     private final Wrist wrist;
     private final IntakePivot pivot;
     private final Beambreak beamBreak;
+    private final Timer timer;
+    private final Double timeOutTime = 10.0;
 
-    public IntakeToEndEffector(RobotContainer robot) {
+    public HandoffCoral(RobotContainer robot) {
         roller = robot.getIntakeRoller(); // fix later
         endEffector = robot.getEndEffector();
         beamBreak = robot.getBeamBreak();
         pivot = robot.getIntakePivot();
         wrist = robot.getWrist();
-
-        addRequirements(roller,endEffector,beamBreak,pivot,wrist);
+        timer = new Timer();
     }
 
     public void initialize() {
-        pivot.setGoal(IntakePivotGoal.TO_INTAKE_HANDOFF);
-        wrist.setGoal(WristGoal.HANDOFF);
+        pivot.runPosition(IntakePivotGoal.TO_INTAKE_HANDOFF);
+        wrist.runPosition(WristGoal.HANDOFF);
+        timer.start();
+    }
 
+    public void execute() {
         if (pivot.atGoal() && wrist.atGoal()) {
             roller.setGoal(IntakeRollerGoal.OUTTAKEENDEFFECTOR);
             endEffector.setGoal(EndEffectorRollerGoal.INTAKE);
         }
     }
 
-    public void execute() {}
-
     public boolean isFinished() {
-        return beamBreak.gamepieceInEndEffector();
+        return beamBreak.gamepieceInEndEffector() || timer.hasElapsed(timeOutTime); // in case of mechanical failure
     }
 
     public void end(boolean isFinished) {
