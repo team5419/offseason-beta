@@ -30,7 +30,7 @@ public class HandoffCoral extends Command {
         wrist = robot.getWrist();
         timer = new Timer();
 
-        addRequirements(roller,endEffector,beamBreak,pivot,wrist);
+        addRequirements(roller,endEffector,pivot,wrist);
     }
 
     public void initialize() {

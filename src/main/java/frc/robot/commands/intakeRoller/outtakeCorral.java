@@ -14,7 +14,7 @@ public class OuttakeCorral extends Command {
         roller = robot.getIntakeRoller(); // fix later
         beamBreak = robot.getBeamBreak();
 
-        addRequirements(roller,beamBreak);
+        addRequirements(roller);
     }
 
     public void initialize() {
