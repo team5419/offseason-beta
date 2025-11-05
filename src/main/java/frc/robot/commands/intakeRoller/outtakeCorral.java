@@ -24,11 +24,7 @@ public class OuttakeCorral extends Command {
     public void execute() {}
 
     public boolean isFinished() {
-        if (beamBreak.coralInIntake() == false) {
-            return true;
-        } else {
-            return false;
-        }
+        return !beamBreak.coralInIntake();
     }
 
     public void end(boolean isFinished) {

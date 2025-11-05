@@ -36,7 +36,7 @@ public class HandoffCoral extends Command {
     public void initialize() {
         pivot.runPosition(IntakePivotGoal.TO_INTAKE_HANDOFF);
         wrist.runPosition(WristGoal.HANDOFF);
-        timer.start();
+        timer.restart();
     }
 
     public void execute() {
@@ -47,7 +47,7 @@ public class HandoffCoral extends Command {
     }
 
     public boolean isFinished() {
-        return beamBreak.gamepieceInEndEffector() || timer.hasElapsed(timeOutTime); // in case of mechanical failure
+        return beamBreak.gamepieceInEndEffector() || timer.hasElapsed(timeOutTime) || !beamBreak.coralInIntake(); // in case of mechanical failure
     }
 
     public void end(boolean isFinished) {
