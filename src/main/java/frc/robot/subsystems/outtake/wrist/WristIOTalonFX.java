@@ -92,17 +92,16 @@ public class WristIOTalonFX implements WristIO {
                         referencePose,
                         referenceVelocity)
                 .isOK();
-        inputs.position = Units.rotationsToDegrees(motor.getPosition().getValueAsDouble());
-        inputs.velocity = Units.rotationsToDegrees(motor.getVelocity().getValueAsDouble());
-        inputs.appliedVolts = motor.getMotorVoltage().getValueAsDouble();
-        inputs.supplyCurrentAmps = motor.getSupplyCurrent().getValueAsDouble();
-        inputs.tempCelcius = motor.getDeviceTemp().getValueAsDouble();
-        inputs.motorConnected = motor.isConnected();
+        inputs.position = Units.rotationsToDegrees(motorPosition.getValueAsDouble());
+        inputs.velocity = Units.rotationsToDegrees(motorVelocity.getValueAsDouble());
+        inputs.appliedVolts = motorAppliedVoltage.getValueAsDouble();
+        inputs.supplyCurrentAmps = motorSupplyCurrent.getValueAsDouble();
+        inputs.tempCelcius = motorTempCelsius.getValueAsDouble();
     }
 
     @Override
-    public void runPosition(double angle) {
-        motor.setControl(reqMotionMagic.withPosition(Units.degreesToRotations(angle)));
+    public void runPosition(double degrees) {
+        motor.setControl(reqMotionMagic.withPosition(Units.degreesToRotations(degrees)));
     }
 
     @Override
