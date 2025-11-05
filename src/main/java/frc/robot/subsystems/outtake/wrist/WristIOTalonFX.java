@@ -24,10 +24,8 @@ public class WristIOTalonFX implements WristIO {
 
     private TalonFX motor;
     private TalonFXConfiguration config;
-    private final NeutralOut neutralOut = new NeutralOut();
     private MotionMagicVoltage reqMotionMagic = new MotionMagicVoltage(0);
-    private final VoltageOut reqVoltage =
-            new VoltageOut(0.0).withEnableFOC(true).withUpdateFreqHz(0.0);
+    private final NeutralOut neutralOut = new NeutralOut();
 
     private final StatusSignal<Angle> motorPosition;
     private final StatusSignal<AngularVelocity> motorVelocity;
@@ -35,8 +33,6 @@ public class WristIOTalonFX implements WristIO {
     private final StatusSignal<Current> motorSupplyCurrent;
     private final StatusSignal<Current> motorTorqueCurrent;
     private final StatusSignal<Temperature> motorTempCelsius;
-    private final StatusSignal<Double> referenceVelocity;
-    private final StatusSignal<Double> referencePose;
 
     public WristIOTalonFX() {
         motor = new TalonFX(Ports.kWristID, GlobalConstants.kCANivoreName);
@@ -114,8 +110,7 @@ public class WristIOTalonFX implements WristIO {
 
     @Override
     public void runVolts(double volts) {
-
-        motor.setControl(reqVoltage.withOutput(volts));
+        motor.setVoltage(volts);
     }
 
     @Override
