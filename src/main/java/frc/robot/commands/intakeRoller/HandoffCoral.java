@@ -29,6 +29,8 @@ public class HandoffCoral extends Command {
         pivot = robot.getIntakePivot();
         wrist = robot.getWrist();
         timer = new Timer();
+
+        addRequirements(roller,endEffector,beamBreak,pivot,wrist);
     }
 
     public void initialize() {

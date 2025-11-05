@@ -13,6 +13,8 @@ public class ScoreL1 extends SequentialCommandGroup {
     public ScoreL1(RobotContainer robot) {
         intakePivot = robot.getIntakePivot();
 
+        addRequirements(intakePivot);
+
         addCommands(
                 new InstantCommand(() -> intakePivot.runPosition(IntakePivotGoal.TO_SCOREL1)),
                 new WaitCommand(0.7),
