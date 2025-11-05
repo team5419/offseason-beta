@@ -1,6 +1,7 @@
 package frc.robot.subsystems.outtake.endeffector;
 
 import static frc.robot.subsystems.elevator.ElevatorConstants.*;
+import static frc.robot.subsystems.outtake.endeffector.EndEffectorConstants.kVelocityTolerance;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LoggedTunableNumber;
@@ -8,6 +9,8 @@ import java.util.function.DoubleSupplier;
 import lombok.Getter;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
+
+import frc.robot.lib.util.EqualsUtil;
 
 public class EndEffector extends SubsystemBase {
 
@@ -33,6 +36,10 @@ public class EndEffector extends SubsystemBase {
             this.rollerVel = rollerVel;
         }
     }
+
+
+    @Getter
+    private EndEffectorRollerGoal currentGoal = EndEffectorRollerGoal.IDLE;
 
     public EndEffector(EndEffectorIO io) {
         this.io = io;
@@ -67,6 +74,6 @@ public class EndEffector extends SubsystemBase {
      */
     @AutoLogOutput(key = "End Effector Roller/At Goal")
     public boolean atGoal() {
-        return false;
+        return EqualsUtil.epsilonEquals(((inputs.velocity[0] + inputs.velocity[1]) / 2), currentGoal.getRollerVel().getAsDouble(), kVelocityTolerance);
     }
 }
