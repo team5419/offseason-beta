@@ -6,13 +6,15 @@ import frc.robot.subsystems.beambreak.Beambreak;
 import frc.robot.subsystems.intake.roller.IntakeRoller;
 import frc.robot.subsystems.intake.roller.IntakeRoller.IntakeRollerGoal;
 
-public class intakeCorral extends Command {
+public class IntakeCorral extends Command {
     private final IntakeRoller roller;
     private final Beambreak beamBreak;
 
-    public intakeCorral(RobotContainer robot) {
+    public IntakeCorral(RobotContainer robot) {
         roller = robot.getIntakeRoller(); // fix later
         beamBreak = robot.getBeamBreak();
+
+        addRequirements(roller,beamBreak);
     }
 
     public void initialize() {

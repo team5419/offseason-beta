@@ -9,15 +9,17 @@ import frc.robot.subsystems.intake.pivot.IntakePivot;
 import frc.robot.subsystems.intake.roller.IntakeRoller;
 import frc.robot.subsystems.intake.roller.IntakeRoller.IntakeRollerGoal;
 
-public class scoreCoralL1 extends SequentialCommandGroup {
+public class ScoreCoralL1 extends SequentialCommandGroup {
     private final IntakeRoller roller;
     private final Beambreak beamBreak;
     private final IntakePivot intakePivot;
 
-    public scoreCoralL1(RobotContainer robot) {
+    public ScoreCoralL1(RobotContainer robot) {
         roller = robot.getIntakeRoller(); // fix later
         beamBreak = robot.getBeamBreak();
         intakePivot = robot.getIntakePivot();
+
+        addRequirements(roller,beamBreak,intakePivot);
 
         addCommands(
                 // new InstantCommand(() -> intakePivot.setGoal(IntakePivotGoal.TO_SCOREL1()))
