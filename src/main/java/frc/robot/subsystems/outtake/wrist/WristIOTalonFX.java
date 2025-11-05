@@ -48,7 +48,7 @@ public class WristIOTalonFX implements WristIO {
 
         // This is making sure the status signals will get updated
         BaseStatusSignal.setUpdateFrequencyForAll(
-                GlobalConstants.kLooperHZ, // 50 hz
+                GlobalConstants.kLooperHZ,
                 motorPosition,
                 motorVelocity,
                 motorAppliedVoltage,
