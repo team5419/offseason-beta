@@ -1,8 +1,10 @@
-package frc.robot.commands.intakeRoller;
+package frc.robot.commands.compound;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.RobotContainer;
+import frc.robot.commands.intake.HandoffCoral;
+import frc.robot.commands.intake.RunIntake;
 import frc.robot.subsystems.beambreak.Beambreak;
 
 public class IntakeCoral extends SequentialCommandGroup {

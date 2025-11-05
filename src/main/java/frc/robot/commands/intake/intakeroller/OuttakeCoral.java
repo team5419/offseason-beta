@@ -1,38 +1,33 @@
-package frc.robot.commands.intakeRoller;
+package frc.robot.commands.intake.intakeroller;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.beambreak.Beambreak;
-import frc.robot.subsystems.intake.pivot.IntakePivot;
-import frc.robot.subsystems.intake.pivot.IntakePivot.IntakePivotGoal;
 import frc.robot.subsystems.intake.roller.IntakeRoller;
 import frc.robot.subsystems.intake.roller.IntakeRoller.IntakeRollerGoal;
 
-public class RunIntake extends Command {
+public class OuttakeCoral extends Command {
     private final IntakeRoller roller;
     private final Beambreak beamBreak;
-    private final IntakePivot pivot;
 
-    public RunIntake(RobotContainer robot) {
+    public OuttakeCoral(RobotContainer robot) {
         roller = robot.getIntakeRoller(); // fix later
         beamBreak = robot.getBeamBreak();
-        pivot = robot.getIntakePivot();
-        addRequirements(roller, pivot);
+
+        addRequirements(roller);
     }
 
     public void initialize() {
-        roller.setGoal(IntakeRollerGoal.INTAKE);
-        pivot.runPosition(IntakePivotGoal.TO_INTAKE);
+        roller.setGoal(IntakeRollerGoal.OUTTAKECORRAL);
     }
 
     public void execute() {}
 
     public boolean isFinished() {
-        return beamBreak.coralInIntake();
+        return !beamBreak.coralInIntake();
     }
 
     public void end(boolean isFinished) {
         roller.setGoal(IntakeRollerGoal.IDLE);
-        pivot.runPosition(IntakePivotGoal.IDLE);
     }
 }
