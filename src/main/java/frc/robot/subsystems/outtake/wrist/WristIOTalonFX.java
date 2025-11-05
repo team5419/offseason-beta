@@ -7,7 +7,6 @@ import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.NeutralOut;
-import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
@@ -43,8 +42,6 @@ public class WristIOTalonFX implements WristIO {
         motorTempCelsius = motor.getDeviceTemp();
         motorTorqueCurrent = motor.getTorqueCurrent();
         motorSupplyCurrent = motor.getSupplyCurrent();
-        referenceVelocity = motor.getClosedLoopReferenceSlope();
-        referencePose = motor.getClosedLoopReference();
 
         config.MotionMagic.MotionMagicCruiseVelocity = Units.degreesToRotations(kMotionConfigs.kCruiseVel());
         config.MotionMagic.MotionMagicAcceleration = Units.degreesToRotations(kMotionConfigs.kAcceleration());
@@ -67,9 +64,7 @@ public class WristIOTalonFX implements WristIO {
                 motorAppliedVoltage,
                 motorSupplyCurrent,
                 motorTorqueCurrent,
-                motorTempCelsius,
-                referenceVelocity,
-                referencePose);
+                motorTempCelsius);
 
         motor.getConfigurator().apply(config);
     }
@@ -84,9 +79,7 @@ public class WristIOTalonFX implements WristIO {
                         motorAppliedVoltage,
                         motorSupplyCurrent,
                         motorTorqueCurrent,
-                        motorTempCelsius,
-                        referencePose,
-                        referenceVelocity)
+                        motorTempCelsius)
                 .isOK();
         inputs.position = motorPosition.getValueAsDouble();
         inputs.velocity = motor.getVelocity().getValueAsDouble();
