@@ -27,7 +27,8 @@ public class IntakeRollerIOTalonFX implements IntakeRollerIO {
 
     private final boolean oppositeDirection = true;
 
-    private TalonFX leaderMotor, followerMotor;
+    private TalonFX leaderMotor;
+    private TalonFX followerMotor;
     private TalonFXConfiguration talonConfig = new TalonFXConfiguration();
     private Follower follow = new Follower(Ports.kIntakeRollerLeaderID, oppositeDirection);
 
@@ -36,8 +37,8 @@ public class IntakeRollerIOTalonFX implements IntakeRollerIO {
     private VelocityVoltage reqVelocity = new VelocityVoltage(0.0);
 
     public IntakeRollerIOTalonFX() {
-        leaderMotor = new TalonFX(Ports.kIntakeRollerLeaderID, GlobalConstants.kCANivoreName);
-        followerMotor = new TalonFX(Ports.kIntakeRollerFollowerID, GlobalConstants.kCANivoreName);
+        leaderMotor = new TalonFX(Ports.kIntakeRollerLeaderID);
+        followerMotor = new TalonFX(Ports.kIntakeRollerFollowerID);
 
         talonConfig.Slot0.kP = IntakeRollerConstants.kGains.kP();
         talonConfig.Slot0.kI = IntakeRollerConstants.kGains.kI();
@@ -108,22 +109,16 @@ public class IntakeRollerIOTalonFX implements IntakeRollerIO {
                 .toArray();
     }
 
-    // call .setControl on the motor controller with the appropriate control mode and value.
-    // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/VoltageOut.html
     @Override
     public void runVolts(double motorVolts) {
         leaderMotor.setVoltage(motorVolts);
     }
 
-    // call .setControl on the motor controller with the appropriate control mode and value.
-    // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/NeutralOut.html
     @Override
     public void stop() {
         leaderMotor.setControl(neutralOut);
     }
 
-    // call .setControl on the motor controller with the appropriate control mode and value.
-    // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/MotionMagicVelocityVoltage.html
     @Override
     public void runVelocity(double motorRPS) {
         leaderMotor.setControl(reqVelocity.withVelocity(motorRPS));
