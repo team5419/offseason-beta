@@ -55,6 +55,4 @@ public class IntakePivotConstants {
     public record MotionConfigs(double kAcceleration, double kCruiseVel, double kJerk) {}
 
     public record Gains(double kP, double kI, double kD, double kS, double kV, double kA, double kG) {}
-
-    public record Gains(double kP, double kI, double kD, double kS, double kV, double kA, double kG) {}
 }

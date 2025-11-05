@@ -85,7 +85,6 @@ public class RobotContainer {
     @Getter
     private final SendableChooser<Command> autoChooser;
 
-
     public RobotContainer() {
         // Get driver station to stop
         DriverStation.silenceJoystickConnectionWarning(true);
@@ -230,14 +229,10 @@ public class RobotContainer {
     private void configNamedCommands() {
         NamedCommands.registerCommand(
                 "Record Time", new InstantCommand(() -> RobotState.getInstance().setAutoFinished(true)));
-        NamedCommands.registerCommand(
-                "Intake Coral", new InstantCommand());
-        NamedCommands.registerCommand(
-                "Score L1", new InstantCommand());
-        NamedCommands.registerCommand(
-                "Score Coral", new InstantCommand());
-        NamedCommands.registerCommand(
-                "Auto Align", new InstantCommand());
+        NamedCommands.registerCommand("Intake Coral", new InstantCommand());
+        NamedCommands.registerCommand("Score L1", new InstantCommand());
+        NamedCommands.registerCommand("Score Coral", new InstantCommand());
+        NamedCommands.registerCommand("Auto Align", new InstantCommand());
     }
 
     public Command getAutonomousCommand() {

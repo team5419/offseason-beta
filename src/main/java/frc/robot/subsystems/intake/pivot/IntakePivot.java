@@ -67,7 +67,7 @@ public class IntakePivot extends SubsystemBase {
     @AutoLogOutput(key = "Intake Pivot/At Goal")
     public boolean atGoal() {
         return EqualsUtil.epsilonEquals(
-                inputs.position, currentGoal.getPivotAngle().getAsDouble(), kAngleTolerance);
+                inputs.position, currentGoal.getPivotAngle().getAsDouble());
     }
 
     public void runVolts(double volts) {
