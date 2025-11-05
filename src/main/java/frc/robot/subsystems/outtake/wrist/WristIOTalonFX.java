@@ -28,6 +28,8 @@ public class WristIOTalonFX implements WristIO {
     private MotionMagicVoltage reqMotionMagic = new MotionMagicVoltage(0);
     private final VoltageOut reqVoltage =
             new VoltageOut(0.0).withEnableFOC(true).withUpdateFreqHz(0.0);
+    private final VoltageOut reqVoltage =
+            new VoltageOut(0.0).withEnableFOC(true).withUpdateFreqHz(0.0);
 
     private final StatusSignal<Angle> motorPosition;
     private final StatusSignal<AngularVelocity> motorVelocity;
