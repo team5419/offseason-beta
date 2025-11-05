@@ -26,8 +26,7 @@ public class EndEffector extends SubsystemBase {
 
     public enum EndEffectorRollerGoal {
         IDLE(() -> 0),
-        OUTTAKING(() -> 10),
-        ;
+        OUTTAKING(() -> 10);
 
         @Getter
         private DoubleSupplier rollerVel;
