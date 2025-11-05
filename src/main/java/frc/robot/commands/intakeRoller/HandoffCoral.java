@@ -14,7 +14,7 @@ import frc.robot.subsystems.outtake.wrist.Wrist;
 import frc.robot.subsystems.outtake.wrist.Wrist.WristGoal;
 
 public class HandoffCoral extends Command {
-    
+
     private static final double kTimeOutTime = 10.0;
     private final IntakeRoller roller;
     private final EndEffector endEffector;
@@ -22,7 +22,6 @@ public class HandoffCoral extends Command {
     private final IntakePivot pivot;
     private final Beambreak beamBreak;
     private final Timer timer;
-    
 
     public HandoffCoral(RobotContainer robot) {
         roller = robot.getIntakeRoller(); // fix later

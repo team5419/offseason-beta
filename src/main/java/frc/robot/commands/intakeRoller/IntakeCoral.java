@@ -12,6 +12,8 @@ public class IntakeCoral extends SequentialCommandGroup {
     public IntakeCoral(RobotContainer robot) {
         beamBreak = robot.getBeamBreak();
         addCommands(
-                new RunIntake(robot), new WaitUntilCommand(() -> beamBreak.coralInIntake()).withTimeout(3), new HandoffCoral(robot));
+                new RunIntake(robot),
+                new WaitUntilCommand(() -> beamBreak.coralInIntake()).withTimeout(3),
+                new HandoffCoral(robot));
     }
 }
