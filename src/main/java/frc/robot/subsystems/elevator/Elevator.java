@@ -17,7 +17,9 @@ import org.littletonrobotics.junction.Logger;
 public class Elevator extends SubsystemBase {
 
     private ElevatorIO io;
-    public ElevatorIOInputsAutoLogged inputs = new ElevatorIOInputsAutoLogged();
+
+    @Getter
+    private ElevatorIOInputsAutoLogged inputs = new ElevatorIOInputsAutoLogged();
 
     private static final LoggedTunableNumber kP = new LoggedTunableNumber("Elevator/Gains/kP", kGains.kP());
     private static final LoggedTunableNumber kI = new LoggedTunableNumber("Elevator/Gains/kI", kGains.kI());

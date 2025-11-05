@@ -19,8 +19,8 @@ public class WristIOSim implements WristIO {
                 310 / 3,
                 SingleJointedArmSim.estimateMOI(0.3, 10),
                 .3,
-                Units.degreesToRadians(-60),
-                Units.degreesToRadians(180),
+                Units.degreesToRadians(kBottomDegree),
+                Units.degreesToRadians(kTopDegree),
                 false,
                 Units.degreesToRadians(0));
 

@@ -45,7 +45,6 @@ public class BeambreakIOSim implements BeambreakIO {
         scheduler.schedule(() -> setEnd(false), 6000, TimeUnit.MILLISECONDS);
 
         scheduler.schedule(() -> setHandoff(false), 6000, TimeUnit.MILLISECONDS);
-
     }
 
     public void setIntake(boolean val) {

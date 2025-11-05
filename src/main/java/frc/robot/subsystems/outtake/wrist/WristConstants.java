@@ -11,15 +11,11 @@ public class WristConstants {
                 default -> 0;
             };
 
-    // 90
-
     public static final double kTopDegree =
             switch (GlobalConstants.getRobotType()) {
-                case BETA -> 0;
-                default -> 90;
+                case BETA -> 180;
+                default -> 180;
             };
-
-    // 14
 
     public static final double kGearRatio =
             switch (GlobalConstants.getRobotType()) {
@@ -27,7 +23,11 @@ public class WristConstants {
                 default -> 90;
             };
 
-    // 60
+    public static final double kBottomDegree =
+            switch (GlobalConstants.getRobotType()) {
+                case BETA -> -60;
+                default -> -60;
+            };
 
     public static final double kSupplyCurrentLimit = 60;
 

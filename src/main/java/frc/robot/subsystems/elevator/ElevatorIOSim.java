@@ -6,7 +6,6 @@ import static frc.robot.subsystems.elevator.ElevatorConstants.*;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.system.plant.DCMotor;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.simulation.ElevatorSim;
 import org.littletonrobotics.junction.AutoLogOutput;
@@ -52,7 +51,7 @@ public class ElevatorIOSim implements ElevatorIO {
         if (DriverStation.isDisabled()) {
             return;
         }
-        runVolts(controller.calculate(eSim.getPositionMeters(), Units.feetToMeters(setpointMeters)));
+        runVolts(controller.calculate(eSim.getPositionMeters(), setpointMeters));
     }
 
     @Override

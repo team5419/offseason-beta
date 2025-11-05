@@ -7,6 +7,7 @@ import frc.robot.lib.LoggedTunableNumber;
 import frc.robot.lib.util.EqualsUtil;
 import frc.robot.subsystems.elevator.Elevator.ElevatorGoal;
 import java.util.function.DoubleSupplier;
+import lombok.Getter;
 import lombok.Setter;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
@@ -14,7 +15,9 @@ import org.littletonrobotics.junction.Logger;
 public class Wrist extends SubsystemBase {
 
     private WristIO io;
-    public WristIOInputsAutoLogged inputs = new WristIOInputsAutoLogged();
+
+    @Getter
+    private WristIOInputsAutoLogged inputs = new WristIOInputsAutoLogged();
 
     private static final LoggedTunableNumber kP = new LoggedTunableNumber("Wrist/Gains/kP", kGains.kP());
     private static final LoggedTunableNumber kI = new LoggedTunableNumber("Wrist/Gains/kI", kGains.kI());

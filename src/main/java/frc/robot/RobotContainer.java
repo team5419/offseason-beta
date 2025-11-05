@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.elevator.ElevateToPosition;
-import frc.robot.commands.intakeRoller.IntakeCoral;
 import frc.robot.commands.intakeRoller.ScoreL1;
 import frc.robot.commands.swerve.DriveCommands;
 import frc.robot.constants.GlobalConstants;

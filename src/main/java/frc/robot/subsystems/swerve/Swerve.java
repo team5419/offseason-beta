@@ -176,6 +176,15 @@ public class Swerve extends SubsystemBase {
 
         // Update gyro alert
         gyroDisconnectedAlert.set(!gyroInputs.connected && GlobalConstants.getMode() != Mode.SIM);
+
+        Logger.processInputs("Swerve/Gyro", gyroInputs);
+        Logger.recordOutput("Swerve/Pose", getPose());
+        Logger.recordOutput("Swerve/Field Pose/Best Pose with offset", getBestCoralAutoAlign());
+        Logger.recordOutput(
+                "Swerve/Field Pose/Best Source", getBestSourceAutoAlign().getDegrees());
+        Logger.recordOutput("Swerve/Field Pose/Robot Angle", getRotation().getDegrees());
+        Logger.recordOutput(
+                "Swerve/Auto Align/Offset Transform", getBestReefTagNoOffset().minus(getPose()));
     }
 
     private void updateOdometry() {
@@ -377,7 +386,7 @@ public class Swerve extends SubsystemBase {
     }
 
     public Pose2d getBestCoralAutoAlign() {
-        Translation2d offset = null;
+        Translation2d offset = new Translation2d();
         return getBestCoralTag()
                 .plus(GeomUtil.toTransform2d(offset))
                 .plus(new Transform2d(new Translation2d(), Rotation2d.fromDegrees(180)));

@@ -55,13 +55,13 @@ public class SimVisualizer {
     }
 
     public void update() {
-        double elevatorTravel = robot.getElevator().inputs.position[0];
+        double elevatorTravel = robot.getElevator().getInputs().position[0];
         double elevatorHeight = elevatorToGround + elevatorTravel;
 
         elevatorMeasured.setLength(startingElevatorHeight + elevatorHeight);
 
-        wristMeasured.setAngle(robot.getWrist().inputs.position - 90);
-        intakeMeasured.setAngle(robot.getIntakePivot().inputs.position);
+        wristMeasured.setAngle(robot.getWrist().getInputs().position - 90);
+        intakeMeasured.setAngle(robot.getIntakePivot().getInputs().position);
 
         Logger.recordOutput("Superstructure/2D", mechanism2d);
     }
