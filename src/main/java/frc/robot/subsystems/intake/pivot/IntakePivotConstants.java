@@ -6,7 +6,7 @@ public class IntakePivotConstants {
 
     public static final double kGearRatio =
             switch (GlobalConstants.getRobotType()) {
-                case BETA -> 14;
+                case BETA -> 80;
                 default -> 14;
             };
 
@@ -16,7 +16,7 @@ public class IntakePivotConstants {
                 default -> 0;
             };
 
-    public static final double kAngleTolerance =
+    public static final double kTolorance =
             switch (GlobalConstants.getRobotType()) {
                 case BETA -> 0.05;
                 default -> 0.05;
@@ -53,6 +53,8 @@ public class IntakePivotConstants {
             };
 
     public record MotionConfigs(double kAcceleration, double kCruiseVel, double kJerk) {}
+
+    public record Gains(double kP, double kI, double kD, double kS, double kV, double kA, double kG) {}
 
     public record Gains(double kP, double kI, double kD, double kS, double kV, double kA, double kG) {}
 }

@@ -4,7 +4,7 @@ import frc.robot.lib.Gains;
 
 public class EndEffectorConstants {
 
-    public static final double kRollerGearRatio = 0.0; // TODO: Change
+    public static final double kRollerGearRatio = 1.0; // TODO: Change
 
     public static final Gains kGains = new Gains(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0); // TODO: Tune
 
