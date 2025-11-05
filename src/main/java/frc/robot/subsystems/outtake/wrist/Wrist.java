@@ -24,12 +24,12 @@ public class Wrist extends SubsystemBase {
     private static final LoggedTunableNumber kA = new LoggedTunableNumber("Wrist/Gains/kA", kGains.kA());
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("Wrist/Gains/kG", kGains.kG());
 
-    private static final LoggedTunableNumber l1 = new LoggedTunableNumber("Wrist/Gains/KG", 0);
-    private static final LoggedTunableNumber l2 = new LoggedTunableNumber("Wrist/Gains/kG", 3);
-    private static final LoggedTunableNumber l3 = new LoggedTunableNumber("Wrist/Gains/kG", 2);
-    private static final LoggedTunableNumber l4 = new LoggedTunableNumber("Wrist/Gains/kG", 1);
-    private static final LoggedTunableNumber handoff = new LoggedTunableNumber("Wrist/Gains/kG", 1);
-    private static final LoggedTunableNumber algae = new LoggedTunableNumber("Wrist/Gains/kG", 80);
+    private static final LoggedTunableNumber l1 = new LoggedTunableNumber("Wrist/Gains/l1", 0);
+    private static final LoggedTunableNumber l2 = new LoggedTunableNumber("Wrist/Gains/l2", 3);
+    private static final LoggedTunableNumber l3 = new LoggedTunableNumber("Wrist/Gains/l3", 2);
+    private static final LoggedTunableNumber l4 = new LoggedTunableNumber("Wrist/Gains/l4", 1);
+    private static final LoggedTunableNumber handoff = new LoggedTunableNumber("Wrist/Setpoints/handoff", -60);
+    private static final LoggedTunableNumber algae = new LoggedTunableNumber("Wrist/Setpoints/algae", 80);
 
     public enum WristGoal {
         IDLE(() -> 0),
@@ -81,6 +81,9 @@ public class Wrist extends SubsystemBase {
     public void runVolts() {}
 
     public void runPosition(WristGoal position) {
+        Logger.recordOutput("Wrist/Goal", position);
+        Logger.recordOutput("Wrist/Goal Degrees", position.getWristAngle());
+
         io.runPosition(position.getWristAngle());
     }
 

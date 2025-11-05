@@ -30,4 +30,8 @@ public class Beambreak extends VirtualSubsystem {
     public boolean gamepieceInEndEffector() {
         return inputs.endTriggered;
     }
+
+    public void initiateSimulatedSequence() {
+        ((BeambreakIOSim) io).initiateSequence();
+    }
 }

@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.elevator.ElevateToPosition;
+import frc.robot.commands.intakeRoller.IntakeCoral;
+import frc.robot.commands.intakeRoller.ScoreL1;
 import frc.robot.commands.swerve.DriveCommands;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
@@ -21,6 +23,7 @@ import frc.robot.lib.RumbleThread;
 import frc.robot.subsystems.apriltagvision.AprilTagVision;
 import frc.robot.subsystems.beambreak.Beambreak;
 import frc.robot.subsystems.beambreak.BeambreakIOReal;
+import frc.robot.subsystems.beambreak.BeambreakIOSim;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.elevator.ElevatorIO;
 import frc.robot.subsystems.elevator.ElevatorIOSim;
@@ -86,7 +89,6 @@ public class RobotContainer {
     @Getter
     private final SendableChooser<Command> autoChooser;
 
-
     public RobotContainer() {
         // Get driver station to stop
         DriverStation.silenceJoystickConnectionWarning(true);
@@ -122,8 +124,8 @@ public class RobotContainer {
         driver.start(); // ! Unbound
         driver.back(); // ! Unbound
 
-        driver.a(); // ! Unbound
-        driver.b(); // ! Unbound
+        driver.a().onTrue(new InstantCommand(() -> beamBreak.initiateSimulatedSequence())); // ! Unbound
+        driver.b().onTrue(new ScoreL1(this)); // ! Unbound
         driver.x(); // ! Unbound
         driver.y(); // ! Unbound
 
@@ -194,6 +196,7 @@ public class RobotContainer {
                 tempIntakeRoller = new IntakeRoller(new IntakeRollerIOSim());
                 tempWrist = new Wrist(new WristIOSim());
                 tempEndEffector = new EndEffector(new EndEffectorIOSim());
+                tempBeamBreak = new Beambreak(new BeambreakIOSim());
                 tempSwerve = new Swerve(
                         new GyroIO() {},
                         new ModuleIOSim(SwerveConstants.TunerConstants.getFrontLeft()),

@@ -60,7 +60,7 @@ public class SimVisualizer {
 
         elevatorMeasured.setLength(startingElevatorHeight + elevatorHeight);
 
-        wristMeasured.setAngle(robot.getWrist().inputs.position);
+        wristMeasured.setAngle(robot.getWrist().inputs.position - 90);
         intakeMeasured.setAngle(robot.getIntakePivot().inputs.position);
 
         Logger.recordOutput("Superstructure/2D", mechanism2d);
