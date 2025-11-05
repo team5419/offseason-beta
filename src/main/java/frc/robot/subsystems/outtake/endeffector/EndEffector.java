@@ -4,6 +4,7 @@ import static frc.robot.subsystems.elevator.ElevatorConstants.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LoggedTunableNumber;
+
 import java.util.function.DoubleSupplier;
 import lombok.Getter;
 import org.littletonrobotics.junction.AutoLogOutput;
@@ -56,6 +57,16 @@ public class EndEffector extends SubsystemBase {
                 kG,
                 kV,
                 kA);
+        io.runVelocity(currentGoal.getRollerVel().getAsDouble());
+        if (currentGoal == EndEffectorRollerGoal.IDLE) {
+            io.stop();
+        } else {
+            io.runVelocity(currentGoal.getRollerVel().getAsDouble());
+        }
+    }
+
+    public void setCurrentGoal(EndEffectorRollerGoal goal){
+        currentGoal = goal;
     }
 
     /**

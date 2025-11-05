@@ -62,6 +62,8 @@ public class Wrist extends SubsystemBase {
     public void periodic() {
         io.updateInputs(inputs);
         Logger.processInputs("Wrist", inputs); // Logs the inputs/telemetry data
+        Logger.recordOutput("Wrist/Goal", currentGoal);
+
         LoggedTunableNumber.ifChanged(
                 hashCode(), () -> io.setPID(kP.get(), kI.get(), kD.get()), kP, kI, kD); // Sets PID if changed
         LoggedTunableNumber.ifChanged(
@@ -81,7 +83,8 @@ public class Wrist extends SubsystemBase {
     public void runVolts() {}
 
     public void runPosition(WristGoal position) {
-        io.runPosition(position.getWristAngle());
+        currentGoal = position;
+        io.runPosition(currentGoal.getWristAngle());
     }
 
     public void setDesiredLevel(ElevatorGoal goal) {}
