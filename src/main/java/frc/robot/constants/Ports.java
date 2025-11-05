@@ -119,31 +119,31 @@ public class Ports {
 
     public static final int kIntakeRollerLeaderID =
             switch (GlobalConstants.getRobotType()) {
-                case BETA -> 66; // UPDATE when known
+                case BETA -> 66;
                 default -> 0;
             };
 
     public static final int kIntakeRollerFollowerID =
             switch (GlobalConstants.getRobotType()) {
-                case BETA -> 65; // UPDATE when known
+                case BETA -> 65;
                 default -> 0;
             };
 
     public static final int kWristID =
             switch (GlobalConstants.getRobotType()) {
-                case BETA -> 79; // UPDATE when known
+                case BETA -> 79;
                 default -> 0;
             };
 
     public static final int kEndEffectorLeaderID =
             switch (GlobalConstants.getRobotType()) {
-                case BETA -> 76; // UPDATE when known
+                case BETA -> 76;
                 default -> 0;
             };
 
     public static final int kEndEffectorFollowerID =
             switch (GlobalConstants.getRobotType()) {
-                case BETA -> 75; // UPDATE when known
+                case BETA -> 75;
                 default -> 0;
             };
 }
