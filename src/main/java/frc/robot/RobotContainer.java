@@ -98,8 +98,6 @@ public class RobotContainer {
 
         configureDefaultCommands();
 
-        configureDevBindings();
-
         if (GlobalConstants.kDevMode) {
             configureDevBindings();
         } else {
