@@ -17,7 +17,7 @@ public class RunIntake extends Command {
         roller = robot.getIntakeRoller(); // fix later
         beamBreak = robot.getBeamBreak();
         pivot = robot.getIntakePivot();
-        addRequirements(roller,pivot);
+        addRequirements(roller, pivot);
     }
 
     public void initialize() {

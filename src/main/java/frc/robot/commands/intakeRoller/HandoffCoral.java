@@ -30,7 +30,7 @@ public class HandoffCoral extends Command {
         wrist = robot.getWrist();
         timer = new Timer();
 
-        addRequirements(roller,endEffector,pivot,wrist);
+        addRequirements(roller, endEffector, pivot, wrist);
     }
 
     public void initialize() {
@@ -47,7 +47,9 @@ public class HandoffCoral extends Command {
     }
 
     public boolean isFinished() {
-        return beamBreak.gamepieceInEndEffector() || timer.hasElapsed(timeOutTime) || !beamBreak.coralInIntake(); // in case of mechanical failure
+        return beamBreak.gamepieceInEndEffector()
+                || timer.hasElapsed(timeOutTime)
+                || !beamBreak.coralInIntake(); // in case of mechanical failure
     }
 
     public void end(boolean isFinished) {
