@@ -3,6 +3,7 @@ package frc.robot.commands.score;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
+import frc.robot.commands.elevator.RaiseToPosition;
 
 public class ScoreCoral extends SequentialCommandGroup {
     public ScoreCoral(RobotContainer robot) {
@@ -10,7 +11,7 @@ public class ScoreCoral extends SequentialCommandGroup {
         addCommands(
             new ParallelCommandGroup(
                 // auto align to reef
-                
+                new RaiseToPosition(robot, null)
             )
         );
     }
