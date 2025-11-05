@@ -5,12 +5,11 @@ import static frc.robot.subsystems.outtake.endeffector.EndEffectorConstants.kVel
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LoggedTunableNumber;
+import frc.robot.lib.util.EqualsUtil;
 import java.util.function.DoubleSupplier;
 import lombok.Getter;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
-
-import frc.robot.lib.util.EqualsUtil;
 
 public class EndEffector extends SubsystemBase {
 
@@ -26,8 +25,9 @@ public class EndEffector extends SubsystemBase {
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("End Effector Roller/Gains/kG", kGains.kG());
 
     public enum EndEffectorRollerGoal {
-        IDLE(() -> 0), OUTTAKING(() -> 10), ;
-        
+        IDLE(() -> 0),
+        OUTTAKING(() -> 10),
+        ;
 
         @Getter
         private DoubleSupplier rollerVel;
@@ -36,7 +36,6 @@ public class EndEffector extends SubsystemBase {
             this.rollerVel = rollerVel;
         }
     }
-
 
     @Getter
     private EndEffectorRollerGoal currentGoal = EndEffectorRollerGoal.IDLE;
@@ -67,13 +66,15 @@ public class EndEffector extends SubsystemBase {
         io.stop();
     }
 
-
     /**
      * Returns true if this subsystem is within a margin of error of the current
      * goal
      */
     @AutoLogOutput(key = "End Effector Roller/At Goal")
     public boolean atGoal() {
-        return EqualsUtil.epsilonEquals(((inputs.velocity[0] + inputs.velocity[1]) / 2), currentGoal.getRollerVel().getAsDouble(), kVelocityTolerance);
+        return EqualsUtil.epsilonEquals(
+                ((inputs.velocity[0] + inputs.velocity[1]) / 2),
+                currentGoal.getRollerVel().getAsDouble(),
+                kVelocityTolerance);
     }
 }

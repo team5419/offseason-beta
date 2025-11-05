@@ -84,12 +84,12 @@ public class EndEffectorIOTalonFX implements EndEffectorIO {
     @Override
     public void updateInputs(EndEffectorIOInputs inputs) {
         inputs.leaderMotorConnected = BaseStatusSignal.refreshAll(
-        motorPosition.get(0), motorPosition.get(1),
-        motorVelocity.get(0), motorVelocity.get(1),
-        motorAppliedVoltage.get(0), motorAppliedVoltage.get(1),
-        motorSupplyCurrent.get(0), motorSupplyCurrent.get(1),
-        motorTempCelsius.get(0), motorTempCelsius.get(1)).isOK();
-
+                        motorPosition.get(0), motorPosition.get(1),
+                        motorVelocity.get(0), motorVelocity.get(1),
+                        motorAppliedVoltage.get(0), motorAppliedVoltage.get(1),
+                        motorSupplyCurrent.get(0), motorSupplyCurrent.get(1),
+                        motorTempCelsius.get(0), motorTempCelsius.get(1))
+                .isOK();
     }
     // call .setControl on the motor controller with the appropriate control mode and value.
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/VoltageOut.html

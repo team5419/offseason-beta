@@ -1,11 +1,9 @@
 package frc.robot.commands.swerve.outtake;
 
-import java.util.function.Supplier;
-
 import edu.wpi.first.wpilibj2.command.Command;
-
 import frc.robot.subsystems.outtake.endeffector.EndEffector;
 import frc.robot.subsystems.outtake.endeffector.EndEffector.EndEffectorRollerGoal;
+import java.util.function.Supplier;
 
 public class RunAtVelocity extends Command {
 
@@ -16,21 +14,15 @@ public class RunAtVelocity extends Command {
     public RunAtVelocity(EndEffector endEffector, Supplier<EndEffectorRollerGoal> goal) {
         this.goal = goal;
         this.endEffector = endEffector;
-                
+
         addRequirements();
     }
 
-    
-    
     @Override
-    public void initialize() {
-        
-    }
+    public void initialize() {}
 
     @Override
-    public void execute() {
-        
-    }
+    public void execute() {}
 
     @Override
     public boolean isFinished() {
@@ -38,7 +30,5 @@ public class RunAtVelocity extends Command {
     }
 
     @Override
-    public void end(boolean interrupted) {
-        
-    }
+    public void end(boolean interrupted) {}
 }
