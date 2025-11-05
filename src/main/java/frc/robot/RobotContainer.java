@@ -19,6 +19,8 @@ import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
 import frc.robot.lib.RumbleThread;
 import frc.robot.subsystems.apriltagvision.AprilTagVision;
+import frc.robot.subsystems.beambreak.Beambreak;
+import frc.robot.subsystems.beambreak.BeambreakIOReal;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.elevator.ElevatorIO;
 import frc.robot.subsystems.elevator.ElevatorIOSim;
@@ -76,10 +78,14 @@ public class RobotContainer {
     private EndEffector endEffector;
 
     @Getter
+    private Beambreak beamBreak;
+
+    @Getter
     private Swerve swerve;
 
     @Getter
     private final SendableChooser<Command> autoChooser;
+
 
     public RobotContainer() {
         // Get driver station to stop
@@ -92,8 +98,6 @@ public class RobotContainer {
         SmartDashboard.putData("Auto Chooser", autoChooser);
 
         configureDefaultCommands();
-
-        configureDevBindings();
 
         if (GlobalConstants.kDevMode) {
             configureDevBindings();
@@ -165,6 +169,7 @@ public class RobotContainer {
         Wrist tempWrist = null;
         EndEffector tempEndEffector = null;
         Swerve tempSwerve = null;
+        Beambreak tempBeamBreak = null;
 
         if (GlobalConstants.getMode() == GlobalConstants.Mode.REPLAY) return;
         switch (GlobalConstants.getRobotType()) {
@@ -174,6 +179,7 @@ public class RobotContainer {
                 tempIntakeRoller = new IntakeRoller(new IntakeRollerIOTalonFX());
                 tempWrist = new Wrist(new WristIOTalonFX());
                 tempEndEffector = new EndEffector(new EndEffectorIOTalonFX());
+                tempBeamBreak = new Beambreak(new BeambreakIOReal());
                 tempSwerve = new Swerve(
                         new GyroIOPigeon2(),
                         new ModuleIOTalonFX(SwerveConstants.TunerConstants.getFrontLeft()),
@@ -205,6 +211,7 @@ public class RobotContainer {
         if (tempIntakeRoller == null) tempIntakeRoller = new IntakeRoller(new IntakeRollerIO() {});
         if (tempWrist == null) tempWrist = new Wrist(new WristIO() {});
         if (tempEndEffector == null) tempEndEffector = new EndEffector(new EndEffectorIO() {});
+        if (tempBeamBreak == null) tempBeamBreak = new Beambreak(new BeambreakIOReal());
 
         swerve = tempSwerve;
         elevator = tempElevator;
@@ -212,6 +219,7 @@ public class RobotContainer {
         intakeRoller = tempIntakeRoller;
         wrist = tempWrist;
         endEffector = tempEndEffector;
+        beamBreak = tempBeamBreak;
     }
 
     /** Adds named commands to pathplanner */

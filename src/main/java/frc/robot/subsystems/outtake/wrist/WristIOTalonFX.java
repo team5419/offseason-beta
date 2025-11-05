@@ -23,7 +23,7 @@ import frc.robot.constants.Ports;
 public class WristIOTalonFX implements WristIO {
 
     private TalonFX motor;
-    private TalonFXConfiguration config;
+    private TalonFXConfiguration config = new TalonFXConfiguration();
     private final NeutralOut neutralOut = new NeutralOut();
     private MotionMagicVoltage reqMotionMagic = new MotionMagicVoltage(0);
     private final VoltageOut reqVoltage =
@@ -39,7 +39,7 @@ public class WristIOTalonFX implements WristIO {
     private final StatusSignal<Double> referencePose;
 
     public WristIOTalonFX() {
-        motor = new TalonFX(Ports.kWristID, GlobalConstants.kCANivoreName);
+        motor = new TalonFX(Ports.kWristID);
 
         motorPosition = motor.getPosition();
         motorAppliedVoltage = motor.getMotorVoltage();
@@ -56,7 +56,7 @@ public class WristIOTalonFX implements WristIO {
 
         config.CurrentLimits.SupplyCurrentLimit = kSupplyCurrentLimit;
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
-        config.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        config.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
         config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         config.Feedback.SensorToMechanismRatio = kGearRatio;
 
@@ -76,11 +76,11 @@ public class WristIOTalonFX implements WristIO {
                 referencePose);
 
         motor.getConfigurator().apply(config);
+
+        resetPosition(kTopDegree);
     }
 
-    // In WristIO, theres a wristIOInputs class that has all the inputs we want to
-    // log. Update these values using the
-    // method below
+    @Override
     public void updateInputs(WristIOInputs inputs) {
         inputs.motorConnected = BaseStatusSignal.refreshAll(
                         motorPosition,
@@ -92,25 +92,17 @@ public class WristIOTalonFX implements WristIO {
                         referencePose,
                         referenceVelocity)
                 .isOK();
-        inputs.position = motorPosition.getValueAsDouble();
-        inputs.velocity = motor.getVelocity().getValueAsDouble();
-        inputs.appliedVolts = motor.getMotorVoltage().getValueAsDouble();
-        inputs.supplyCurrentAmps = motor.getSupplyCurrent().getValueAsDouble();
-        inputs.tempCelcius = motor.getDeviceTemp().getValueAsDouble();
-        inputs.motorConnected = motor.isConnected();
+        inputs.position = Units.rotationsToDegrees(motorPosition.getValueAsDouble());
+        inputs.velocity = Units.rotationsToDegrees(motorVelocity.getValueAsDouble());
+        inputs.appliedVolts = motorAppliedVoltage.getValueAsDouble();
+        inputs.supplyCurrentAmps = motorSupplyCurrent.getValueAsDouble();
+        inputs.tempCelcius = motorTempCelsius.getValueAsDouble();
     }
 
-    // call .setControl on the motor controller with the appropriate control mode
-    // and value.
-    // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/MotionMagicDutyCycle.html
     @Override
-    public void runPosition(double goal) {
-        motor.setControl(reqMotionMagic.withPosition(goal));
+    public void runPosition(double degrees) {
+        motor.setControl(reqMotionMagic.withPosition(Units.degreesToRotations(degrees)));
     }
-
-    // call .setControl on the motor controller with the appropriate control mode
-    // and value.
-    // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/VoltageOut.html
 
     @Override
     public void runVolts(double volts) {
@@ -120,12 +112,9 @@ public class WristIOTalonFX implements WristIO {
 
     @Override
     public void resetPosition(double angle) {
-        motor.setPosition(angle);
+        motor.setPosition(Units.degreesToRotations(angle));
     }
 
-    // call .setControl on the motor controller with the appropriate control mode
-    // and value.
-    // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/configs/MotorOutputConfigs.html#NeutralMode
     @Override
     public void setBrakeMode(boolean enabled) {
         motor.setNeutralMode(enabled ? NeutralModeValue.Brake : NeutralModeValue.Coast);

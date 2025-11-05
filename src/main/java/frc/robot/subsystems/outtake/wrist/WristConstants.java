@@ -5,21 +5,50 @@ import frc.robot.lib.Gains;
 
 public class WristConstants {
 
-    public static final double kAngleTolerance = 0;
+    public static final double kAngleTolerance =
+            switch (GlobalConstants.getRobotType()) {
+                case BETA -> 0;
+                default -> 0;
+            };
 
-    public static final double kGearRatio = 0;
+    // 90
+
+    public static final double kTopDegree =
+            switch (GlobalConstants.getRobotType()) {
+                case BETA -> 0;
+                default -> 90;
+            };
+
+    // 14
+
+    public static final double kGearRatio =
+            switch (GlobalConstants.getRobotType()) {
+                case BETA -> 24;
+                default -> 90;
+            };
+
+    // 60
 
     public static final double kSupplyCurrentLimit = 60;
 
     public static final Gains kGains =
             switch (GlobalConstants.getRobotType()) {
                 case SIMBOT -> new Gains(10, 0.0, 0.0, 8.4, 0.0, 0.0, 22.9);
-                default -> new Gains(0.05, 0.0, 0.0, 0.01, 0.00103, 0.0, 0);
+                case BETA -> new Gains(0, 0, 0, 0, 0, 0, 0);
+                default -> new Gains(175, 0, 0, 0.15, 2.5, 0, 0.08);
             };
 
-    public static final MotionConfigs kMotionConfigs = new MotionConfigs(0, 0, 0);
+    public static final MotionConfigs kMotionConfigs =
+            switch (GlobalConstants.getRobotType()) {
+                case BETA -> new MotionConfigs(0, 0, 0);
+                default -> new MotionConfigs(8000, 7200, 0);
+            };
 
-    public static final WristAngles kWristAngles = new WristAngles(0, 0, 0, 0); // TODO Tune
+    public static final WristAngles kWristAngles =
+            switch (GlobalConstants.getRobotType()) {
+                case BETA -> new WristAngles(0, 0, 0, 0);
+                default -> new WristAngles(0, 0, 0, 0);
+            };
 
     public record MotionConfigs(double kAcceleration, double kCruiseVel, double kJerk) {}
 
