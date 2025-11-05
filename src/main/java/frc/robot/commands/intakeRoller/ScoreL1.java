@@ -18,6 +18,6 @@ public class ScoreL1 extends SequentialCommandGroup {
         addCommands(
                 new InstantCommand(() -> intakePivot.runPosition(IntakePivotGoal.TO_SCOREL1)),
                 new WaitCommand(0.7),
-                new OuttakeCorral(robot));
+                new OuttakeCoral(robot));
     }
 }
