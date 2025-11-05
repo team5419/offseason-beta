@@ -11,7 +11,7 @@ public class ScoreCoral extends SequentialCommandGroup {
         addCommands(
             new ParallelCommandGroup(
                 // auto align to reef
-                new RaiseToPosition(robot, null)
+                // new RaiseToPosition(robot, null)
             )
         );
     }
