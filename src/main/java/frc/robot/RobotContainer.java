@@ -92,7 +92,7 @@ public class RobotContainer {
 
         configureDefaultCommands();
 
-        configureDevBindings();
+        
 
         if (GlobalConstants.kDevMode) {
             configureDevBindings();
@@ -225,11 +225,11 @@ public class RobotContainer {
         NamedCommands.registerCommand(
                 "Intake Coral", new InstantCommand());
         NamedCommands.registerCommand(
-                "Align For Handoff", new InstantCommand());
-        NamedCommands.registerCommand(
-                "Handoff Coral", new InstantCommand());
+                "Score L1", new InstantCommand());
         NamedCommands.registerCommand(
                 "Score Coral", new InstantCommand());
+        NamedCommands.registerCommand(
+                "Auto Align", new InstantCommand());
     }
 
     public Command getAutonomousCommand() {

@@ -16,7 +16,7 @@ public class IntakePivotConstants {
                 default -> 0;
             };
 
-    public static final double kTolorance =
+    public static final double kAngleTolerance =
             switch (GlobalConstants.getRobotType()) {
                 case BETA -> 0.05;
                 default -> 0.05;

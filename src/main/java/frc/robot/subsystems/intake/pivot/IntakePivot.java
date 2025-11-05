@@ -1,6 +1,6 @@
 package frc.robot.subsystems.intake.pivot;
 
-import static frc.robot.subsystems.elevator.ElevatorConstants.*;
+import static frc.robot.subsystems.intake.pivot.IntakePivotConstants.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LoggedTunableNumber;
@@ -26,9 +26,9 @@ public class IntakePivot extends SubsystemBase {
 
     public enum IntakePivotGoal {
         IDLE(() -> 0), // TODO: set idle angle
-        TO_INTAKE(() -> 17), // TODO: Set intake angle
-        TO_SCOREL1(() -> 0), // TODO: set scoring angle
-        TO_INTAKE_HANDOFF(() -> 0); // TODO: set handoff angle
+        INTAKE(() -> 17), // TODO: Set intake angle
+        TSCOREL1(() -> 0), // TODO: set scoring angle
+        INTAKE_HANDOFF(() -> 0); // TODO: set handoff angle
 
         @Getter
         private DoubleSupplier pivotAngle;
@@ -67,7 +67,7 @@ public class IntakePivot extends SubsystemBase {
     @AutoLogOutput(key = "Intake Pivot/At Goal")
     public boolean atGoal() {
         return EqualsUtil.epsilonEquals(
-                inputs.position, currentGoal.getPivotAngle().getAsDouble());
+                inputs.position, currentGoal.getPivotAngle().getAsDouble(), kAngleTolerance);
     }
 
     public void runVolts(double volts) {

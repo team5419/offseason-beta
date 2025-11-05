@@ -153,14 +153,14 @@ public class Swerve extends SubsystemBase {
 
         gyroIO.updateInputs(gyroInputs);
 
-        // Logger.processInputs("Swerve/Gyro", gyroInputs);
-        // Logger.recordOutput("Swerve/Pose", getPose());
-        // Logger.recordOutput("Swerve/Field Pose/Best Pose with offset", getBestCoralAutoAlign());
-        // Logger.recordOutput(
-        //         "Swerve/Field Pose/Best Source", getBestSourceAutoAlign().getDegrees());
-        // Logger.recordOutput("Swerve/Field Pose/Robot Angle", getRotation().getDegrees());
-        // Logger.recordOutput(
-        //         "Swerve/Auto Align/Offset Transform", getBestReefTagNoOffset().minus(getPose()));
+        Logger.processInputs("Swerve/Gyro", gyroInputs);
+        Logger.recordOutput("Swerve/Pose", getPose());
+        Logger.recordOutput("Swerve/Field Pose/Best Pose with offset", getBestCoralAutoAlign());
+        Logger.recordOutput(
+                "Swerve/Field Pose/Best Source", getBestSourceAutoAlign().getDegrees());
+        Logger.recordOutput("Swerve/Field Pose/Robot Angle", getRotation().getDegrees());
+        Logger.recordOutput(
+                "Swerve/Auto Align/Offset Transform", getBestReefTagNoOffset().minus(getPose()));
 
         for (var module : modules) {
             module.periodic();

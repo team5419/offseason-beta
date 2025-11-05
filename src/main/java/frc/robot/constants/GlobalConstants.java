@@ -18,7 +18,7 @@ public class GlobalConstants {
     /** This constant is used in LoggedTunableNumber.java */
     public static final boolean kTuningMode = true;
     /** Set this to true to use dev bindings instead of normal bindings */
-    public static final boolean kDevMode = true;
+    public static final boolean kDevMode = false;
 
     public static final double kCANErrorTimeThreshold = 0.5;
     public static final double kCANivoreErrorTimeThreshold = 0.5;
@@ -28,7 +28,7 @@ public class GlobalConstants {
     public static final double kOverrideJoystick = 0.7;
 
     public static final String kRIOName = "rio";
-    public static final String kCANivoreName = "DrivebaseCanivore";
+    public static final String kCANivoreName = "Drivebase";
 
     public static RobotType getRobotType() {
         if (RobotBase.isReal() && kRobotType == RobotType.SIMBOT) {

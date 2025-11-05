@@ -52,7 +52,7 @@ public class Robot extends LoggedRobot {
     @Override
     public void robotInit() {
 
-        // RobotController.setBrownoutVoltage(GlobalConstants.kBrownoutVoltage); // Off for testing
+        RobotController.setBrownoutVoltage(GlobalConstants.kBrownoutVoltage);
 
         handleADKStartup();
         enableActiveCommandLogging();

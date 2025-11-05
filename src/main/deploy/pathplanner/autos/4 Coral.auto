@@ -17,21 +17,41 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "Score Coral"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Score Coral"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Auto Align"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "3E-CS"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Intake Coral"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "3E-CS"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake Coral"
+                }
+              }
+            ]
           }
         },
         {
@@ -43,12 +63,6 @@
                 "data": {
                   "pathName": "CS-2L"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Align For Handoff"
-                }
               }
             ]
           }
@@ -60,33 +74,41 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "Handoff Coral"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Score Coral"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Auto Align"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "wait",
+          "type": "parallel",
           "data": {
-            "waitTime": 0.3
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Score Coral"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "2L-CS"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Intake Coral"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "2L-CS"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake Coral"
+                }
+              }
+            ]
           }
         },
         {
@@ -98,12 +120,6 @@
                 "data": {
                   "pathName": "CS-1L"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Align For Handoff"
-                }
               }
             ]
           }
@@ -115,33 +131,41 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "Handoff Coral"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Score Coral"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Auto Align"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "wait",
+          "type": "parallel",
           "data": {
-            "waitTime": 0.3
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Score Coral"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "1L-CS"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Intake Coral"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "1L-CS"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake Coral"
+                }
+              }
+            ]
           }
         },
         {
@@ -153,12 +177,6 @@
                 "data": {
                   "pathName": "COPY of CS-3E"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Align For Handoff"
-                }
               }
             ]
           }
@@ -170,21 +188,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "Handoff Coral"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.3
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Score Coral"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Score Coral"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Auto Align"
+                }
+              }
+            ]
           }
         }
       ]
