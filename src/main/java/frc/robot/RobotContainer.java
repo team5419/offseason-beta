@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.elevator.ElevateToPosition;
-import frc.robot.commands.intakeRoller.ScoreL1;
 import frc.robot.commands.swerve.DriveCommands;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
@@ -24,6 +23,7 @@ import frc.robot.subsystems.beambreak.Beambreak;
 import frc.robot.subsystems.beambreak.BeambreakIOReal;
 import frc.robot.subsystems.beambreak.BeambreakIOSim;
 import frc.robot.subsystems.elevator.Elevator;
+import frc.robot.subsystems.elevator.Elevator.ElevatorGoal;
 import frc.robot.subsystems.elevator.ElevatorIO;
 import frc.robot.subsystems.elevator.ElevatorIOSim;
 import frc.robot.subsystems.elevator.ElevatorIOTalonFX;
@@ -123,10 +123,15 @@ public class RobotContainer {
         driver.start(); // ! Unbound
         driver.back(); // ! Unbound
 
-        driver.a().onTrue(new InstantCommand(() -> beamBreak.initiateSimulatedSequence())); // ! Unbound
-        driver.b().onTrue(new ScoreL1(this)); // ! Unbound
+        driver.a(); // ! Unbound
+        driver.b(); // ! Unbound
         driver.x(); // ! Unbound
         driver.y(); // ! Unbound
+
+        driver.povUp(); // ! Unbound
+        driver.povDown(); // ! Unbound
+        driver.povLeft(); // ! Unbound
+        driver.povRight(); // ! Unbound
 
         driver.leftBumper(); // ! Unbound
         driver.rightBumper(); // ! Unbound

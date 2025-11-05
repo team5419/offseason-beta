@@ -20,8 +20,8 @@ public class IntakePivotIOSim implements IntakePivotIO {
                 310 / 3,
                 SingleJointedArmSim.estimateMOI(0.3, 10),
                 .3,
-                Units.degreesToRadians(0),
-                Units.degreesToRadians(150),
+                Units.degreesToRadians(kBottomDegree),
+                Units.degreesToRadians(kTopDegree),
                 false,
                 Units.degreesToRadians(0));
 
