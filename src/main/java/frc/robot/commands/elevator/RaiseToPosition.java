@@ -1,12 +1,12 @@
 package frc.robot.commands.elevator;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.elevator.Elevator.ElevatorGoal;
 import frc.robot.subsystems.outtake.wrist.Wrist;
 import frc.robot.subsystems.outtake.wrist.Wrist.WristGoal;
 import java.util.function.Supplier;
-import frc.robot.RobotContainer;
 
 public class RaiseToPosition extends Command {
     private final Elevator elevator;
