@@ -27,10 +27,10 @@ public class Wrist extends SubsystemBase {
     private static final LoggedTunableNumber kA = new LoggedTunableNumber("Wrist/Gains/kA", kGains.kA());
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("Wrist/Gains/kG", kGains.kG());
 
-    private static final LoggedTunableNumber l1 = new LoggedTunableNumber("Wrist/Gains/l1", 0);
-    private static final LoggedTunableNumber l2 = new LoggedTunableNumber("Wrist/Gains/l2", 3);
-    private static final LoggedTunableNumber l3 = new LoggedTunableNumber("Wrist/Gains/l3", 2);
-    private static final LoggedTunableNumber l4 = new LoggedTunableNumber("Wrist/Gains/l4", 1);
+    private static final LoggedTunableNumber l1 = new LoggedTunableNumber("Wrist/Setpoints/l1", 0);
+    private static final LoggedTunableNumber l2 = new LoggedTunableNumber("Wrist/Setpoints/l2", 3);
+    private static final LoggedTunableNumber l3 = new LoggedTunableNumber("Wrist/Setpoints/l3", 2);
+    private static final LoggedTunableNumber l4 = new LoggedTunableNumber("Wrist/Setpoints/l4", 1);
     private static final LoggedTunableNumber handoff = new LoggedTunableNumber("Wrist/Setpoints/handoff", -60);
     private static final LoggedTunableNumber algae = new LoggedTunableNumber("Wrist/Setpoints/algae", 80);
 

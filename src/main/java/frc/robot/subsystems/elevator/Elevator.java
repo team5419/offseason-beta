@@ -31,10 +31,10 @@ public class Elevator extends SubsystemBase {
 
     private static final LoggedTunableNumber stow =
             new LoggedTunableNumber("Elevator/Stow Height", kElevatorHeights.stow());
-    private static final LoggedTunableNumber l1 = new LoggedTunableNumber("Elevator/L1", kElevatorHeights.l1());
-    private static final LoggedTunableNumber l2 = new LoggedTunableNumber("Elevator/L2", kElevatorHeights.l2());
-    private static final LoggedTunableNumber l3 = new LoggedTunableNumber("Elevator/L3", kElevatorHeights.l3());
-    private static final LoggedTunableNumber l4 = new LoggedTunableNumber("Elevator/L4", kElevatorHeights.l4());
+    private static final LoggedTunableNumber l1 = new LoggedTunableNumber("Elevator/Setpoints/L1", kElevatorHeights.l1());
+    private static final LoggedTunableNumber l2 = new LoggedTunableNumber("Elevator/Setpoints/L2", kElevatorHeights.l2());
+    private static final LoggedTunableNumber l3 = new LoggedTunableNumber("Elevator/Setpoints/L3", kElevatorHeights.l3());
+    private static final LoggedTunableNumber l4 = new LoggedTunableNumber("Elevator/Setpoints/L4", kElevatorHeights.l4());
 
     @Getter
     @Setter
