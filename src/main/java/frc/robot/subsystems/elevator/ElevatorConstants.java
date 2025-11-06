@@ -13,7 +13,7 @@ public class ElevatorConstants {
 
     public static final double kGearRatio =
             switch (GlobalConstants.getRobotType()) {
-                    case BETA -> 5.0;
+                case BETA -> 5.0;
                 default -> 5.0;
             };
 
