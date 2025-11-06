@@ -54,7 +54,7 @@ public class Wrist extends SubsystemBase {
 
     @Getter
     @Setter
-    public WristGoal currentGoal = WristGoal.IDLE;
+    private WristGoal currentGoal = WristGoal.IDLE;
 
     public Wrist(WristIO io) {
         this.io = io;
