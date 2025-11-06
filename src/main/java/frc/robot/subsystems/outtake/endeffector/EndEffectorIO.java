@@ -17,7 +17,7 @@ public interface EndEffectorIO {
 
     default void updateInputs(EndEffectorIOInputs inputs) {}
 
-    default void runVelocity(double rps, double ff) {}
+    default void runVelocity(double rps) {}
 
     default void runVolts(double volts) {}
 

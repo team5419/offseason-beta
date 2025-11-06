@@ -73,6 +73,13 @@ public class Wrist extends SubsystemBase {
                 kG,
                 kV,
                 kA); // Sets Feedforward if changed
+
+        if (currentGoal == WristGoal.IDLE) {
+            io.stop();
+        } else {
+            io.runPosition(currentGoal.getWristAngle());
+        }
+        ;
     }
 
     // Put methods for controlling this subsystem using io interface methods

@@ -28,7 +28,5 @@ public class WristToPosition extends Command {
     }
 
     @Override
-    public void end(boolean isFinished) {
-        wrist.setCurrentGoal(WristGoal.IDLE);
-    }
+    public void end(boolean isFinished) {}
 }

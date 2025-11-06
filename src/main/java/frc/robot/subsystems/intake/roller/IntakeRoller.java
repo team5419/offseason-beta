@@ -63,7 +63,7 @@ public class IntakeRoller extends SubsystemBase {
                 kG,
                 kV,
                 kA);
-        io.runVelocity(currentGoal.getRollerVel().getAsDouble());
+
         if (currentGoal == IntakeRollerGoal.IDLE) {
             io.stop();
         } else {

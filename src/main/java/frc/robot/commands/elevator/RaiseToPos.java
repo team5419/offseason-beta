@@ -38,8 +38,5 @@ public class RaiseToPos extends Command {
     }
 
     @Override
-    public void end(boolean isFinished) {
-        wrist.setCurrentGoal(WristGoal.IDLE);
-        elevator.setCurrentGoal(ElevatorGoal.IDLE);
-    }
+    public void end(boolean isFinished) {}
 }

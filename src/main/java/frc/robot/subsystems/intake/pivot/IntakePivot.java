@@ -60,8 +60,13 @@ public class IntakePivot extends SubsystemBase {
                 kG,
                 kV,
                 kA);
-        // TODO LINE ABOVE CHANGES PID VALUE EVERY CYCLE ON ALPHA, CHECK IF IT DOES ON BETA+
 
+        if (currentGoal == IntakePivotGoal.IDLE) {
+            stop();
+            return;
+        } else {
+            io.runPosition(currentGoal.getPivotAngle().getAsDouble());
+        }
     }
 
     @AutoLogOutput(key = "Intake Pivot/At Goal")
@@ -72,5 +77,9 @@ public class IntakePivot extends SubsystemBase {
 
     public void runVolts(double volts) {
         io.runVolts(volts);
+    }
+
+    public void stop() {
+        io.stop();
     }
 }
