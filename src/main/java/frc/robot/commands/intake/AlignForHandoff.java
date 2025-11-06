@@ -21,8 +21,8 @@ public class AlignForHandoff extends Command {
 
     @Override
     public void initialize() {
-        pivot.runPosition(IntakePivotGoal.TO_INTAKE_HANDOFF);
-        wrist.runPosition(WristGoal.HANDOFF);
+        pivot.setCurrentGoal(IntakePivotGoal.TO_INTAKE_HANDOFF);
+        wrist.setCurrentGoal(WristGoal.HANDOFF);
     }
 
     @Override

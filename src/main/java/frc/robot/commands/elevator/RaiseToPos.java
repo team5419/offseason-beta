@@ -25,8 +25,8 @@ public class RaiseToPos extends Command {
 
     @Override
     public void execute() {
-        wrist.runPosition(wristGoal.get());
-        elevator.runPosition(eleGoal.get());
+        wrist.setCurrentGoal(wristGoal.get());
+        elevator.setCurrentGoal(eleGoal.get());
     }
 
     @Override

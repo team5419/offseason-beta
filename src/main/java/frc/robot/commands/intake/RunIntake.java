@@ -30,7 +30,7 @@ public class RunIntake extends Command {
     public void initialize() {
         timer.reset();
         roller.setCurrentGoal(IntakeRollerGoal.INTAKE);
-        pivot.runPosition(IntakePivotGoal.TO_INTAKE);
+        pivot.setCurrentGoal(IntakePivotGoal.TO_INTAKE);
     }
 
     @Override
