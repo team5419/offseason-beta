@@ -31,7 +31,6 @@ public class IntakePivot extends SubsystemBase {
     private static final LoggedTunableNumber l1 = new LoggedTunableNumber("Intake Pivot/Setpoints/L1", 50);
     private static final LoggedTunableNumber handoff = new LoggedTunableNumber("Intake Pivot/Setpoints/handoff", 150);
 
-
     public enum IntakePivotGoal {
         IDLE(() -> 0), // TODO: set idle angle
         INTAKE(intake), // TODO: Set intake angle

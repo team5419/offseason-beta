@@ -22,7 +22,7 @@ public class RunIntake extends Command {
 
     public void initialize() {
         roller.setGoal(IntakeRollerGoal.INTAKE);
-        pivot.runPosition(IntakePivotGoal.TO_INTAKE);
+        pivot.runPosition(IntakePivotGoal.INTAKE);
     }
 
     public void execute() {}

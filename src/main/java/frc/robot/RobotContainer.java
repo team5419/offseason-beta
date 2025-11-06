@@ -23,7 +23,6 @@ import frc.robot.subsystems.beambreak.Beambreak;
 import frc.robot.subsystems.beambreak.BeambreakIOReal;
 import frc.robot.subsystems.beambreak.BeambreakIOSim;
 import frc.robot.subsystems.elevator.Elevator;
-import frc.robot.subsystems.elevator.Elevator.ElevatorGoal;
 import frc.robot.subsystems.elevator.ElevatorIO;
 import frc.robot.subsystems.elevator.ElevatorIOSim;
 import frc.robot.subsystems.elevator.ElevatorIOTalonFX;
