@@ -7,7 +7,6 @@ import frc.robot.lib.LoggedTunableNumber;
 import frc.robot.lib.util.EqualsUtil;
 import frc.robot.subsystems.elevator.Elevator.ElevatorGoal;
 import java.util.function.DoubleSupplier;
-
 import lombok.Getter;
 import lombok.Setter;
 import org.littletonrobotics.junction.AutoLogOutput;

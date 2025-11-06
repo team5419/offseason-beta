@@ -33,18 +33,17 @@ public class HandoffCoral extends Command {
 
     @Override
     public void execute() {
-        roller.setGoal(IntakeRollerGoal.OUTTAKEENDEFFECTOR);
+        roller.setCurrentGoal(IntakeRollerGoal.OUTTAKEENDEFFECTOR);
         endEffector.setGoal(EndEffectorRollerGoal.INTAKE);
     }
 
     @Override
     public boolean isFinished() {
-        return (beamBreak.gamepieceInEndEffector() && !beamBreak.coralInIntake())
-                || timer.hasElapsed(kTimeOutTime);
+        return (beamBreak.gamepieceInEndEffector() && !beamBreak.coralInIntake()) || timer.hasElapsed(kTimeOutTime);
     }
 
     @Override
     public void end(boolean isFinished) {
-        roller.setGoal(IntakeRollerGoal.IDLE);
+        roller.setCurrentGoal(IntakeRollerGoal.IDLE);
     }
 }

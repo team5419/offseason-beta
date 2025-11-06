@@ -23,28 +23,26 @@ public class RunIntake extends Command {
         beamBreak = robot.getBeamBreak();
         pivot = robot.getIntakePivot();
         addRequirements(roller, pivot);
-        timer = new Timer();  
+        timer = new Timer();
     }
 
     @Override
     public void initialize() {
         timer.reset();
-        roller.setGoal(IntakeRollerGoal.INTAKE);
+        roller.setCurrentGoal(IntakeRollerGoal.INTAKE);
         pivot.runPosition(IntakePivotGoal.TO_INTAKE);
     }
-    
+
     @Override
     public void execute() {}
-    
+
     @Override
     public boolean isFinished() {
-        return beamBreak.coralInIntake()
-                    || timer.hasElapsed(kTimeOutTime);
-
+        return beamBreak.coralInIntake() || timer.hasElapsed(kTimeOutTime);
     }
-    
+
     @Override
     public void end(boolean isFinished) {
-        roller.setGoal(IntakeRollerGoal.IDLE);
+        roller.setCurrentGoal(IntakeRollerGoal.IDLE);
     }
 }

@@ -9,9 +9,6 @@ import frc.robot.commands.intake.RunIntake;
 public class IntakeCoral extends SequentialCommandGroup {
 
     public IntakeCoral(RobotContainer robot) {
-        addCommands(
-                new RunIntake(robot),
-                new AlignForHandoff(robot),
-                new HandoffCoral(robot));
+        addCommands(new RunIntake(robot), new AlignForHandoff(robot), new HandoffCoral(robot));
     }
 }

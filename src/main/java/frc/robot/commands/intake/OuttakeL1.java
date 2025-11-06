@@ -1,4 +1,4 @@
-package frc.robot.commands.intake.intakeroller;
+package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
@@ -6,13 +6,14 @@ import frc.robot.subsystems.beambreak.Beambreak;
 import frc.robot.subsystems.intake.roller.IntakeRoller;
 import frc.robot.subsystems.intake.roller.IntakeRoller.IntakeRollerGoal;
 
-public class OuttakeCoral extends Command {
-    private final IntakeRoller roller;
-    private final Beambreak beamBreak;
+public class OuttakeL1 extends Command {
 
-    public OuttakeCoral(RobotContainer robot) {
-        roller = robot.getIntakeRoller(); // fix later
-        beamBreak = robot.getBeamBreak();
+    private final Beambreak beambreak;
+    private final IntakeRoller roller;
+
+    public OuttakeL1(RobotContainer robot) {
+        beambreak = robot.getBeamBreak();
+        roller = robot.getIntakeRoller();
 
         addRequirements(roller);
     }
@@ -27,7 +28,7 @@ public class OuttakeCoral extends Command {
 
     @Override
     public boolean isFinished() {
-        return !beamBreak.coralInIntake();
+        return !beambreak.coralInIntake();
     }
 
     @Override

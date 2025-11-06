@@ -28,7 +28,7 @@ public class IntakePivotToPosition extends Command {
 
     @Override
     public boolean isFinished() {
-        return intake.atGoal();
+        return intake.getCurrentGoal() == goal.get() && intake.atGoal();
     }
 
     @Override
