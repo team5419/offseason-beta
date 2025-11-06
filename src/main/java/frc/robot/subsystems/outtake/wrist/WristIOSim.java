@@ -1,6 +1,7 @@
 package frc.robot.subsystems.outtake.wrist;
 
 import static frc.robot.constants.GlobalConstants.*;
+import static frc.robot.subsystems.elevator.ElevatorConstants.kGearRatio;
 import static frc.robot.subsystems.outtake.wrist.WristConstants.*;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -12,11 +13,12 @@ public class WristIOSim implements WristIO {
     private final SingleJointedArmSim pivotSim;
 
     private PIDController controller;
+    private double appliedVolts = 0.0;
 
     public WristIOSim() {
         pivotSim = new SingleJointedArmSim(
                 DCMotor.getKrakenX60Foc(2),
-                310 / 3,
+                kGearRatio,
                 SingleJointedArmSim.estimateMOI(0.3, 10),
                 .3,
                 Units.degreesToRadians(kBottomDegree),
@@ -33,6 +35,7 @@ public class WristIOSim implements WristIO {
         pivotSim.update(kLooperDT);
         inputs.position = Units.radiansToDegrees(pivotSim.getAngleRads());
         inputs.velocity = Units.radiansToDegrees(pivotSim.getVelocityRadPerSec());
+        inputs.appliedVolts = appliedVolts;
         inputs.supplyCurrentAmps = pivotSim.getCurrentDrawAmps();
     }
 
@@ -41,11 +44,12 @@ public class WristIOSim implements WristIO {
 
     @Override
     public void runPosition(double degrees) {
-        pivotSim.setInputVoltage(controller.calculate(pivotSim.getAngleRads(), Units.degreesToRadians(degrees)));
+        runVolts(controller.calculate(pivotSim.getAngleRads(), Units.degreesToRadians(degrees)));
     }
 
     @Override
     public void runVolts(double volts) {
+        appliedVolts = volts;
         pivotSim.setInputVoltage(volts);
     }
 
@@ -56,6 +60,7 @@ public class WristIOSim implements WristIO {
 
     @Override
     public void stop() {
+        appliedVolts = 0;
         pivotSim.setInputVoltage(0);
     }
 

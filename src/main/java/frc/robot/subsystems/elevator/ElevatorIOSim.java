@@ -21,7 +21,7 @@ public class ElevatorIOSim implements ElevatorIO {
 
     public ElevatorIOSim() {
         controller = new PIDController(kGains.kP(), kGains.kI(), kGains.kD());
-        eSim = new ElevatorSim(DCMotor.getKrakenX60(2), 5, 10, sprocketPitchRadius, 0, 1, false, 0);
+        eSim = new ElevatorSim(DCMotor.getKrakenX60(2), kGearRatio, 10, sprocketPitchRadius, 0, 2, false, 0);
     }
 
     @Override
@@ -41,7 +41,6 @@ public class ElevatorIOSim implements ElevatorIO {
 
     @Override
     public void runVolts(double volts) {
-
         appliedVolts = MathUtil.clamp(volts, -12.0, 12.0);
         eSim.setInputVoltage(appliedVolts);
     }

@@ -94,6 +94,6 @@ public class Wrist extends SubsystemBase {
 
     @AutoLogOutput
     public boolean atGoal() {
-        return EqualsUtil.epsilonEquals(currentGoal.getWristAngle(), kAngleTolerance);
+        return EqualsUtil.epsilonEquals(currentGoal.getWristAngle(), inputs.position, kAngleTolerance);
     }
 }

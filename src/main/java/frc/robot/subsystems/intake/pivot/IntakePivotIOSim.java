@@ -17,7 +17,7 @@ public class IntakePivotIOSim implements IntakePivotIO {
     public IntakePivotIOSim() {
         pivotSim = new SingleJointedArmSim(
                 DCMotor.getKrakenX60Foc(2),
-                310 / 3,
+                kGearRatio,
                 SingleJointedArmSim.estimateMOI(0.3, 10),
                 .3,
                 Units.degreesToRadians(kBottomDegree),
@@ -26,7 +26,6 @@ public class IntakePivotIOSim implements IntakePivotIO {
                 Units.degreesToRadians(0));
 
         controller = new PIDController(kGains.kP(), kGains.kI(), kGains.kD());
-        resetPosition(0);
     }
 
     @Override

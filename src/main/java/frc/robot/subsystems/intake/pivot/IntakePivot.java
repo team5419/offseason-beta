@@ -29,7 +29,7 @@ public class IntakePivot extends SubsystemBase {
     public enum IntakePivotGoal {
         IDLE(() -> 0), // TODO: set idle angle
         TO_INTAKE(() -> 0), // TODO: Set intake angle
-        TO_SCOREL1(() -> 0), // TODO: set scoring angle
+        TO_SCOREL1(() -> 50), // TODO: set scoring angle
         TO_INTAKE_HANDOFF(() -> 150); // TODO: set handoff angle
 
         @Getter
@@ -62,6 +62,7 @@ public class IntakePivot extends SubsystemBase {
                 kG,
                 kV,
                 kA);
+        io.runPosition(currentGoal.getPivotAngle().getAsDouble());
         // TODO LINE ABOVE CHANGES PID VALUE EVERY CYCLE ON ALPHA, CHECK IF IT DOES ON BETA+
 
     }

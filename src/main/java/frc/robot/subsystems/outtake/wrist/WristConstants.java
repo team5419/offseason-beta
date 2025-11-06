@@ -20,6 +20,7 @@ public class WristConstants {
     public static final double kGearRatio =
             switch (GlobalConstants.getRobotType()) {
                 case BETA -> 24;
+                case SIMBOT -> 310 / 3;
                 default -> 90;
             };
 
@@ -33,7 +34,7 @@ public class WristConstants {
 
     public static final Gains kGains =
             switch (GlobalConstants.getRobotType()) {
-                case SIMBOT -> new Gains(10, 0.0, 0.0, 8.4, 0.0, 0.0, 22.9);
+                case SIMBOT -> new Gains(5, 0.0, 1.0, 8.4, 0.0, 0.0, 22.9);
                 case BETA -> new Gains(0, 0, 0, 0, 0, 0, 0);
                 default -> new Gains(175, 0, 0, 0.15, 2.5, 0, 0.08);
             };

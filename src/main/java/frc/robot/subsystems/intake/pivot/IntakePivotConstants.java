@@ -7,6 +7,7 @@ public class IntakePivotConstants {
     public static final double kGearRatio =
             switch (GlobalConstants.getRobotType()) {
                 case BETA -> 80;
+                case SIMBOT -> 310.0 / 3;
                 default -> 14;
             };
 
@@ -37,7 +38,7 @@ public class IntakePivotConstants {
     public static final Gains kGains =
             switch (GlobalConstants.getRobotType()) {
                 case BETA -> new Gains(175, 0, 0, 0.15, 2.5, 0, 0.08);
-                case SIMBOT -> new Gains(10, 0.0, 0.0, 8.4, 0.0, 0.0, 22.9);
+                case SIMBOT -> new Gains(8, 0.0, 1.0, 8.4, 0.0, 0.0, 22.9);
                 default -> new Gains(175, 0, 0, 0.15, 2.5, 0, 0.08);
             };
 
