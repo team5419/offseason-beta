@@ -21,7 +21,7 @@ public class AlignForHandoff extends Command {
 
     @Override
     public void initialize() {
-        pivot.setCurrentGoal(IntakePivotGoal.TO_INTAKE_HANDOFF);
+        pivot.setCurrentGoal(IntakePivotGoal.HANDOFF);
         wrist.setCurrentGoal(WristGoal.HANDOFF);
     }
 
@@ -30,7 +30,7 @@ public class AlignForHandoff extends Command {
 
     @Override
     public boolean isFinished() {
-        return pivot.getCurrentGoal() == IntakePivotGoal.TO_INTAKE_HANDOFF
+        return pivot.getCurrentGoal() == IntakePivotGoal.HANDOFF
                 && wrist.getCurrentGoal() == WristGoal.HANDOFF
                 && pivot.atGoal()
                 && wrist.atGoal();

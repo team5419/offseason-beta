@@ -28,9 +28,9 @@ public class RunIntake extends Command {
 
     @Override
     public void initialize() {
-        timer.reset();
+        timer.restart();
         roller.setCurrentGoal(IntakeRollerGoal.INTAKE);
-        pivot.setCurrentGoal(IntakePivotGoal.TO_INTAKE);
+        pivot.setCurrentGoal(IntakePivotGoal.INTAKE);
     }
 
     @Override
