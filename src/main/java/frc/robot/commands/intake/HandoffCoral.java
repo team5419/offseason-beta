@@ -11,7 +11,7 @@ import frc.robot.subsystems.outtake.endeffector.EndEffector.EndEffectorRollerGoa
 
 public class HandoffCoral extends Command {
 
-    private static final double kTimeOutTime = 10.0;
+    private static final double kTimeOutTime = 3.0;
     private final IntakeRoller roller;
     private final EndEffector endEffector;
     private final Beambreak beamBreak;
@@ -39,9 +39,8 @@ public class HandoffCoral extends Command {
 
     @Override
     public boolean isFinished() {
-        return beamBreak.gamepieceInEndEffector()
-                || timer.hasElapsed(kTimeOutTime)
-                || !beamBreak.coralInIntake(); // in case of mechanical failure
+        return (beamBreak.gamepieceInEndEffector() && !beamBreak.coralInIntake())
+                || timer.hasElapsed(kTimeOutTime);
     }
 
     @Override
