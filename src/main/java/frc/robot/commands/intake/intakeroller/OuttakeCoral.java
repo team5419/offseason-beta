@@ -17,16 +17,20 @@ public class OuttakeCoral extends Command {
         addRequirements(roller);
     }
 
+    @Override
     public void initialize() {
         roller.setGoal(IntakeRollerGoal.OUTTAKECORRAL);
     }
-
+    
+    @Override
     public void execute() {}
-
+    
+    @Override
     public boolean isFinished() {
         return !beamBreak.coralInIntake();
     }
-
+    
+    @Override
     public void end(boolean isFinished) {
         roller.setGoal(IntakeRollerGoal.IDLE);
     }
