@@ -78,11 +78,6 @@ public class Elevator extends SubsystemBase {
         return false;
     }
 
-    public void runPosition(ElevatorGoal goal) {
-        currentGoal = goal;
-        io.runPosition(currentGoal.getEleHeight().getAsDouble());
-    }
-
     public void runVolts(double volts) {
         io.runVolts(volts);
     }
