@@ -7,25 +7,26 @@ public class IntakePivotConstants {
     public static final double kGearRatio =
             switch (GlobalConstants.getRobotType()) {
                 case BETA -> 80;
+                case SIMBOT -> 310.0 / 3;
                 default -> 14;
             };
 
-    public static final double kTopPosition =
+    public static final double kBottomDegree =
             switch (GlobalConstants.getRobotType()) {
                 case BETA -> 0;
                 default -> 0;
+            };
+
+    public static final double kTopDegree =
+            switch (GlobalConstants.getRobotType()) {
+                case BETA -> 150;
+                default -> 150;
             };
 
     public static final double kTolorance =
             switch (GlobalConstants.getRobotType()) {
                 case BETA -> 0.05;
                 default -> 0.05;
-            };
-
-    public static final double kBottomPosition =
-            switch (GlobalConstants.getRobotType()) {
-                case BETA -> -90;
-                default -> -90;
             };
 
     public static final double kZeroPos =
@@ -36,7 +37,7 @@ public class IntakePivotConstants {
 
     public static final Gains kGains =
             switch (GlobalConstants.getRobotType()) {
-                case BETA -> new Gains(175, 0, 0, 0.15, 2.5, 0, 0.08);
+                case BETA -> new Gains(2, 0, 0, 0.3, 2, 0, 0.3);
                 default -> new Gains(175, 0, 0, 0.15, 2.5, 0, 0.08);
             };
 
@@ -48,7 +49,7 @@ public class IntakePivotConstants {
 
     public static final MotionConfigs kMotionConfigs =
             switch (GlobalConstants.getRobotType()) {
-                case BETA -> new MotionConfigs(8000, 7200, 0);
+                case BETA -> new MotionConfigs(200, 40, 0);
                 default -> new MotionConfigs(8000, 7200, 0);
             };
 

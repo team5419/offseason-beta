@@ -9,12 +9,16 @@ import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
+import static frc.robot.subsystems.outtake.endeffector.EndEffectorConstants.*;
+
+import com.ctre.phoenix6.BaseStatusSignal;
+import com.ctre.phoenix6.StatusSignal;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.controls.NeutralOut;
+import com.ctre.phoenix6.controls.VelocityVoltage;
+import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
-import edu.wpi.first.units.measure.Angle;
-import edu.wpi.first.units.measure.AngularVelocity;
-import edu.wpi.first.units.measure.Current;
-import edu.wpi.first.units.measure.Temperature;
-import edu.wpi.first.units.measure.Voltage;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
 import java.util.List;
@@ -29,14 +33,14 @@ public class EndEffectorIOTalonFX implements EndEffectorIO {
 
     private NeutralOut neutralOut = new NeutralOut();
 
-    private VelocityVoltage reqVelTorque = new VelocityVoltage(0);
+    private VelocityVoltage reqVel = new VelocityVoltage(0);
 
     private final List<StatusSignal<Angle>> motorPosition;
     private final List<StatusSignal<AngularVelocity>> motorVelocity;
     private final List<StatusSignal<Double>> motorReferencePosition;
+    private final List<StatusSignal<Double>> motorReferenceVelocity;
     private final List<StatusSignal<Voltage>> motorAppliedVoltage;
     private final List<StatusSignal<Current>> motorSupplyCurrent;
-    private final List<StatusSignal<Current>> motorTorqueCurrent;
     private final List<StatusSignal<Temperature>> motorTempCelsius;
 
     public EndEffectorIOTalonFX() {
@@ -46,14 +50,15 @@ public class EndEffectorIOTalonFX implements EndEffectorIO {
         motorPosition = List.of(leaderMotor.getPosition(), followerMotor.getPosition());
         motorVelocity = List.of(leaderMotor.getVelocity(), followerMotor.getVelocity());
         motorReferencePosition = List.of(leaderMotor.getClosedLoopReference(), followerMotor.getClosedLoopReference());
+        motorReferenceVelocity =
+                List.of(leaderMotor.getClosedLoopReferenceSlope(), followerMotor.getClosedLoopReferenceSlope());
         motorSupplyCurrent = List.of(leaderMotor.getSupplyCurrent(), followerMotor.getSupplyCurrent());
-        motorTorqueCurrent = List.of(leaderMotor.getTorqueCurrent(), followerMotor.getTorqueCurrent());
         motorTempCelsius = List.of(leaderMotor.getDeviceTemp(), followerMotor.getDeviceTemp());
         motorAppliedVoltage = List.of(leaderMotor.getMotorVoltage(), followerMotor.getMotorVoltage());
 
-        talonConfig.Slot0.kP = kGains.kP(); // This gets us closer to the target velocity
-        talonConfig.Slot0.kI = kGains.kI(); // 99% of the time, this will be 0
-        talonConfig.Slot0.kD = kGains.kD(); // Smooths out the velocity grap
+        talonConfig.Slot0.kP = kGains.kP();
+        talonConfig.Slot0.kI = kGains.kI();
+        talonConfig.Slot0.kD = kGains.kD();
 
         talonConfig.Slot0.kS = kGains.kS();
         talonConfig.Slot0.kV = kGains.kV();
@@ -79,17 +84,29 @@ public class EndEffectorIOTalonFX implements EndEffectorIO {
                 motorSupplyCurrent.get(1),
                 motorTempCelsius.get(0),
                 motorTempCelsius.get(1),
+                motorReferencePosition.get(0),
+                motorReferencePosition.get(1),
+                motorReferenceVelocity.get(0),
+                motorReferenceVelocity.get(1),
                 leaderMotor.getDutyCycle());
     }
 
     @Override
     public void updateInputs(EndEffectorIOInputs inputs) {
         inputs.leaderMotorConnected = BaseStatusSignal.refreshAll(
-                        motorPosition.get(0), motorPosition.get(1),
-                        motorVelocity.get(0), motorVelocity.get(1),
-                        motorAppliedVoltage.get(0), motorAppliedVoltage.get(1),
-                        motorSupplyCurrent.get(0), motorSupplyCurrent.get(1),
-                        motorTempCelsius.get(0), motorTempCelsius.get(1))
+                        motorPosition.get(0),
+                        motorVelocity.get(0),
+                        motorAppliedVoltage.get(0),
+                        motorSupplyCurrent.get(0),
+                        motorTempCelsius.get(0))
+                .isOK();
+
+        inputs.followerMotorConnected = BaseStatusSignal.refreshAll(
+                        motorPosition.get(1),
+                        motorVelocity.get(1),
+                        motorAppliedVoltage.get(1),
+                        motorSupplyCurrent.get(1),
+                        motorTempCelsius.get(1))
                 .isOK();
 
         inputs.position = motorPosition.stream()
@@ -104,7 +121,19 @@ public class EndEffectorIOTalonFX implements EndEffectorIO {
                 .mapToDouble(StatusSignal::getValueAsDouble)
                 .toArray();
 
+        inputs.supplyCurrentAmps = motorSupplyCurrent.stream()
+                .mapToDouble(StatusSignal::getValueAsDouble)
+                .toArray();
+
+        inputs.tempCelcius = motorTempCelsius.stream()
+                .mapToDouble(StatusSignal::getValueAsDouble)
+                .toArray();
+
         inputs.referencePose = motorReferencePosition.stream()
+                .mapToDouble(StatusSignal::getValueAsDouble)
+                .toArray();
+
+        inputs.referenceVelocity = motorReferenceVelocity.stream()
                 .mapToDouble(StatusSignal::getValueAsDouble)
                 .toArray();
     }
@@ -121,7 +150,7 @@ public class EndEffectorIOTalonFX implements EndEffectorIO {
 
     @Override
     public void runVelocity(double motorRPS) {
-        leaderMotor.setControl(reqVelTorque.withVelocity(motorRPS));
+        leaderMotor.setControl(reqVel.withVelocity(motorRPS));
     }
 
     @Override
