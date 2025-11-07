@@ -49,7 +49,7 @@ public class ElevatorIOTalonFX implements ElevatorIO {
 
         follow = new Follower(leaderMotor.getDeviceID(), true);
 
-        config.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        config.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
         config.Slot0.kP = kGains.kP();
         config.Slot0.kI = kGains.kI();
         config.Slot0.kD = kGains.kD();

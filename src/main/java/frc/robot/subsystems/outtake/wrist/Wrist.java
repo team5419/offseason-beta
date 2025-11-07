@@ -54,8 +54,9 @@ public class Wrist extends SubsystemBase {
         }
     }
 
+    @Getter
     @Setter
-    public WristGoal currentGoal = WristGoal.IDLE;
+    private WristGoal currentGoal = WristGoal.IDLE;
 
     public Wrist(WristIO io) {
         this.io = io;
@@ -74,6 +75,13 @@ public class Wrist extends SubsystemBase {
                 kG,
                 kV,
                 kA); // Sets Feedforward if changed
+
+        if (currentGoal == WristGoal.IDLE) {
+            io.stop();
+        } else {
+            io.runPosition(currentGoal.getWristAngle());
+        }
+        ;
     }
 
     // Put methods for controlling this subsystem using io interface methods
@@ -82,13 +90,6 @@ public class Wrist extends SubsystemBase {
     public void stop() {}
 
     public void runVolts() {}
-
-    public void runPosition(WristGoal position) {
-        Logger.recordOutput("Wrist/Goal", position);
-        Logger.recordOutput("Wrist/Goal Degrees", position.getWristAngle());
-
-        io.runPosition(position.getWristAngle());
-    }
 
     public void setDesiredLevel(ElevatorGoal goal) {}
 

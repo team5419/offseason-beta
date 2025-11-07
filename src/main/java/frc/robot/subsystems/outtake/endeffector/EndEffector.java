@@ -59,6 +59,13 @@ public class EndEffector extends SubsystemBase {
                 kG,
                 kV,
                 kA);
+
+        if (currentGoal == EndEffectorRollerGoal.IDLE) {
+            io.stop();
+        } else {
+            io.runVelocity(currentGoal.getRollerVel().getAsDouble());
+        }
+        ;
     }
 
     /**

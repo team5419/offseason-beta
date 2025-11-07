@@ -1,11 +1,13 @@
 package frc.robot.subsystems.intake.roller;
 
-import static frc.robot.subsystems.elevator.ElevatorConstants.*;
+import static frc.robot.subsystems.intake.roller.IntakeRollerConstants.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LoggedTunableNumber;
+import frc.robot.lib.util.EqualsUtil;
 import java.util.function.DoubleSupplier;
 import lombok.Getter;
+import lombok.Setter;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
@@ -41,14 +43,12 @@ public class IntakeRoller extends SubsystemBase {
         }
     }
 
-    IntakeRollerGoal currentGoal = IntakeRollerGoal.IDLE;
+    @Getter
+    @Setter
+    private IntakeRollerGoal currentGoal = IntakeRollerGoal.IDLE;
 
     public IntakeRoller(IntakeRollerIO io) {
         this.io = io;
-    }
-
-    public void setGoal(IntakeRollerGoal goal) {
-        currentGoal = goal;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class IntakeRoller extends SubsystemBase {
                 kG,
                 kV,
                 kA);
-        io.runVelocity(currentGoal.getRollerVel().getAsDouble());
+
         if (currentGoal == IntakeRollerGoal.IDLE) {
             io.stop();
         } else {
@@ -77,6 +77,9 @@ public class IntakeRoller extends SubsystemBase {
      */
     @AutoLogOutput(key = "Intake Roller/At Goal")
     public boolean atGoal() {
-        return false;
+        return EqualsUtil.epsilonEquals(
+                (inputs.motorVelocityRPS[0] + inputs.motorVelocityRPS[1]) / 2,
+                currentGoal.getRollerVel().getAsDouble(),
+                kVelocityTolerance);
     }
 }
