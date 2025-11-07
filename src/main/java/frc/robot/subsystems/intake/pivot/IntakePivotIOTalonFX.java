@@ -4,14 +4,18 @@ import static frc.robot.subsystems.intake.pivot.IntakePivotConstants.*;
 
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.VoltageOut;
+import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.ctre.phoenix6.signals.SensorDirectionValue;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
@@ -36,12 +40,17 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
     private StatusSignal<Voltage> motorVoltage;
     private TalonFXConfiguration config = new TalonFXConfiguration();
 
+    private CANcoder pivotEncoder;
+    private CANcoderConfiguration encoderConfig = new CANcoderConfiguration();
+
     private MotionMagicVoltage reqMotionMagic = new MotionMagicVoltage(0);
     private VoltageOut voltageOut = new VoltageOut(0);
     private NeutralOut neutralOut = new NeutralOut();
 
     public IntakePivotIOTalonFX() {
-        pivotMotor = new TalonFX(Ports.kIntakePivotID);
+
+        pivotMotor = new TalonFX(Ports.kIntakePivotID, GlobalConstants.kCANivoreName);
+        pivotEncoder = new CANcoder(Ports.kIntakePivotEnconderID, GlobalConstants.kCANivoreName);
 
         motorPosition = pivotMotor.getPosition();
         motorAppliedVoltage = pivotMotor.getMotorVoltage();
@@ -54,12 +63,20 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
         motorTorqueCurrent = pivotMotor.getTorqueCurrent();
         motorVoltage = pivotMotor.getMotorVoltage();
 
+        encoderConfig.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
+        encoderConfig.MagnetSensor.MagnetOffset = 0.081;
+
+        config.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
+        config.Feedback.FeedbackRemoteSensorID = pivotEncoder.getDeviceID();
+
         config.CurrentLimits.SupplyCurrentLimit = kSupplyCurrentLimit;
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
         config.Slot0.GravityType = GravityTypeValue.Arm_Cosine;
         config.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
         config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-        config.Feedback.SensorToMechanismRatio = kGearRatio;
+
+        config.Feedback.RotorToSensorRatio = kGearRatio;
+        config.Feedback.SensorToMechanismRatio = 1.0;
 
         config.Slot0.kP = kGains.kP();
         config.Slot0.kI = kGains.kI();
@@ -86,8 +103,9 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
                 motorTempCelsius);
 
         pivotMotor.getConfigurator().apply(config);
+        pivotEncoder.getConfigurator().apply(encoderConfig);
 
-        resetPosition(kTopPosition);
+        resetPosition(pivotEncoder.getAbsolutePosition().getValueAsDouble());
     }
 
     @Override

@@ -15,6 +15,8 @@ import org.littletonrobotics.junction.Logger;
 public class Wrist extends SubsystemBase {
 
     private WristIO io;
+
+    @Getter
     private WristIOInputsAutoLogged inputs = new WristIOInputsAutoLogged();
 
     private static final LoggedTunableNumber kP = new LoggedTunableNumber("Wrist/Gains/kP", kGains.kP());
@@ -25,15 +27,12 @@ public class Wrist extends SubsystemBase {
     private static final LoggedTunableNumber kA = new LoggedTunableNumber("Wrist/Gains/kA", kGains.kA());
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("Wrist/Gains/kG", kGains.kG());
 
-    private static final LoggedTunableNumber l1 = new LoggedTunableNumber("Wrist/Gains/KG", 0);
-    private static final LoggedTunableNumber l2 = new LoggedTunableNumber("Wrist/Gains/kG", 3);
-    private static final LoggedTunableNumber l3 = new LoggedTunableNumber("Wrist/Gains/kG", 2);
-    private static final LoggedTunableNumber l4 = new LoggedTunableNumber("Wrist/Gains/kG", 1);
-    private static final LoggedTunableNumber handoff = new LoggedTunableNumber("Wrist/Gains/kG", 1);
-    private static final LoggedTunableNumber algaeintake = new LoggedTunableNumber("Wrist/Gains/kG", 80);
-    private static final LoggedTunableNumber algaeback = new LoggedTunableNumber("Wrist/Gains/kG", 80);
-    private static final LoggedTunableNumber algaeouttake = new LoggedTunableNumber("Wrist/Gains/kG", 80);
-    // TODO: TUNE INTAKE AND OUTTAKE ANGLES DURING TESTING
+    private static final LoggedTunableNumber l1 = new LoggedTunableNumber("Wrist/Setpoints/l1", 0);
+    private static final LoggedTunableNumber l2 = new LoggedTunableNumber("Wrist/Setpoints/l2", 3);
+    private static final LoggedTunableNumber l3 = new LoggedTunableNumber("Wrist/Setpoints/l3", 2);
+    private static final LoggedTunableNumber l4 = new LoggedTunableNumber("Wrist/Setpoints/l4", 1);
+    private static final LoggedTunableNumber handoff = new LoggedTunableNumber("Wrist/Setpoints/handoff", -60);
+    private static final LoggedTunableNumber algae = new LoggedTunableNumber("Wrist/Setpoints/algae", 80);
 
     public enum WristGoal {
         IDLE(() -> 0),
@@ -42,9 +41,7 @@ public class Wrist extends SubsystemBase {
         L3(l3),
         L4(l4),
         HANDOFF(handoff),
-        ALGAEINTAKE(algaeintake),
-        ALGAEBACK(algaeback),
-        ALGAEOUTTAKE(algaeouttake);
+        ALGAE(algae);
 
         private DoubleSupplier wristAngle;
 
@@ -84,7 +81,6 @@ public class Wrist extends SubsystemBase {
         } else {
             io.runPosition(currentGoal.getWristAngle());
         }
-        ;
     }
 
     // Put methods for controlling this subsystem using io interface methods
@@ -98,6 +94,6 @@ public class Wrist extends SubsystemBase {
 
     @AutoLogOutput
     public boolean atGoal() {
-        return EqualsUtil.epsilonEquals(currentGoal.getWristAngle(), kAngleTolerance);
+        return EqualsUtil.epsilonEquals(currentGoal.getWristAngle(), inputs.position, kAngleTolerance);
     }
 }

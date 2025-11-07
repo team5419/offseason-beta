@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.RobotBase;
  */
 public class GlobalConstants {
 
-    private static RobotType kRobotType = RobotType.BETA;
+    private static RobotType kRobotType = RobotType.SIMBOT;
     private static Alert invalidRobotAlert =
             new Alert("Invalid robot selected, using alpha bot as default.", AlertType.kError);
 
@@ -18,7 +18,7 @@ public class GlobalConstants {
     /** This constant is used in LoggedTunableNumber.java */
     public static final boolean kTuningMode = true;
     /** Set this to true to use dev bindings instead of normal bindings */
-    public static final boolean kDevMode = true;
+    public static final boolean kDevMode = false;
 
     public static final double kCANErrorTimeThreshold = 0.5;
     public static final double kCANivoreErrorTimeThreshold = 0.5;
