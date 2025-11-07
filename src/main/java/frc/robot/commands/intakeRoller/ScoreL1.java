@@ -16,7 +16,7 @@ public class ScoreL1 extends SequentialCommandGroup {
         addRequirements(intakePivot);
 
         addCommands(
-                new InstantCommand(() -> intakePivot.runPosition(IntakePivotGoal.TSCOREL1)),
+                new InstantCommand(() -> intakePivot.runPosition(IntakePivotGoal.SCOREL1)),
                 new WaitCommand(0.7),
                 new OuttakeCoral(robot));
     }
