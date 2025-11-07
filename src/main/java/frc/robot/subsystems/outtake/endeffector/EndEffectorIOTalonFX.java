@@ -29,14 +29,13 @@ public class EndEffectorIOTalonFX implements EndEffectorIO {
 
     private NeutralOut neutralOut = new NeutralOut();
 
-    private VelocityVoltage reqVelTorque = new VelocityVoltage(0);
+    private VelocityVoltage reqVel = new VelocityVoltage(0);
 
     private final List<StatusSignal<Angle>> motorPosition;
     private final List<StatusSignal<AngularVelocity>> motorVelocity;
     private final List<StatusSignal<Double>> motorReferencePosition;
     private final List<StatusSignal<Voltage>> motorAppliedVoltage;
     private final List<StatusSignal<Current>> motorSupplyCurrent;
-    private final List<StatusSignal<Current>> motorTorqueCurrent;
     private final List<StatusSignal<Temperature>> motorTempCelsius;
 
     public EndEffectorIOTalonFX() {
@@ -47,13 +46,12 @@ public class EndEffectorIOTalonFX implements EndEffectorIO {
         motorVelocity = List.of(leaderMotor.getVelocity(), followerMotor.getVelocity());
         motorReferencePosition = List.of(leaderMotor.getClosedLoopReference(), followerMotor.getClosedLoopReference());
         motorSupplyCurrent = List.of(leaderMotor.getSupplyCurrent(), followerMotor.getSupplyCurrent());
-        motorTorqueCurrent = List.of(leaderMotor.getTorqueCurrent(), followerMotor.getTorqueCurrent());
         motorTempCelsius = List.of(leaderMotor.getDeviceTemp(), followerMotor.getDeviceTemp());
         motorAppliedVoltage = List.of(leaderMotor.getMotorVoltage(), followerMotor.getMotorVoltage());
 
-        talonConfig.Slot0.kP = kGains.kP(); // This gets us closer to the target velocity
-        talonConfig.Slot0.kI = kGains.kI(); // 99% of the time, this will be 0
-        talonConfig.Slot0.kD = kGains.kD(); // Smooths out the velocity grap
+        talonConfig.Slot0.kP = kGains.kP();
+        talonConfig.Slot0.kI = kGains.kI();
+        talonConfig.Slot0.kD = kGains.kD();
 
         talonConfig.Slot0.kS = kGains.kS();
         talonConfig.Slot0.kV = kGains.kV();
@@ -121,7 +119,7 @@ public class EndEffectorIOTalonFX implements EndEffectorIO {
 
     @Override
     public void runVelocity(double motorRPS) {
-        leaderMotor.setControl(reqVelTorque.withVelocity(motorRPS));
+        leaderMotor.setControl(reqVel.withVelocity(motorRPS));
     }
 
     @Override

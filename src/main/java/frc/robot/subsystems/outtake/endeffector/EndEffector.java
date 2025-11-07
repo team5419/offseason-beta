@@ -8,6 +8,7 @@ import frc.robot.lib.LoggedTunableNumber;
 import frc.robot.lib.util.EqualsUtil;
 import java.util.function.DoubleSupplier;
 import lombok.Getter;
+import lombok.Setter;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
@@ -24,9 +25,15 @@ public class EndEffector extends SubsystemBase {
     private static final LoggedTunableNumber kA = new LoggedTunableNumber("End Effector Roller/Gains/kA", kGains.kA());
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("End Effector Roller/Gains/kG", kGains.kG());
 
+    private static final LoggedTunableNumber outtake =
+            new LoggedTunableNumber("End Effector Roller/Setpoint/Outtake", 10);
+    private static final LoggedTunableNumber handoff =
+            new LoggedTunableNumber("End Effector Roller/Setpoint/Outtake", 10);
+
     public enum EndEffectorRollerGoal {
         IDLE(() -> 0),
-        OUTTAKING(() -> 10);
+        HANDOFF(handoff),
+        OUTTAKING(outtake);
 
         @Getter
         private DoubleSupplier rollerVel;
@@ -37,6 +44,7 @@ public class EndEffector extends SubsystemBase {
     }
 
     @Getter
+    @Setter
     private EndEffectorRollerGoal currentGoal = EndEffectorRollerGoal.IDLE;
 
     public EndEffector(EndEffectorIO io) {
@@ -55,6 +63,11 @@ public class EndEffector extends SubsystemBase {
                 kG,
                 kV,
                 kA);
+        if (currentGoal == EndEffectorRollerGoal.IDLE) {
+            stop();
+        } else {
+            io.runVelocity(currentGoal.getRollerVel().getAsDouble());
+        }
     }
 
     public void run(double volts) {
