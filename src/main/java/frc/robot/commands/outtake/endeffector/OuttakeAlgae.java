@@ -1,8 +1,6 @@
+package frc.robot.commands.outtake.endeffector;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.elevator.Elevator;
-import frc.robot.subsystems.elevator.Elevator.ElevatorGoal;
-import frc.robot.subsystems.intake.roller.IntakeRoller.IntakeRollerGoal;
 import frc.robot.subsystems.outtake.endeffector.EndEffector;
 import frc.robot.subsystems.outtake.endeffector.EndEffector.EndEffectorRollerGoal;
 import frc.robot.subsystems.outtake.wrist.Wrist;
@@ -16,7 +14,10 @@ public class OuttakeAlgae extends Command {
     private final Supplier<WristGoal> wristGoal;
     private final Supplier<EndEffectorRollerGoal> endEffectorRollerGoal;
 
-    public OuttakeAlgae(RobotContainer robot, Supplier<WristGoal> wristGoal, Supplier<EndEffectorRollerGoal> endEffectorRollerGoal) {
+    public OuttakeAlgae(
+            RobotContainer robot,
+            Supplier<WristGoal> wristGoal,
+            Supplier<EndEffectorRollerGoal> endEffectorRollerGoal) {
         this.wristGoal = wristGoal;
         this.endEffectorRollerGoal = endEffectorRollerGoal;
         wrist = robot.getWrist();
@@ -27,10 +28,13 @@ public class OuttakeAlgae extends Command {
     @Override
     public void execute() {
         wrist.setCurrentGoal(wristGoal.get());
+        endEffector.setCurrentGoal(endEffectorRollerGoal.get());
     }
 
     @Override
-    public boolean isFinished() {}
+    public boolean isFinished() {
+        return (endEffector.atGoal() && endEffector.getCurrentGoal() == endEffectorRollerGoal.get() && wrist.atGoal() && wrist.getCurrentGoal() == wristGoal.get());
+    }
 
     @Override
     public void end(boolean isFinished) {}
