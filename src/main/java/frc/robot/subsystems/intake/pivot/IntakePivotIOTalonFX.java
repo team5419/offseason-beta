@@ -87,7 +87,7 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
 
         pivotMotor.getConfigurator().apply(config);
 
-        resetPosition(kTopPosition);
+        resetPosition(kTopDegree);
     }
 
     @Override

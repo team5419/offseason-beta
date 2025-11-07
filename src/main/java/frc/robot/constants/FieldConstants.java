@@ -37,9 +37,9 @@ public class FieldConstants {
 
         public static final List<Pose3d> kCoralTags = new ArrayList<>(); // list of coral tags on the reef
 
-        public static final Translation2d kReefOffset = null; // So we are not in the reef
+        public static final Translation2d kReefOffset = new Translation2d(); // TODO tune
 
-        public static final Translation2d kCoralAlignOffset = null;
+        public static final Translation2d kCoralAlignOffset = new Translation2d();
         public static final String jsonFilePath = Filesystem.getDeployDirectory() + "/2025-reefscape.json";
 
         static {
