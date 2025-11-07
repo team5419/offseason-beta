@@ -4,7 +4,5 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 
 public class AutoAlign extends Command {
-    public AutoAlign(RobotContainer robot) {
-        
-    }
+    public AutoAlign(RobotContainer robot) {}
 }

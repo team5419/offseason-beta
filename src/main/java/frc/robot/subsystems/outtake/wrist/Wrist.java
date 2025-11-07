@@ -81,7 +81,6 @@ public class Wrist extends SubsystemBase {
         } else {
             io.runPosition(currentGoal.getWristAngle());
         }
-        ;
     }
 
     // Put methods for controlling this subsystem using io interface methods
@@ -90,6 +89,10 @@ public class Wrist extends SubsystemBase {
     public void stop() {}
 
     public void runVolts() {}
+
+    public void runPosition(WristGoal goal) {
+        io.runPosition(goal.getWristAngle());
+    }
 
     public void setDesiredLevel(ElevatorGoal goal) {}
 
