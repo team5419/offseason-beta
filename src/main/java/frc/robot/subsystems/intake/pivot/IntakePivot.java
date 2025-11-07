@@ -1,7 +1,6 @@
 package frc.robot.subsystems.intake.pivot;
 
-import static frc.robot.subsystems.elevator.ElevatorConstants.*;
-import static frc.robot.subsystems.intake.pivot.IntakePivotConstants.kTolorance;
+import static frc.robot.subsystems.intake.pivot.IntakePivotConstants.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LoggedTunableNumber;
