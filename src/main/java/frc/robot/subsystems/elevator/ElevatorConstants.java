@@ -8,7 +8,7 @@ public class ElevatorConstants {
 
     public static final Gains kGains =
             switch (GlobalConstants.getRobotType()) {
-                    // TODO: tune
+                case SIMBOT -> new Gains(1.56, 0.0, 0.0, 0.33329, 1.43, 0.11, 0);
                 default -> new Gains(50.0, 0.0, 0.1, 0.2, 0.6, 0.0, 0.7);
             };
 
@@ -17,6 +17,8 @@ public class ElevatorConstants {
                 case BETA -> 5.0;
                 default -> 5.0;
             };
+
+    public static final double sprocketPitchRadius = Units.inchesToMeters(2.607);
 
     public static final MotionMagicConfigs kMotionMagicConfigs =
             switch (GlobalConstants.getRobotType()) {

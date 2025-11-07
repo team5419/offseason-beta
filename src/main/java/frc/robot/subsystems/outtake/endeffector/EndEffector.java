@@ -1,11 +1,13 @@
 package frc.robot.subsystems.outtake.endeffector;
 
-import static frc.robot.subsystems.elevator.ElevatorConstants.*;
+import static frc.robot.subsystems.outtake.endeffector.EndEffectorConstants.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LoggedTunableNumber;
+import frc.robot.lib.util.EqualsUtil;
 import java.util.function.DoubleSupplier;
 import lombok.Getter;
+import lombok.Setter;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
@@ -22,11 +24,21 @@ public class EndEffector extends SubsystemBase {
     private static final LoggedTunableNumber kA = new LoggedTunableNumber("End Effector Roller/Gains/kA", kGains.kA());
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("End Effector Roller/Gains/kG", kGains.kG());
 
-    private EndEffectorRollerGoal currentGoal;
+    private static final LoggedTunableNumber outtake =
+            new LoggedTunableNumber("End Effector Roller/Setpoint/Outtake", 10);
+    private static final LoggedTunableNumber handoff =
+            new LoggedTunableNumber("End Effector Roller/Setpoint/handoff", 10);
+    private static final LoggedTunableNumber intakeAlgae =
+            new LoggedTunableNumber("End Effector Roller/Setpoint/Intake Algae", 10);
+    private static final LoggedTunableNumber holdAlgae =
+            new LoggedTunableNumber("End Effector Roller/Setpoint/Hold Algae", 10);
 
     public enum EndEffectorRollerGoal {
-        IDLE(() -> 0), // Should be the current angle
-        INTAKE(() -> 0); // temporary
+        IDLE(() -> 0),
+        HANDOFF(handoff),
+        INTAKE_ALGAE(intakeAlgae),
+        HOLD_ALGAE(holdAlgae),
+        OUTTAKE(outtake);
 
         @Getter
         private DoubleSupplier rollerVel;
@@ -36,9 +48,9 @@ public class EndEffector extends SubsystemBase {
         }
     }
 
-    public void setGoal(EndEffectorRollerGoal goal) {
-        currentGoal = goal;
-    }
+    @Getter
+    @Setter
+    private EndEffectorRollerGoal currentGoal = EndEffectorRollerGoal.IDLE;
 
     public EndEffector(EndEffectorIO io) {
         this.io = io;
@@ -56,6 +68,19 @@ public class EndEffector extends SubsystemBase {
                 kG,
                 kV,
                 kA);
+        if (currentGoal == EndEffectorRollerGoal.IDLE) {
+            stop();
+        } else {
+            io.runVelocity(currentGoal.getRollerVel().getAsDouble());
+        }
+    }
+
+    public void run(double volts) {
+        io.runVolts(volts);
+    }
+
+    public void stop() {
+        io.stop();
     }
 
     /**
@@ -64,6 +89,9 @@ public class EndEffector extends SubsystemBase {
      */
     @AutoLogOutput(key = "End Effector Roller/At Goal")
     public boolean atGoal() {
-        return false;
+        return EqualsUtil.epsilonEquals(
+                ((inputs.velocity[0] + inputs.velocity[1]) / 2),
+                currentGoal.getRollerVel().getAsDouble(),
+                kVelocityTolerance);
     }
 }

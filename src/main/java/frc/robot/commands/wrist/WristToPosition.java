@@ -19,7 +19,7 @@ public class WristToPosition extends Command {
 
     @Override
     public void execute() {
-        wrist.runPosition(goal.get());
+        wrist.setCurrentGoal(goal.get());
     }
 
     @Override
@@ -28,7 +28,5 @@ public class WristToPosition extends Command {
     }
 
     @Override
-    public void end(boolean isFinished) {
-        wrist.setCurrentGoal(WristGoal.IDLE);
-    }
+    public void end(boolean isFinished) {}
 }
