@@ -30,6 +30,7 @@ public class IntakePivot extends SubsystemBase {
     private static final LoggedTunableNumber intake = new LoggedTunableNumber("Intake Pivot/Setpoints/intake", 0);
     private static final LoggedTunableNumber l1 = new LoggedTunableNumber("Intake Pivot/Setpoints/L1", 50);
     private static final LoggedTunableNumber handoff = new LoggedTunableNumber("Intake Pivot/Setpoints/handoff", 150);
+    private static final LoggedTunableNumber volts = new LoggedTunableNumber("Intake Pivot/volts", 0.0);
 
     public enum IntakePivotGoal {
         IDLE(() -> 0), // TODO: set idle angle
@@ -58,6 +59,12 @@ public class IntakePivot extends SubsystemBase {
         io.updateInputs(inputs);
         Logger.processInputs("Intake Pivot", inputs);
         Logger.recordOutput("Intake Pivot/Goal", currentGoal);
+        if (currentGoal == IntakePivotGoal.IDLE) {
+            stop();
+        } else {
+            runPosition(currentGoal);
+            System.out.println("a");
+        }
 
         LoggedTunableNumber.ifChanged(hashCode(), () -> io.setPID(kP.get(), kI.get(), kD.get()), kP, kI, kD);
         LoggedTunableNumber.ifChanged(
@@ -86,7 +93,17 @@ public class IntakePivot extends SubsystemBase {
         io.runVolts(volts);
     }
 
+    public void runVolts() {
+        io.runVolts(volts.getAsDouble());
+    }
+
     public void stop() {
+        currentGoal = IntakePivotGoal.IDLE;
         io.stop();
+    }
+
+    public void runPosition(IntakePivotGoal goal) {
+        currentGoal = goal;
+        io.runPosition(goal.getPivotAngle().getAsDouble());
     }
 }

@@ -10,12 +10,12 @@ import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.system.plant.DCMotor;
 import frc.robot.lib.swerve.ConstantsWrapper;
-import frc.robot.subsystems.swerve.generated.TunerConstantsPlaceholder;
+import frc.robot.subsystems.swerve.generated.TunerConstants;
 
 public class SwerveConstants {
 
     /** <b> !! PLACEHOLDER VALUE !! </b> */
-    public static final ConstantsWrapper TunerConstants = new ConstantsWrapper(TunerConstantsPlaceholder.class);
+    public static final ConstantsWrapper TunerConstants = new ConstantsWrapper(TunerConstants.class);
 
     // TunerConstantsPlaceholder doesn't include these constants, so they are declared locally
 
