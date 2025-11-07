@@ -26,6 +26,8 @@ public class ElevatorConstants {
                 default -> new MotionMagicConfigs(55, 30, 0);
             };
 
+    public static final double kSprocketPitchRadius = Units.inchesToMeters(2.708);
+
     public static final ElevatorHeights kElevatorHeights = new ElevatorHeights(0, 0.2, 1.6, 3.4, 6.73);
 
     public static final double kSupplyCurrentLimit = 60.0;
