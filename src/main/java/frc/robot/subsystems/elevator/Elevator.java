@@ -30,6 +30,8 @@ public class Elevator extends SubsystemBase {
     private static final LoggedTunableNumber l3 = new LoggedTunableNumber("Elevator/L3", kElevatorHeights.l3());
     private static final LoggedTunableNumber l4 = new LoggedTunableNumber("Elevator/L4", kElevatorHeights.l4());
 
+    private static final LoggedTunableNumber voltage = new LoggedTunableNumber("Elevator/Tuning/Apply Volts");
+
     @Getter
     @Setter
     @AutoLogOutput(key = "Elevator/Current Goal")
@@ -67,8 +69,13 @@ public class Elevator extends SubsystemBase {
                 kG,
                 kV,
                 kA);
+        if (currentGoal == ElevatorGoal.IDLE) {
+            io.stop();
+        } else {
+            io.runPosition(currentGoal.getEleHeight().getAsDouble());
+        }
 
-        Logger.recordOutput("Current Goal", currentGoal.toString());
+        Logger.recordOutput("Elevator/Current Goal", currentGoal);
     }
 
     public void setDesiredLevel(ElevatorGoal goal) {}
@@ -78,12 +85,11 @@ public class Elevator extends SubsystemBase {
         return false;
     }
 
-    public void runPosition(ElevatorGoal goal) {
-        currentGoal = goal;
-        io.runPosition(currentGoal.getEleHeight().getAsDouble());
-    }
-
     public void runVolts(double volts) {
         io.runVolts(volts);
+    }
+
+    public void runCharacterization() {
+        io.runVolts(voltage.getAsDouble());
     }
 }

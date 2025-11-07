@@ -26,9 +26,9 @@ public class IntakePivot extends SubsystemBase {
 
     public enum IntakePivotGoal {
         IDLE(() -> 0), // TODO: set idle angle
-        TO_INTAKE(() -> 17), // TODO: Set intake angle
-        TO_SCOREL1(() -> 0), // TODO: set scoring angle
-        TO_INTAKE_HANDOFF(() -> 0); // TODO: set handoff angle
+        INTAKE(() -> 17), // TODO: Set intake angle
+        SCORE_L1(() -> 0), // TODO: set scoring angle
+        HANDOFF(() -> 0); // TODO: set handoff angle
 
         @Getter
         private DoubleSupplier pivotAngle;
@@ -60,8 +60,13 @@ public class IntakePivot extends SubsystemBase {
                 kG,
                 kV,
                 kA);
-        // TODO LINE ABOVE CHANGES PID VALUE EVERY CYCLE ON ALPHA, CHECK IF IT DOES ON BETA+
 
+        if (currentGoal == IntakePivotGoal.IDLE) {
+            stop();
+            return;
+        } else {
+            io.runPosition(currentGoal.getPivotAngle().getAsDouble());
+        }
     }
 
     @AutoLogOutput(key = "Intake Pivot/At Goal")
@@ -74,8 +79,7 @@ public class IntakePivot extends SubsystemBase {
         io.runVolts(volts);
     }
 
-    public void runPosition(IntakePivotGoal goal) {
-        currentGoal = goal;
-        io.runPosition(goal.getPivotAngle().getAsDouble());
+    public void stop() {
+        io.stop();
     }
 }

@@ -29,7 +29,7 @@ public class EndEffectorIOTalonFX implements EndEffectorIO {
     // call .setControl on the motor controller with the appropriate control mode and value.
     // https://api.ctr-electronics.com/phoenix6/release/java/com/ctre/phoenix6/controls/MotionMagicVelocityVoltage.html
     @Override
-    public void runVelocity(double motorRPS, double ff) {}
+    public void runVelocity(double motorRPS) {}
 
     @Override
     public void setPID(double kP, double kI, double kD) {}
