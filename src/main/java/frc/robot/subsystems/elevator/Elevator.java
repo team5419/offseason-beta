@@ -101,4 +101,13 @@ public class Elevator extends SubsystemBase {
     public double getPosition() {
         return (inputs.position[0] + inputs.position[1]) / 2;
     }
+
+    public boolean isLow(ElevatorGoal goal) {
+        return goal.getEleHeight().getAsDouble() <= kInterferenceHeight;
+    }
+
+    public boolean willCross(ElevatorGoal goal) {
+        return (getPosition() > kInterferenceHeight && isLow(goal))
+                || (getPosition() < kInterferenceHeight && !isLow(goal));
+    }
 }

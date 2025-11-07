@@ -11,10 +11,11 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.compound.AutoScore;
-import frc.robot.commands.elevator.ElevateToPosition;
+import frc.robot.commands.elevator.EleToPosition;
 import frc.robot.commands.swerve.DriveCommands;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
@@ -123,21 +124,21 @@ public class RobotContainer {
         driver.start(); // ! Unbound
         driver.back(); // ! Unbound
 
-        driver.a(); //Gyro
+        driver.a(); // Stow
         driver.b(); // ! Unbound
         driver.x(); // ! Unbound
-        driver.y(); //Stow
+        driver.y().onTrue(Commands.runOnce(() -> swerve.resetGyro()).ignoringDisable(true)); // Gyro
 
         driver.povUp(); // ! Unbound
         driver.povDown(); // ! Unbound
         driver.povLeft(); // ! Unbound
         driver.povRight(); // ! Unbound
 
-        driver.leftBumper(); //Slow Mode
-        driver.rightBumper().onTrue(new AutoScore(this, driver));
+        driver.leftBumper(); // Slow Mode
+        driver.rightBumper().onTrue(new AutoScore(this, driver)); // Auto Align
 
-        driver.leftTrigger(0.1); //Intake
-        driver.rightTrigger(0.1); //Manual Outtake
+        driver.leftTrigger(0.1); // Intake
+        driver.rightTrigger(0.1); // Manual Outtake
     }
 
     private void configureOperatorBindings() {
@@ -146,16 +147,16 @@ public class RobotContainer {
 
         operator.a(); // ! Unbound
         operator.b(); // ! Unbound
-        operator.x(); //Manual Handoff
+        operator.x(); // Manual Handoff
         operator.y(); // ! Unbound
 
-        operator.povUp(); //L4
-        operator.povDown(); //L1
-        operator.povLeft(); //L2
-        operator.povRight(); //L3
+        operator.povUp(); // L4
+        operator.povDown(); // L1
+        operator.povLeft(); // L2
+        operator.povRight(); // L3
 
-        operator.leftBumper(); //Early
-        operator.rightBumper(); //Late
+        operator.leftBumper(); // Early
+        operator.rightBumper(); // Late
 
         operator.leftTrigger(0.1); // ! Unbound
         operator.rightTrigger(0.1); // ! Unbound
@@ -233,7 +234,7 @@ public class RobotContainer {
     private void configNamedCommands() {
         NamedCommands.registerCommand(
                 "Record Time", new InstantCommand(() -> RobotState.getInstance().setAutoFinished(true)));
-        NamedCommands.registerCommand("Elevate To L4", new ElevateToPosition(elevator, () -> Elevator.ElevatorGoal.L4));
+        NamedCommands.registerCommand("Elevate To L4", new EleToPosition(elevator, () -> Elevator.ElevatorGoal.L4));
     }
 
     public Command getAutonomousCommand() {

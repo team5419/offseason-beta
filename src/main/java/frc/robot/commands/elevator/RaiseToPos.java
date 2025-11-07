@@ -8,14 +8,14 @@ import frc.robot.subsystems.outtake.wrist.Wrist;
 import frc.robot.subsystems.outtake.wrist.Wrist.WristGoal;
 import java.util.function.Supplier;
 
-public class Elevate extends Command {
+public class RaiseToPos extends Command {
 
     private final Wrist wrist;
     private final Elevator elevator;
     private final Supplier<WristGoal> wristGoal;
     private final Supplier<ElevatorGoal> eleGoal;
 
-    public Elevate(RobotContainer robot, Supplier<WristGoal> wristGoal, Supplier<ElevatorGoal> eleGoal) {
+    public RaiseToPos(RobotContainer robot, Supplier<ElevatorGoal> eleGoal, Supplier<WristGoal> wristGoal) {
         this.wristGoal = wristGoal;
         this.eleGoal = eleGoal;
         wrist = robot.getWrist();
@@ -23,7 +23,7 @@ public class Elevate extends Command {
         addRequirements(wrist, elevator);
     }
 
-    public Elevate(RobotContainer robot, Supplier<ElevatorGoal> eleGoal) {
+    public RaiseToPos(RobotContainer robot, Supplier<ElevatorGoal> eleGoal) {
         this.wristGoal = () -> Wrist.goal(eleGoal.get());
         this.eleGoal = eleGoal;
         wrist = robot.getWrist();
@@ -33,8 +33,12 @@ public class Elevate extends Command {
 
     @Override
     public void execute() {
-        wrist.setCurrentGoal(wristGoal.get());
         elevator.setCurrentGoal(eleGoal.get());
+        if (elevator.willCross(eleGoal.get())) {
+            wrist.setCurrentGoal(WristGoal.HANDOFF);
+        } else {
+            wrist.setCurrentGoal(wristGoal.get());
+        }
     }
 
     @Override

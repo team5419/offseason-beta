@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.RobotContainer;
 import frc.robot.RobotState;
-import frc.robot.commands.elevator.Elevate;
+import frc.robot.commands.elevator.RaiseToPos;
 import frc.robot.commands.swerve.AutoAlignToCoral;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.elevator.Elevator.ElevatorGoal;
@@ -30,7 +30,7 @@ public class AutoScore extends SequentialCommandGroup {
                         new SequentialCommandGroup(
                                 new ParallelRaceGroup(
                                         new AutoAlignToCoral(robot, driver),
-                                        new Elevate(robot, () -> elevator.getDesiredLevel())),
+                                        new RaiseToPos(robot, () -> elevator.getDesiredLevel())),
                                 new ConditionalCommand(
                                         new SequentialCommandGroup(
                                                 new WaitCommand(0.3), new InstantCommand()), // replace w outtake coral
