@@ -26,16 +26,21 @@ public class EndEffector extends SubsystemBase {
     private static final LoggedTunableNumber kA = new LoggedTunableNumber("End Effector Roller/Gains/kA", kGains.kA());
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("End Effector Roller/Gains/kG", kGains.kG());
 
-    private static final LoggedTunableNumber intake =
-            new LoggedTunableNumber("End Effector Roller/Setpoint/intake", 0.0);
-
-    private static final LoggedTunableNumber hold = new LoggedTunableNumber("End Effector Roller/Setpoint/hold", 0.0);
+    private static final LoggedTunableNumber outtake =
+            new LoggedTunableNumber("End Effector Roller/Setpoint/Outtake", 10);
+    private static final LoggedTunableNumber handoff =
+            new LoggedTunableNumber("End Effector Roller/Setpoint/handoff", 10);
+    private static final LoggedTunableNumber intakeAlgae =
+            new LoggedTunableNumber("End Effector Roller/Setpoint/Intake Algae", 10);
+    private static final LoggedTunableNumber holdAlgae =
+            new LoggedTunableNumber("End Effector Roller/Setpoint/Hold Algae", 10);
 
     public enum EndEffectorRollerGoal {
-        IDLE(() -> 0), // Should be the current angle
-        OUTTAKE(() -> 10),
-        INTAKE(intake), // temporary
-        HOLD(hold); // temporary
+        IDLE(() -> 0),
+        HANDOFF(handoff),
+        INTAKE_ALGAE(intakeAlgae),
+        HOLD_ALGAE(holdAlgae),
+        OUTTAKING(outtake);
 
         @Getter
         private DoubleSupplier rollerVel;
@@ -65,6 +70,11 @@ public class EndEffector extends SubsystemBase {
                 kG,
                 kV,
                 kA);
+        if (currentGoal == EndEffectorRollerGoal.IDLE) {
+            stop();
+        } else {
+            io.runVelocity(currentGoal.getRollerVel().getAsDouble());
+        }
     }
 
     public void run(double volts) {
