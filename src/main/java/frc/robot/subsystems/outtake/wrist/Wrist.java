@@ -81,7 +81,6 @@ public class Wrist extends SubsystemBase {
         } else {
             io.runPosition(currentGoal.getWristAngle());
         }
-        ;
     }
 
     // Put methods for controlling this subsystem using io interface methods
