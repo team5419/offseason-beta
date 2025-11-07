@@ -1,4 +1,4 @@
-package frc.robot.commands.Intake.Pivot;
+package frc.robot.commands.intake.intakepivot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
@@ -28,7 +28,7 @@ public class IntakePivotToPosition extends Command {
 
     @Override
     public boolean isFinished() {
-        return intake.atGoal();
+        return intake.getCurrentGoal() == goal.get() && intake.atGoal();
     }
 
     @Override

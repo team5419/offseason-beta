@@ -14,6 +14,8 @@ import org.littletonrobotics.junction.Logger;
 public class IntakePivot extends SubsystemBase {
 
     private IntakePivotIO io;
+
+    @Getter
     private IntakePivotIOInputsAutoLogged inputs = new IntakePivotIOInputsAutoLogged();
 
     private static final LoggedTunableNumber kP = new LoggedTunableNumber("Intake Pivot/Gains/kP", kGains.kP());
@@ -24,11 +26,15 @@ public class IntakePivot extends SubsystemBase {
     private static final LoggedTunableNumber kA = new LoggedTunableNumber("Intake Pivot/Gains/kA", kGains.kA());
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("Intake Pivot/Gains/kG", kGains.kG());
 
+    private static final LoggedTunableNumber intake = new LoggedTunableNumber("Intake Pivot/Setpoints/intake", 0);
+    private static final LoggedTunableNumber l1 = new LoggedTunableNumber("Intake Pivot/Setpoints/L1", 50);
+    private static final LoggedTunableNumber handoff = new LoggedTunableNumber("Intake Pivot/Setpoints/handoff", 150);
+
     public enum IntakePivotGoal {
         IDLE(() -> 0), // TODO: set idle angle
         INTAKE(() -> 17), // TODO: Set intake angle
-        SCOREL1(() -> 0), // TODO: set scoring angle
-        INTAKE_HANDOFF(() -> 0); // TODO: set handoff angle
+        SCORE_L1(() -> 0), // TODO: set scoring angle
+        HANDOFF(() -> 0); // TODO: set handoff angle
 
         @Getter
         private DoubleSupplier pivotAngle;
@@ -60,22 +66,26 @@ public class IntakePivot extends SubsystemBase {
                 kG,
                 kV,
                 kA);
-        // TODO LINE ABOVE CHANGES PID VALUE EVERY CYCLE ON ALPHA, CHECK IF IT DOES ON BETA+
 
+        if (currentGoal == IntakePivotGoal.IDLE) {
+            stop();
+            return;
+        } else {
+            io.runPosition(currentGoal.getPivotAngle().getAsDouble());
+        }
     }
 
     @AutoLogOutput(key = "Intake Pivot/At Goal")
     public boolean atGoal() {
         return EqualsUtil.epsilonEquals(
-                inputs.position, currentGoal.getPivotAngle().getAsDouble());
+                inputs.position, currentGoal.getPivotAngle().getAsDouble(), kTolorance);
     }
 
     public void runVolts(double volts) {
         io.runVolts(volts);
     }
 
-    public void runPosition(IntakePivotGoal goal) {
-        currentGoal = goal;
-        io.runPosition(goal.getPivotAngle().getAsDouble());
+    public void stop() {
+        io.stop();
     }
 }
