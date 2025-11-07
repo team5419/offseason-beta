@@ -105,5 +105,5 @@ public class IntakePivot extends SubsystemBase {
     public void runPosition(IntakePivotGoal goal) {
         currentGoal = goal;
         io.runPosition(goal.getPivotAngle().getAsDouble());
-
+    }
 }
