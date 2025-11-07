@@ -22,11 +22,14 @@ public class EndEffector extends SubsystemBase {
     private static final LoggedTunableNumber kA = new LoggedTunableNumber("End Effector Roller/Gains/kA", kGains.kA());
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("End Effector Roller/Gains/kG", kGains.kG());
 
+    private static final LoggedTunableNumber intake =
+            new LoggedTunableNumber("End Effector Roller/Setpoint/intake", 0.0);
+
     private EndEffectorRollerGoal currentGoal;
 
     public enum EndEffectorRollerGoal {
         IDLE(() -> 0), // Should be the current angle
-        INTAKE(() -> 0); // temporary
+        INTAKE(intake); // temporary
 
         @Getter
         private DoubleSupplier rollerVel;

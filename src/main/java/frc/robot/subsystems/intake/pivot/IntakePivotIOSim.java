@@ -1,75 +1,70 @@
 package frc.robot.subsystems.intake.pivot;
 
-import edu.wpi.first.math.MathUtil;
+import static frc.robot.constants.GlobalConstants.*;
+import static frc.robot.subsystems.intake.pivot.IntakePivotConstants.*;
+
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.simulation.DCMotorSim;
+import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
-import frc.robot.constants.GlobalConstants;
 
 public class IntakePivotIOSim implements IntakePivotIO {
-
     private final SingleJointedArmSim pivotSim;
-    private final PIDController controller;
 
-    private DCMotorSim sim;
-    private double appliedVoltage = 0.0;
-    private double nominalVoltageVolts;
-    private double stallTorqueNewtonMeters;
-    private double stallCurrentAmps;
-    private double freeCurrentAmps;
+    private PIDController controller;
+    private double appliedVolts = 0.0;
 
     public IntakePivotIOSim() {
-        // Initialize variables with default/mock values
         pivotSim = new SingleJointedArmSim(
-                null, // placeholder for motor
-                1.0, // gear ratio placeholder
-                1.0, // moment of inertia placeholder
-                0.0, // length placeholder
-                0.0, // min angle placeholder
-                180.0, // max angle placeholder
-                false, // simulation flag
-                180.0 // initial angle placeholder
-                );
+                DCMotor.getKrakenX60Foc(2),
+                kGearRatio,
+                SingleJointedArmSim.estimateMOI(0.3, 10),
+                .3,
+                Units.degreesToRadians(kBottomDegree),
+                Units.degreesToRadians(kTopDegree),
+                false,
+                Units.degreesToRadians(0));
 
-        controller = new PIDController(0.0, 0.0, 0.0);
+        controller = new PIDController(kGains.kP(), kGains.kI(), kGains.kD());
     }
 
-    // Updates the record with simulated data values
     @Override
     public void updateInputs(IntakePivotIOInputs inputs) {
-        sim.update(GlobalConstants.kLooperDT);
+        pivotSim.update(kLooperDT);
+        inputs.position = Units.radiansToDegrees(pivotSim.getAngleRads());
+        inputs.velocity = Units.radiansToDegrees(pivotSim.getVelocityRadPerSec());
+        inputs.supplyCurrentAmps = pivotSim.getCurrentDrawAmps();
+        inputs.appliedVolts = appliedVolts;
+    }
 
-        inputs.appliedVolts = appliedVoltage;
+    @Override
+    public void setBrakeMode(boolean enabled) {}
+
+    @Override
+    public void runPosition(double degrees) {
+        appliedVolts = controller.calculate(pivotSim.getAngleRads(), Units.degreesToRadians(degrees));
+        pivotSim.setInputVoltage(appliedVolts);
     }
 
     @Override
     public void runVolts(double volts) {
-        appliedVoltage = MathUtil.clamp(volts, -12.0, 12.0);
-        sim.setInputVoltage(appliedVoltage);
-    }
-
-    @Override
-    public void stop() {
-        runVolts(0.0);
-    }
-
-    @Override
-    public void setBrakeMode(boolean enabled) {
-        // TODO: implement
-    }
-
-    @Override
-    public void runPosition(double degrees) {
-        // TODO: implement
+        appliedVolts = volts;
+        pivotSim.setInputVoltage(volts);
     }
 
     @Override
     public void setPID(double P, double I, double D) {
-        // TODO: implement
+        controller.setPID(P, I, D);
+    }
+
+    @Override
+    public void stop() {
+        appliedVolts = 0.0;
+        pivotSim.setInputVoltage(0);
     }
 
     @Override
     public void resetPosition(double degrees) {
-        // TODO: implement
+        pivotSim.setState(Units.degreesToRadians(degrees), 0);
     }
 }
