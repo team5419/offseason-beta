@@ -3,6 +3,7 @@ package frc.robot.subsystems.outtake.endeffector;
 import static frc.robot.subsystems.elevator.ElevatorConstants.*;
 import static frc.robot.subsystems.outtake.endeffector.EndEffectorConstants.kVelocityTolerance;
 
+import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LoggedTunableNumber;
 import frc.robot.lib.util.EqualsUtil;
@@ -28,11 +29,18 @@ public class EndEffector extends SubsystemBase {
     private static final LoggedTunableNumber outtake =
             new LoggedTunableNumber("End Effector Roller/Setpoint/Outtake", 10);
     private static final LoggedTunableNumber handoff =
-            new LoggedTunableNumber("End Effector Roller/Setpoint/Outtake", 10);
+            new LoggedTunableNumber("End Effector Roller/Setpoint/handoff", 10);
+     private static final LoggedTunableNumber intakeAlgae =
+            new LoggedTunableNumber("End Effector Roller/Setpoint/Intake Algae", 10);
+    private static final LoggedTunableNumber holdAlgae =
+            new LoggedTunableNumber("End Effector Roller/Setpoint/Hold Algae", 10);
+    
 
     public enum EndEffectorRollerGoal {
         IDLE(() -> 0),
         HANDOFF(handoff),
+        INTAKE_ALGAE(intakeAlgae),
+        HOLD_ALGAE(holdAlgae),
         OUTTAKING(outtake);
 
         @Getter

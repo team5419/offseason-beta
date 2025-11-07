@@ -1,4 +1,4 @@
-package frc.robot.commands.intakeRoller;
+package frc.robot.commands.intake.intakeroller;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
@@ -17,17 +17,21 @@ public class OuttakeCoral extends Command {
         addRequirements(roller);
     }
 
+    @Override
     public void initialize() {
-        roller.setGoal(IntakeRollerGoal.OUTTAKECORRAL);
+        roller.setCurrentGoal(IntakeRollerGoal.OUTTAKECORRAL);
     }
 
+    @Override
     public void execute() {}
 
+    @Override
     public boolean isFinished() {
         return !beamBreak.coralInIntake();
     }
 
+    @Override
     public void end(boolean isFinished) {
-        roller.setGoal(IntakeRollerGoal.IDLE);
+        roller.setCurrentGoal(IntakeRollerGoal.IDLE);
     }
 }

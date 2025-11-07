@@ -1,4 +1,4 @@
-package frc.robot.commands.wrist;
+package frc.robot.commands.elevator;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
@@ -25,18 +25,18 @@ public class RaiseToPos extends Command {
 
     @Override
     public void execute() {
-        wrist.runPosition(wristGoal.get());
-        elevator.runPosition(eleGoal.get());
+        wrist.setCurrentGoal(wristGoal.get());
+        elevator.setCurrentGoal(eleGoal.get());
     }
 
     @Override
     public boolean isFinished() {
-        return wrist.atGoal() && elevator.atGoal();
+        return elevator.getCurrentGoal() == eleGoal.get()
+                && wrist.getCurrentGoal() == wristGoal.get()
+                && wrist.atGoal()
+                && elevator.atGoal();
     }
 
     @Override
-    public void end(boolean isFinished) {
-        wrist.setCurrentGoal(WristGoal.IDLE);
-        elevator.setCurrentGoal(ElevatorGoal.IDLE);
-    }
+    public void end(boolean isFinished) {}
 }
