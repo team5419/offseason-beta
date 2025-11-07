@@ -25,8 +25,7 @@ public class EndEffector extends SubsystemBase {
     private static final LoggedTunableNumber intake =
             new LoggedTunableNumber("End Effector Roller/Setpoint/intake", 0.0);
 
-    private static final LoggedTunableNumber hold =
-            new LoggedTunableNumber("End Effector Roller/Setpoint/hold", 0.0);
+    private static final LoggedTunableNumber hold = new LoggedTunableNumber("End Effector Roller/Setpoint/hold", 0.0);
 
     private EndEffectorRollerGoal currentGoal;
 

@@ -20,12 +20,12 @@ public class SuckAlgae extends Command {
     public void initialize() {
         endEffector.setGoal(EndEffectorRollerGoal.INTAKE);
     }
-    
+
     @Override
     public boolean isFinished() {
         return beambreak.gamepieceInEndEffector();
     }
-    
+
     @Override
     public void end(boolean interrupted) {
         endEffector.setGoal(EndEffectorRollerGoal.HOLD);
