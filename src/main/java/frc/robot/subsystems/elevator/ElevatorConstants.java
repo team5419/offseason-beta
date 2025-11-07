@@ -1,5 +1,6 @@
 package frc.robot.subsystems.elevator;
 
+import edu.wpi.first.math.util.Units;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.lib.Gains;
 
@@ -13,7 +14,7 @@ public class ElevatorConstants {
 
     public static final double kGearRatio =
             switch (GlobalConstants.getRobotType()) {
-                    case BETA -> 5.0;
+                case BETA -> 5.0;
                 default -> 5.0;
             };
 
@@ -22,6 +23,8 @@ public class ElevatorConstants {
                     // TODO: tune
                 default -> new MotionMagicConfigs(55, 30, 0);
             };
+
+    public static final double kSprocketPitchRadius = Units.inchesToMeters(2.708);
 
     public static final ElevatorHeights kElevatorHeights = new ElevatorHeights(0, 0.2, 1.6, 3.4, 6.73);
 

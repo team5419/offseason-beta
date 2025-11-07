@@ -3,6 +3,7 @@ package frc.robot.subsystems.elevator;
 import static frc.robot.subsystems.elevator.ElevatorConstants.kGains;
 import static frc.robot.subsystems.elevator.ElevatorConstants.kGearRatio;
 import static frc.robot.subsystems.elevator.ElevatorConstants.kMotionMagicConfigs;
+import static frc.robot.subsystems.elevator.ElevatorConstants.kSprocketPitchRadius;
 import static frc.robot.subsystems.elevator.ElevatorConstants.kSupplyCurrentLimit;
 
 import com.ctre.phoenix6.BaseStatusSignal;
@@ -132,6 +133,7 @@ public class ElevatorIOTalonFX implements ElevatorIO {
 
         inputs.position = motorPosition.stream()
                 .mapToDouble(StatusSignal::getValueAsDouble)
+                .map(p -> kSprocketPitchRadius)
                 .toArray();
 
         inputs.velocityRotationsPerSecond = motorVelocity.stream()

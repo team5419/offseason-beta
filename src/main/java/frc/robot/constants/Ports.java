@@ -84,18 +84,18 @@ public class Ports {
             };
     public static final int kHandoffBeambreakPort =
             switch (GlobalConstants.getRobotType()) {
-                case BETA -> 0; // TODO FIND VALUES
+                case BETA -> 1; // TODO FIND VALUES
                 default -> 0;
             };
     public static final int kEndBeambreakPort =
             switch (GlobalConstants.getRobotType()) {
-                case BETA -> 0; // TODO FIND VALUES
+                case BETA -> 2; // TODO FIND VALUES
                 default -> 0;
             };
 
     public static final int kLedPort =
             switch (GlobalConstants.getRobotType()) {
-                case BETA -> 0; // TODO FIND VALUES
+                case BETA -> 3; // TODO FIND VALUES
                 default -> 0;
             };
 
@@ -113,37 +113,37 @@ public class Ports {
 
     public static final int kIntakePivotID =
             switch (GlobalConstants.getRobotType()) {
-                case BETA -> 69;
+                case BETA -> 59;
                 default -> 0;
             };
 
     public static final int kIntakeRollerLeaderID =
             switch (GlobalConstants.getRobotType()) {
-                case BETA -> 66;
+                case BETA -> 56;
                 default -> 0;
             };
 
     public static final int kIntakeRollerFollowerID =
             switch (GlobalConstants.getRobotType()) {
-                case BETA -> 65;
+                case BETA -> 55;
                 default -> 0;
             };
 
     public static final int kWristID =
             switch (GlobalConstants.getRobotType()) {
-                case BETA -> 79;
+                case BETA -> 49;
                 default -> 0;
             };
 
     public static final int kEndEffectorLeaderID =
             switch (GlobalConstants.getRobotType()) {
-                case BETA -> 76;
+                case BETA -> 46;
                 default -> 0;
             };
 
     public static final int kEndEffectorFollowerID =
             switch (GlobalConstants.getRobotType()) {
-                case BETA -> 75;
+                case BETA -> 55;
                 default -> 0;
             };
 }

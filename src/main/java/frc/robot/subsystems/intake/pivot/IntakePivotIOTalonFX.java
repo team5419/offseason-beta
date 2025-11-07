@@ -41,7 +41,7 @@ public class IntakePivotIOTalonFX implements IntakePivotIO {
     private NeutralOut neutralOut = new NeutralOut();
 
     public IntakePivotIOTalonFX() {
-        pivotMotor = new TalonFX(Ports.kIntakePivotID);
+        pivotMotor = new TalonFX(Ports.kIntakePivotID, GlobalConstants.kCANivoreName);
 
         motorPosition = pivotMotor.getPosition();
         motorAppliedVoltage = pivotMotor.getMotorVoltage();

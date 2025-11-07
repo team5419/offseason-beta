@@ -85,7 +85,6 @@ public class RobotContainer {
     @Getter
     private final SendableChooser<Command> autoChooser;
 
-
     public RobotContainer() {
         // Get driver station to stop
         DriverStation.silenceJoystickConnectionWarning(true);
