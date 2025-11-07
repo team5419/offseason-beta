@@ -1,4 +1,4 @@
-package frc.robot.commands.intakeRoller;
+package frc.robot.commands.intake.intakeroller;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
