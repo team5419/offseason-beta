@@ -34,7 +34,7 @@ public class HandoffCoral extends Command {
     @Override
     public void execute() {
         roller.setCurrentGoal(IntakeRollerGoal.OUTTAKEENDEFFECTOR);
-        endEffector.setGoal(EndEffectorRollerGoal.INTAKE);
+        endEffector.setCurrentGoal(EndEffectorRollerGoal.HANDOFF);
     }
 
     @Override

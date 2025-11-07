@@ -1,4 +1,4 @@
-package frc.robot.commands.intakeRoller;
+package frc.robot.commands.intake.intakeroller;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
@@ -18,7 +18,7 @@ public class SuckAlgae extends Command {
 
     @Override
     public void initialize() {
-        endEffector.setGoal(EndEffectorRollerGoal.INTAKE);
+        endEffector.setCurrentGoal(EndEffectorRollerGoal.INTAKE_ALGAE);
     }
 
     @Override
@@ -28,6 +28,6 @@ public class SuckAlgae extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        endEffector.setGoal(EndEffectorRollerGoal.HOLD);
+        endEffector.setCurrentGoal(EndEffectorRollerGoal.HOLD_ALGAE);
     }
 }
