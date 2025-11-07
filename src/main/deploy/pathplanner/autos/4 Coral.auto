@@ -17,15 +17,9 @@
           }
         },
         {
-          "type": "race",
+          "type": "parallel",
           "data": {
             "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Score Coral"
-                }
-              },
               {
                 "type": "named",
                 "data": {
@@ -33,6 +27,12 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Score Coral"
           }
         },
         {
@@ -99,16 +99,16 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Score Coral"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
                   "name": "Auto Align"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Score Coral"
           }
         },
         {
@@ -175,16 +175,16 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Score Coral"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
                   "name": "Auto Align"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Score Coral"
           }
         },
         {
@@ -251,16 +251,16 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Score Coral"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
                   "name": "Auto Align"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Score Coral"
           }
         }
       ]

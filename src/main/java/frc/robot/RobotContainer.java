@@ -4,9 +4,9 @@
 
 package frc.robot;
 
-import com.fasterxml.jackson.databind.util.Named;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -235,7 +235,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("Score L1", new InstantCommand());
         NamedCommands.registerCommand("Score Coral", new InstantCommand());
         NamedCommands.registerCommand("Auto Align", new InstantCommand());
-        NamedCommands.registerCommand("Handoff", new InstantCommand());      
+        NamedCommands.registerCommand("Handoff", new InstantCommand());
     }
 
     public Command getAutonomousCommand() {
@@ -254,6 +254,7 @@ public class RobotContainer {
                         autoName, AutoBuilder.buildAuto(autoName).beforeStarting(() -> System.out.println(autoName)));
             }
         }
+        chooser.addOption("3-Coral-Right", new PathPlannerAuto("3-Coral-Left", true));
         return chooser;
     }
 }

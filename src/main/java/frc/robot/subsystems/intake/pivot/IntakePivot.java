@@ -27,7 +27,7 @@ public class IntakePivot extends SubsystemBase {
     public enum IntakePivotGoal {
         IDLE(() -> 0), // TODO: set idle angle
         INTAKE(() -> 17), // TODO: Set intake angle
-        TSCOREL1(() -> 0), // TODO: set scoring angle
+        SCOREL1(() -> 0), // TODO: set scoring angle
         INTAKE_HANDOFF(() -> 0); // TODO: set handoff angle
 
         @Getter
