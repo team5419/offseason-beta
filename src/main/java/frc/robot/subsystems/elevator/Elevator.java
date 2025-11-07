@@ -39,6 +39,11 @@ public class Elevator extends SubsystemBase {
     @AutoLogOutput(key = "Elevator/Current Goal")
     private ElevatorGoal currentGoal = ElevatorGoal.STOW;
 
+    @Getter
+    @Setter
+    @AutoLogOutput(key = "Elevator/Desired Goal")
+    private ElevatorGoal desiredLevel = ElevatorGoal.STOW;
+
     public enum ElevatorGoal {
         IDLE(() -> 0),
         STOW(stow),
@@ -80,8 +85,6 @@ public class Elevator extends SubsystemBase {
         Logger.recordOutput("Elevator/Current Goal", currentGoal);
     }
 
-    public void setDesiredLevel(ElevatorGoal goal) {}
-
     @AutoLogOutput(key = "Elevator/At Goal")
     public boolean atGoal() {
         return false;
@@ -93,5 +96,9 @@ public class Elevator extends SubsystemBase {
 
     public void runCharacterization() {
         io.runVolts(voltage.getAsDouble());
+    }
+
+    public double getPosition() {
+        return (inputs.position[0] + inputs.position[1]) / 2;
     }
 }
