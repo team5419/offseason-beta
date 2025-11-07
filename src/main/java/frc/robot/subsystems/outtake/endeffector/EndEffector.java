@@ -68,6 +68,7 @@ public class EndEffector extends SubsystemBase {
                 kG,
                 kV,
                 kA);
+
         if (currentGoal == EndEffectorRollerGoal.IDLE) {
             stop();
         } else {
