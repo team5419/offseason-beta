@@ -30,7 +30,10 @@ public class Wrist extends SubsystemBase {
     private static final LoggedTunableNumber l3 = new LoggedTunableNumber("Wrist/Gains/kG", 2);
     private static final LoggedTunableNumber l4 = new LoggedTunableNumber("Wrist/Gains/kG", 1);
     private static final LoggedTunableNumber handoff = new LoggedTunableNumber("Wrist/Gains/kG", 1);
-    private static final LoggedTunableNumber algae = new LoggedTunableNumber("Wrist/Gains/kG", 80);
+    private static final LoggedTunableNumber algaeintake = new LoggedTunableNumber("Wrist/Gains/kG", 80);
+    private static final LoggedTunableNumber algaeback = new LoggedTunableNumber("Wrist/Gains/kG", 80);
+    private static final LoggedTunableNumber algaeouttake = new LoggedTunableNumber("Wrist/Gains/kG", 80);
+    // TODO: TUNE INTAKE AND OUTTAKE ANGLES DURING TESTING
 
     public enum WristGoal {
         IDLE(() -> 0),
@@ -39,7 +42,9 @@ public class Wrist extends SubsystemBase {
         L3(l3),
         L4(l4),
         HANDOFF(handoff),
-        ALGAE(algae);
+        ALGAEINTAKE(algaeintake),
+        ALGAEBACK(algaeback),
+        ALGAEOUTTAKE(algaeouttake);
 
         private DoubleSupplier wristAngle;
 
