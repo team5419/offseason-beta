@@ -9,8 +9,7 @@ import frc.robot.subsystems.outtake.wrist.Wrist.WristGoal;
 public class ScoreAlgae extends SequentialCommandGroup {
     public ScoreAlgae(RobotContainer robot) {
         addCommands(
-            new RaiseToPosition(robot, () -> ElevatorGoal.L4, () -> WristGoal.HANDOFF),
-            new OuttakeAlgae(robot, () -> WristGoal.ALGAE, () -> EndEffectorRollerGoal.OUTTAKE)
-        );
+                new RaiseToPosition(robot, () -> ElevatorGoal.L4, () -> WristGoal.HANDOFF),
+                new OuttakeAlgae(robot, () -> WristGoal.ALGAE, () -> EndEffectorRollerGoal.OUTTAKE));
     }
 }

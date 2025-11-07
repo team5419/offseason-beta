@@ -1,4 +1,5 @@
 package frc.robot.commands.outtake.endeffector;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.outtake.endeffector.EndEffector;
@@ -33,7 +34,10 @@ public class OuttakeAlgae extends Command {
 
     @Override
     public boolean isFinished() {
-        return (endEffector.atGoal() && endEffector.getCurrentGoal() == endEffectorRollerGoal.get() && wrist.atGoal() && wrist.getCurrentGoal() == wristGoal.get());
+        return (endEffector.atGoal()
+                && endEffector.getCurrentGoal() == endEffectorRollerGoal.get()
+                && wrist.atGoal()
+                && wrist.getCurrentGoal() == wristGoal.get());
     }
 
     @Override
