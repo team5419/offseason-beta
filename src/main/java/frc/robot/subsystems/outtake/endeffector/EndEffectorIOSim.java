@@ -5,8 +5,9 @@ public class EndEffectorIOSim implements EndEffectorIO {
     public void updateInputs(EndEffectorIOInputs inputs) {
         // TODO: implement
     }
-
-    public void runVelocity(double motorRPS, double ff) {
+    
+    @Override
+    public void runVelocity(double motorRPS) {
         // TODO: implement
     }
 

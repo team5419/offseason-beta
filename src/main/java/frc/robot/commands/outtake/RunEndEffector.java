@@ -1,4 +1,4 @@
-package frc.robot.commands.swerve.outtake;
+package frc.robot.commands.outtake;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
@@ -6,14 +6,14 @@ import frc.robot.subsystems.outtake.endeffector.EndEffector;
 import frc.robot.subsystems.outtake.endeffector.EndEffector.EndEffectorRollerGoal;
 import java.util.function.Supplier;
 
-public class RunAtVelocity extends Command {
+public class RunEndEffector extends Command {
 
     private final EndEffector endEffector;
     private final Supplier<EndEffectorRollerGoal> goal;
 
-    public RunAtVelocity(RobotContainer robot, EndEffector endEffector, Supplier<EndEffectorRollerGoal> goal) {
+    public RunEndEffector(RobotContainer robot, Supplier<EndEffectorRollerGoal> goal) {
         this.goal = goal;
-        this.endEffector = endEffector;
+        this.endEffector = robot.getEndEffector();
 
         addRequirements(endEffector);
     }
@@ -22,11 +22,13 @@ public class RunAtVelocity extends Command {
     public void initialize() {}
 
     @Override
-    public void execute() {}
+    public void execute() {
+        endEffector.setCurrentGoal(goal.get());
+    }
 
     @Override
     public boolean isFinished() {
-        return endEffector.atGoal();
+        return endEffector.atGoal() && endEffector.getCurrentGoal() == goal.get();
     }
 
     @Override
