@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.compound.AutoScore;
 import frc.robot.commands.elevator.ElevateToPosition;
 import frc.robot.commands.swerve.DriveCommands;
 import frc.robot.constants.GlobalConstants;
@@ -133,7 +134,7 @@ public class RobotContainer {
         driver.povRight(); // ! Unbound
 
         driver.leftBumper(); // ! Unbound
-        driver.rightBumper(); // ! Unbound
+        driver.rightBumper().onTrue(new AutoScore(this, driver));
 
         driver.leftTrigger(0.1); // ! Unbound
         driver.rightTrigger(0.1); // ! Unbound

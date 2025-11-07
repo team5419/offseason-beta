@@ -8,15 +8,23 @@ import frc.robot.subsystems.outtake.wrist.Wrist;
 import frc.robot.subsystems.outtake.wrist.Wrist.WristGoal;
 import java.util.function.Supplier;
 
-public class RaiseToPos extends Command {
+public class Elevate extends Command {
 
     private final Wrist wrist;
     private final Elevator elevator;
     private final Supplier<WristGoal> wristGoal;
     private final Supplier<ElevatorGoal> eleGoal;
 
-    public RaiseToPos(RobotContainer robot, Supplier<WristGoal> wristGoal, Supplier<ElevatorGoal> eleGoal) {
+    public Elevate(RobotContainer robot, Supplier<WristGoal> wristGoal, Supplier<ElevatorGoal> eleGoal) {
         this.wristGoal = wristGoal;
+        this.eleGoal = eleGoal;
+        wrist = robot.getWrist();
+        elevator = robot.getElevator();
+        addRequirements(wrist, elevator);
+    }
+
+    public Elevate(RobotContainer robot, Supplier<ElevatorGoal> eleGoal) {
+        this.wristGoal = () -> Wrist.goal(eleGoal.get());
         this.eleGoal = eleGoal;
         wrist = robot.getWrist();
         elevator = robot.getElevator();
