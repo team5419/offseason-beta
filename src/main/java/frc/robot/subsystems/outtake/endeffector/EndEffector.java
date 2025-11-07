@@ -26,7 +26,8 @@ public class EndEffector extends SubsystemBase {
 
     public enum EndEffectorRollerGoal {
         IDLE(() -> 0), // Should be the current angle
-        INTAKE(() -> 0); // temporary
+        INTAKE(() -> 0), // temporary
+        HOLD(() -> 0); // temporary
 
         @Getter
         private DoubleSupplier rollerVel;
