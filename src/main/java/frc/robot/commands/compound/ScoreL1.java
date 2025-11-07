@@ -2,8 +2,8 @@ package frc.robot.commands.compound;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
-import frc.robot.commands.intake.OuttakeL1;
-import frc.robot.commands.intake.intakepivot.IntakePivotToPosition;
+import frc.robot.commands.Intake.OuttakeL1;
+import frc.robot.commands.Intake.intakepivot.IntakePivotToPosition;
 import frc.robot.subsystems.intake.pivot.IntakePivot;
 import frc.robot.subsystems.intake.pivot.IntakePivot.IntakePivotGoal;
 

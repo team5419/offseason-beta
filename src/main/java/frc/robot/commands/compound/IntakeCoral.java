@@ -2,9 +2,9 @@ package frc.robot.commands.compound;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
-import frc.robot.commands.intake.AlignForHandoff;
-import frc.robot.commands.intake.HandoffCoral;
-import frc.robot.commands.intake.RunIntake;
+import frc.robot.commands.Intake.AlignForHandoff;
+import frc.robot.commands.Intake.HandoffCoral;
+import frc.robot.commands.Intake.RunIntake;
 
 public class IntakeCoral extends SequentialCommandGroup {
 
