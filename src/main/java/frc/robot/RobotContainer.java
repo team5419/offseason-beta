@@ -123,21 +123,21 @@ public class RobotContainer {
         driver.start(); // ! Unbound
         driver.back(); // ! Unbound
 
-        driver.a(); // ! Unbound
+        driver.a(); //Gyro
         driver.b(); // ! Unbound
         driver.x(); // ! Unbound
-        driver.y(); // ! Unbound
+        driver.y(); //Stow
 
         driver.povUp(); // ! Unbound
         driver.povDown(); // ! Unbound
         driver.povLeft(); // ! Unbound
         driver.povRight(); // ! Unbound
 
-        driver.leftBumper(); // ! Unbound
+        driver.leftBumper(); //Slow Mode
         driver.rightBumper().onTrue(new AutoScore(this, driver));
 
-        driver.leftTrigger(0.1); // ! Unbound
-        driver.rightTrigger(0.1); // ! Unbound
+        driver.leftTrigger(0.1); //Intake
+        driver.rightTrigger(0.1); //Manual Outtake
     }
 
     private void configureOperatorBindings() {
@@ -146,16 +146,16 @@ public class RobotContainer {
 
         operator.a(); // ! Unbound
         operator.b(); // ! Unbound
-        operator.x(); // ! Unbound
+        operator.x(); //Manual Handoff
         operator.y(); // ! Unbound
 
-        operator.povUp(); // ! Unbound
-        operator.povDown(); // ! Unbound
-        operator.povLeft(); // ! Unbound
-        operator.povRight(); // ! Unbound
+        operator.povUp(); //L4
+        operator.povDown(); //L1
+        operator.povLeft(); //L2
+        operator.povRight(); //L3
 
-        operator.leftBumper(); // ! Unbound
-        operator.rightBumper(); // ! Unbound
+        operator.leftBumper(); //Early
+        operator.rightBumper(); //Late
 
         operator.leftTrigger(0.1); // ! Unbound
         operator.rightTrigger(0.1); // ! Unbound
