@@ -9,7 +9,6 @@ import frc.robot.subsystems.intake.pivot.IntakePivot.IntakePivotGoal;
 import frc.robot.subsystems.intake.roller.IntakeRoller;
 import frc.robot.subsystems.intake.roller.IntakeRoller.IntakeRollerGoal;
 import frc.robot.subsystems.outtake.endeffector.EndEffector;
-import frc.robot.subsystems.outtake.endeffector.EndEffector.EndEffectorRollerGoal;
 import frc.robot.subsystems.outtake.wrist.Wrist;
 import frc.robot.subsystems.outtake.wrist.Wrist.WristGoal;
 
@@ -43,7 +42,7 @@ public class HandoffCoral extends Command {
     public void execute() {
         if (pivot.atGoal() && wrist.atGoal()) {
             roller.setGoal(IntakeRollerGoal.OUTTAKEENDEFFECTOR);
-            endEffector.setGoal(EndEffectorRollerGoal.INTAKE);
+            // endEffector.setGoal(EndEffectorRollerGoal.INTAKE);
         }
     }
 
