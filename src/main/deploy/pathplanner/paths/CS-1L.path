@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.7382172131147542,
-        "y": 6.704252049180327
+        "x": 1.794,
+        "y": 6.70625
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.03775,
-        "y": 4.912249999999999
+        "x": 2.093532786885246,
+        "y": 4.914247950819672
       },
       "isLocked": false,
       "linkedName": "CS"
@@ -45,7 +45,7 @@
     "rotation": 3.3664606634298053
   },
   "reversed": false,
-  "folder": "4 coral paths",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": -57.38075692880722

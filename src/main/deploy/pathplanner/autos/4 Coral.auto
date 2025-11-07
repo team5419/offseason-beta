@@ -59,6 +59,25 @@
           "data": {
             "commands": [
               {
+                "type": "named",
+                "data": {
+                  "name": "Half Intake"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Handoff"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
                 "type": "path",
                 "data": {
                   "pathName": "CS-2L"
@@ -106,6 +125,25 @@
                 "type": "named",
                 "data": {
                   "name": "Intake Coral"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake Coral"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Half Intake"
                 }
               }
             ]
@@ -173,9 +211,28 @@
           "data": {
             "commands": [
               {
+                "type": "named",
+                "data": {
+                  "name": "Half Intake"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Handoff"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
                 "type": "path",
                 "data": {
-                  "pathName": "COPY of CS-3E"
+                  "pathName": "CS-3E"
                 }
               }
             ]

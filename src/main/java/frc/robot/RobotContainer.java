@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.fasterxml.jackson.databind.util.Named;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -230,9 +231,11 @@ public class RobotContainer {
         NamedCommands.registerCommand(
                 "Record Time", new InstantCommand(() -> RobotState.getInstance().setAutoFinished(true)));
         NamedCommands.registerCommand("Intake Coral", new InstantCommand());
+        NamedCommands.registerCommand("Half Intake", new InstantCommand());
         NamedCommands.registerCommand("Score L1", new InstantCommand());
         NamedCommands.registerCommand("Score Coral", new InstantCommand());
         NamedCommands.registerCommand("Auto Align", new InstantCommand());
+        NamedCommands.registerCommand("Handoff", new InstantCommand());      
     }
 
     public Command getAutonomousCommand() {

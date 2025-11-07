@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 1.7382172131147542,
-        "y": 6.704252049180327
+        "x": 1.794,
+        "y": 6.70625
       },
       "prevControl": {
-        "x": 1.5242023428772038,
-        "y": 6.855712545732571
+        "x": 1.5799851297624496,
+        "y": 6.857710496552244
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,7 @@
     "rotation": -57.38075692880722
   },
   "reversed": false,
-  "folder": "4 coral paths",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": -120.96375653207356
