@@ -16,15 +16,18 @@ public class SuckAlgae extends Command {
         beambreak = robot.getBeamBreak();
     }
 
+    @Override
     public void initialize() {
         endEffector.setGoal(EndEffectorRollerGoal.INTAKE);
     }
-
+    
+    @Override
     public boolean isFinished() {
         return beambreak.gamepieceInEndEffector();
     }
-
-    public void end() {
+    
+    @Override
+    public void end(boolean interrupted) {
         endEffector.setGoal(EndEffectorRollerGoal.HOLD);
     }
 }
