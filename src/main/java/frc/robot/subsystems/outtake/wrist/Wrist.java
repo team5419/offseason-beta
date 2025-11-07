@@ -90,10 +90,6 @@ public class Wrist extends SubsystemBase {
 
     public void runVolts() {}
 
-    public void runPosition(WristGoal goal) {
-        io.runPosition(goal.getWristAngle());
-    }
-
     public void setDesiredLevel(ElevatorGoal goal) {}
 
     @AutoLogOutput

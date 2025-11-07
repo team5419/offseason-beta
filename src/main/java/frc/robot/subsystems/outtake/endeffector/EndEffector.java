@@ -1,7 +1,6 @@
 package frc.robot.subsystems.outtake.endeffector;
 
 import static frc.robot.subsystems.outtake.endeffector.EndEffectorConstants.*;
-import static frc.robot.subsystems.outtake.endeffector.EndEffectorConstants.kVelocityTolerance;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LoggedTunableNumber;
@@ -69,6 +68,20 @@ public class EndEffector extends SubsystemBase {
                 kG,
                 kV,
                 kA);
+
+        if (currentGoal == EndEffectorRollerGoal.IDLE) {
+            stop();
+        } else {
+            io.runVelocity(currentGoal.getRollerVel().getAsDouble());
+        }
+    }
+
+    public void run(double volts) {
+        io.runVolts(volts);
+    }
+
+    public void stop() {
+        io.stop();
     }
 
     /**

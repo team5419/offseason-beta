@@ -1,4 +1,4 @@
-package frc.robot.commands.outtake;
+package frc.robot.commands.outtake.endeffector;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;

@@ -31,6 +31,8 @@ public class WristIOTalonFX implements WristIO {
     private final StatusSignal<Current> motorSupplyCurrent;
     private final StatusSignal<Current> motorTorqueCurrent;
     private final StatusSignal<Temperature> motorTempCelsius;
+    private final StatusSignal<Double> referenceVelocity;
+    private final StatusSignal<Double> referencePose;
 
     public WristIOTalonFX() {
         motor = new TalonFX(Ports.kWristID);
@@ -41,6 +43,8 @@ public class WristIOTalonFX implements WristIO {
         motorTempCelsius = motor.getDeviceTemp();
         motorTorqueCurrent = motor.getTorqueCurrent();
         motorSupplyCurrent = motor.getSupplyCurrent();
+        referenceVelocity = motor.getClosedLoopReferenceSlope();
+        referencePose = motor.getClosedLoopReference();
 
         config.MotionMagic.MotionMagicCruiseVelocity = Units.degreesToRotations(kMotionConfigs.kCruiseVel());
         config.MotionMagic.MotionMagicAcceleration = Units.degreesToRotations(kMotionConfigs.kAcceleration());
@@ -63,7 +67,9 @@ public class WristIOTalonFX implements WristIO {
                 motorAppliedVoltage,
                 motorSupplyCurrent,
                 motorTorqueCurrent,
-                motorTempCelsius);
+                motorTempCelsius,
+                referencePose,
+                referenceVelocity);
 
         motor.getConfigurator().apply(config);
 
@@ -78,7 +84,9 @@ public class WristIOTalonFX implements WristIO {
                         motorAppliedVoltage,
                         motorSupplyCurrent,
                         motorTorqueCurrent,
-                        motorTempCelsius)
+                        motorTempCelsius,
+                        referencePose,
+                        referenceVelocity)
                 .isOK();
         inputs.position = Units.rotationsToDegrees(motorPosition.getValueAsDouble());
         inputs.velocity = Units.rotationsToDegrees(motorVelocity.getValueAsDouble());
