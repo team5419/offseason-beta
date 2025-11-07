@@ -1,12 +1,10 @@
 package frc.robot.subsystems.outtake.endeffector;
 
-import static frc.robot.subsystems.elevator.ElevatorConstants.*;
-import static frc.robot.subsystems.outtake.endeffector.EndEffectorConstants.kVelocityTolerance;
+import static frc.robot.subsystems.outtake.endeffector.EndEffectorConstants.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LoggedTunableNumber;
 import frc.robot.lib.util.EqualsUtil;
-import frc.robot.subsystems.outtake.endeffector.EndEffector.EndEffectorRollerGoal;
 import java.util.function.DoubleSupplier;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,7 +38,7 @@ public class EndEffector extends SubsystemBase {
         HANDOFF(handoff),
         INTAKE_ALGAE(intakeAlgae),
         HOLD_ALGAE(holdAlgae),
-        OUTTAKING(outtake);
+        OUTTAKE(outtake);
 
         @Getter
         private DoubleSupplier rollerVel;
