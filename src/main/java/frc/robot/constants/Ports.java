@@ -116,6 +116,11 @@ public class Ports {
                 case BETA -> 59;
                 default -> 0;
             };
+    public static final int kIntakePivotEnconderID =
+            switch (GlobalConstants.getRobotType()) {
+                case BETA -> 58;
+                default -> 0;
+            };
 
     public static final int kIntakeRollerLeaderID =
             switch (GlobalConstants.getRobotType()) {

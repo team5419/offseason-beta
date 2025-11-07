@@ -36,7 +36,7 @@ public class IntakePivotConstants {
 
     public static final Gains kGains =
             switch (GlobalConstants.getRobotType()) {
-                case BETA -> new Gains(175, 0, 0, 0.15, 2.5, 0, 0.08);
+                case BETA -> new Gains(2, 0, 0, 0.3, 2, 0, 0.3);
                 default -> new Gains(175, 0, 0, 0.15, 2.5, 0, 0.08);
             };
 
@@ -48,7 +48,7 @@ public class IntakePivotConstants {
 
     public static final MotionConfigs kMotionConfigs =
             switch (GlobalConstants.getRobotType()) {
-                case BETA -> new MotionConfigs(8000, 7200, 0);
+                case BETA -> new MotionConfigs(200, 40, 0);
                 default -> new MotionConfigs(8000, 7200, 0);
             };
 
