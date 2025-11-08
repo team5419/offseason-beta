@@ -2,6 +2,7 @@ package frc.robot.commands.outtake.endeffector;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.beambreak.Beambreak;
 import frc.robot.subsystems.outtake.endeffector.EndEffector;
 import frc.robot.subsystems.outtake.endeffector.EndEffector.EndEffectorRollerGoal;
 import frc.robot.subsystems.outtake.wrist.Wrist;
@@ -12,6 +13,7 @@ public class OuttakeAlgae extends Command {
 
     private final Wrist wrist;
     private final EndEffector endEffector;
+    private final Beambreak beambreak;
     private final Supplier<WristGoal> wristGoal;
     private final Supplier<EndEffectorRollerGoal> endEffectorRollerGoal;
 
@@ -23,6 +25,7 @@ public class OuttakeAlgae extends Command {
         this.endEffectorRollerGoal = endEffectorRollerGoal;
         wrist = robot.getWrist();
         endEffector = robot.getEndEffector();
+        beambreak = robot.getBeamBreak();
         addRequirements(wrist, endEffector);
     }
 
@@ -37,9 +40,12 @@ public class OuttakeAlgae extends Command {
         return (endEffector.atGoal()
                 && endEffector.getCurrentGoal() == endEffectorRollerGoal.get()
                 && wrist.atGoal()
-                && wrist.getCurrentGoal() == wristGoal.get());
+                && wrist.getCurrentGoal() == wristGoal.get()
+                || !beambreak.gamepieceInEndEffector());
     }
 
     @Override
-    public void end(boolean isFinished) {}
+    public void end(boolean isFinished) {
+        endEffector.setCurrentGoal(EndEffectorRollerGoal.IDLE);
+    }
 }
