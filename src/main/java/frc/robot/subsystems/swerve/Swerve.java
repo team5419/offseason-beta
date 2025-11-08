@@ -37,6 +37,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -44,6 +45,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.RobotState;
 import frc.robot.constants.FieldConstants;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.GlobalConstants.Mode;
@@ -386,7 +388,12 @@ public class Swerve extends SubsystemBase {
     }
 
     public Pose2d getBestCoralAutoAlign() {
-        Translation2d offset = new Translation2d();
+        Translation2d offset = RobotState.getInstance().isEarly()
+                ? FieldConstants.CoralTags.kCoralAlignOffset.plus(
+                        new Translation2d(-0.025, 0.05 + .0175 + Units.inchesToMeters(1.5)))
+                : FieldConstants.CoralTags.kCoralAlignOffset
+                        .plus(new Translation2d(0.025, 0.142))
+                        .unaryMinus();
         return getBestCoralTag()
                 .plus(GeomUtil.toTransform2d(offset))
                 .plus(new Transform2d(new Translation2d(), Rotation2d.fromDegrees(180)));

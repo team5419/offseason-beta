@@ -25,7 +25,7 @@ public class IntakeRollerIOTalonFX implements IntakeRollerIO {
     private final List<StatusSignal<Current>> motorTorqueCurrent;
     private final List<StatusSignal<Temperature>> motorTempCelsius;
 
-    private final boolean oppositeDirection = true;
+    private final boolean oppositeDirection = false;
 
     private TalonFX leaderMotor;
     private TalonFX followerMotor;
@@ -37,8 +37,8 @@ public class IntakeRollerIOTalonFX implements IntakeRollerIO {
     private VelocityVoltage reqVelocity = new VelocityVoltage(0.0);
 
     public IntakeRollerIOTalonFX() {
-        leaderMotor = new TalonFX(Ports.kIntakeRollerLeaderID);
-        followerMotor = new TalonFX(Ports.kIntakeRollerFollowerID);
+        leaderMotor = new TalonFX(Ports.kIntakeRollerLeaderID, "rio");
+        followerMotor = new TalonFX(Ports.kIntakeRollerFollowerID, "rio");
 
         talonConfig.Slot0.kP = IntakeRollerConstants.kGains.kP();
         talonConfig.Slot0.kI = IntakeRollerConstants.kGains.kI();

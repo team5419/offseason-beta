@@ -33,6 +33,6 @@ public class IntakePivotToPosition extends Command {
 
     @Override
     public void end(boolean isFinished) {
-        intake.setCurrentGoal(IntakePivotGoal.IDLE);
+        // intake.setCurrentGoal(IntakePivotGoal.IDLE);
     }
 }

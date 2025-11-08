@@ -32,12 +32,17 @@ public class Elevator extends SubsystemBase {
     private static final LoggedTunableNumber l3 = new LoggedTunableNumber("Elevator/L3", kElevatorHeights.l3());
     private static final LoggedTunableNumber l4 = new LoggedTunableNumber("Elevator/L4", kElevatorHeights.l4());
 
-    private static final LoggedTunableNumber voltage = new LoggedTunableNumber("Elevator/Tuning/Apply Volts");
+    private static final LoggedTunableNumber voltage = new LoggedTunableNumber("Elevator/Tuning/Apply Volts", 0);
 
     @Getter
     @Setter
     @AutoLogOutput(key = "Elevator/Current Goal")
     private ElevatorGoal currentGoal = ElevatorGoal.STOW;
+
+    @Getter
+    @Setter
+    @AutoLogOutput(key = "Elevator/Desired Goal")
+    private ElevatorGoal desiredLevel = ElevatorGoal.STOW;
 
     public enum ElevatorGoal {
         IDLE(() -> 0),
@@ -80,8 +85,6 @@ public class Elevator extends SubsystemBase {
         Logger.recordOutput("Elevator/Current Goal", currentGoal);
     }
 
-    public void setDesiredLevel(ElevatorGoal goal) {}
-
     @AutoLogOutput(key = "Elevator/At Goal")
     public boolean atGoal() {
         return false;
@@ -91,7 +94,32 @@ public class Elevator extends SubsystemBase {
         io.runVolts(volts);
     }
 
+    public void stop() {
+        io.stop();
+    }
+
+    public void resetPosition() {
+        io.resetPosition(0);
+    }
+
     public void runCharacterization() {
         io.runVolts(voltage.getAsDouble());
+    }
+
+    public double getAvgVelocity() {
+        return (inputs.velocityRotationsPerSecond[0] + inputs.velocityRotationsPerSecond[1]) / 2;
+    }
+
+    public double getPosition() {
+        return (inputs.position[0] + inputs.position[1]) / 2;
+    }
+
+    public boolean isLow(ElevatorGoal goal) {
+        return goal.getEleHeight().getAsDouble() <= kInterferenceHeight;
+    }
+
+    public boolean willCross(ElevatorGoal goal) {
+        return (getPosition() > kInterferenceHeight && isLow(goal))
+                || (getPosition() < kInterferenceHeight && !isLow(goal));
     }
 }

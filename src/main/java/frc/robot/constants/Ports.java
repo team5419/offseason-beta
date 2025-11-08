@@ -148,7 +148,7 @@ public class Ports {
 
     public static final int kEndEffectorFollowerID =
             switch (GlobalConstants.getRobotType()) {
-                case BETA -> 55;
+                case BETA -> 45;
                 default -> 0;
             };
 }
