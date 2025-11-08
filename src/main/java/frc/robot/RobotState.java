@@ -40,4 +40,9 @@ public class RobotState {
     @Getter
     @AutoLogOutput(key = "RobotState/Elevator Level")
     private ElevatorGoal elevatorLevel;
+
+    @Setter
+    @Getter
+    @AutoLogOutput(key = "RobotState/Is early")
+    private boolean isEarly;
 }

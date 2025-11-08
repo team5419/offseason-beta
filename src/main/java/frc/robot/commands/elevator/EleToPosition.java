@@ -5,11 +5,11 @@ import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.elevator.Elevator.ElevatorGoal;
 import java.util.function.Supplier;
 
-public class ElevateToPosition extends Command {
+public class EleToPosition extends Command {
     private final Elevator elevator;
     private final Supplier<ElevatorGoal> positionSupplier;
 
-    public ElevateToPosition(Elevator elevator, Supplier<ElevatorGoal> goal) {
+    public EleToPosition(Elevator elevator, Supplier<ElevatorGoal> goal) {
         this.elevator = elevator;
         positionSupplier = goal;
         addRequirements(elevator);

@@ -6,6 +6,8 @@ import frc.robot.lib.Gains;
 
 public class ElevatorConstants {
 
+    public static final double kInterferenceHeight = 0.05; // TODO: tune
+
     public static final Gains kGains =
             switch (GlobalConstants.getRobotType()) {
                 case SIMBOT -> new Gains(1.56, 0.0, 0.0, 0.33329, 1.43, 0.11, 0);

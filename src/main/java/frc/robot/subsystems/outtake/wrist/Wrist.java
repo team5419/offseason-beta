@@ -96,4 +96,15 @@ public class Wrist extends SubsystemBase {
     public boolean atGoal() {
         return EqualsUtil.epsilonEquals(currentGoal.getWristAngle(), inputs.position, kAngleTolerance);
     }
+
+    public static WristGoal goal(ElevatorGoal eleGoal) {
+        return switch (eleGoal) {
+            case IDLE -> WristGoal.IDLE;
+            case STOW -> WristGoal.HANDOFF;
+            case L1 -> WristGoal.L1;
+            case L2 -> WristGoal.L2;
+            case L3 -> WristGoal.L3;
+            case L4 -> WristGoal.L4;
+        };
+    }
 }

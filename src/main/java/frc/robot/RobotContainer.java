@@ -11,9 +11,14 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.elevator.ElevateToPosition;
+import frc.robot.commands.compound.AutoScore;
+import frc.robot.commands.compound.IntakeCoral;
+import frc.robot.commands.compound.ScoreCoral;
+import frc.robot.commands.compound.StowReset;
+import frc.robot.commands.elevator.EleToPosition;
 import frc.robot.commands.swerve.DriveCommands;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
@@ -23,6 +28,7 @@ import frc.robot.subsystems.beambreak.Beambreak;
 import frc.robot.subsystems.beambreak.BeambreakIOReal;
 import frc.robot.subsystems.beambreak.BeambreakIOSim;
 import frc.robot.subsystems.elevator.Elevator;
+import frc.robot.subsystems.elevator.Elevator.ElevatorGoal;
 import frc.robot.subsystems.elevator.ElevatorIO;
 import frc.robot.subsystems.elevator.ElevatorIOSim;
 import frc.robot.subsystems.elevator.ElevatorIOTalonFX;
@@ -122,21 +128,21 @@ public class RobotContainer {
         driver.start(); // ! Unbound
         driver.back(); // ! Unbound
 
-        driver.a(); // ! Unbound
+        driver.a().onTrue(new StowReset(this)); // Stow
         driver.b(); // ! Unbound
         driver.x(); // ! Unbound
-        driver.y(); // ! Unbound
+        driver.y().onTrue(Commands.runOnce(() -> swerve.resetGyro()).ignoringDisable(true)); // Gyro
 
         driver.povUp(); // ! Unbound
         driver.povDown(); // ! Unbound
         driver.povLeft(); // ! Unbound
         driver.povRight(); // ! Unbound
 
-        driver.leftBumper(); // ! Unbound
-        driver.rightBumper(); // ! Unbound
+        driver.leftBumper(); // Slow Mode
+        driver.rightBumper().onTrue(new AutoScore(this, driver)); // Auto Align
 
-        driver.leftTrigger(0.1); // ! Unbound
-        driver.rightTrigger(0.1); // ! Unbound
+        driver.leftTrigger(0.1).onTrue(new IntakeCoral(this)); // Intake Coral
+        driver.rightTrigger(0.1).onTrue(new ScoreCoral(this)); // Manual Outtake
     }
 
     private void configureOperatorBindings() {
@@ -145,16 +151,18 @@ public class RobotContainer {
 
         operator.a(); // ! Unbound
         operator.b(); // ! Unbound
-        operator.x(); // ! Unbound
+        operator.x(); // Manual Handoff
         operator.y(); // ! Unbound
 
-        operator.povUp(); // ! Unbound
-        operator.povDown(); // ! Unbound
-        operator.povLeft(); // ! Unbound
-        operator.povRight(); // ! Unbound
+        operator.povUp().onTrue(new InstantCommand(() -> elevator.setDesiredLevel(ElevatorGoal.L4))); // L4
+        operator.povDown().onTrue(new InstantCommand(() -> elevator.setDesiredLevel(ElevatorGoal.L1))); // L1
+        operator.povLeft().onTrue(new InstantCommand(() -> elevator.setDesiredLevel(ElevatorGoal.L2))); // L2
+        operator.povRight().onTrue(new InstantCommand(() -> elevator.setDesiredLevel(ElevatorGoal.L3))); // L3
 
-        operator.leftBumper(); // ! Unbound
-        operator.rightBumper(); // ! Unbound
+        operator.leftBumper()
+                .onTrue(new InstantCommand(() -> RobotState.getInstance().setEarly(true))); // Early
+        operator.rightBumper()
+                .onTrue(new InstantCommand(() -> RobotState.getInstance().setEarly(false))); // Late
 
         operator.leftTrigger(0.1); // ! Unbound
         operator.rightTrigger(0.1); // ! Unbound
@@ -232,7 +240,7 @@ public class RobotContainer {
     private void configNamedCommands() {
         NamedCommands.registerCommand(
                 "Record Time", new InstantCommand(() -> RobotState.getInstance().setAutoFinished(true)));
-        NamedCommands.registerCommand("Elevate To L4", new ElevateToPosition(elevator, () -> Elevator.ElevatorGoal.L4));
+        NamedCommands.registerCommand("Elevate To L4", new EleToPosition(elevator, () -> Elevator.ElevatorGoal.L4));
     }
 
     public Command getAutonomousCommand() {
