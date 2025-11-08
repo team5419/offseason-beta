@@ -94,8 +94,20 @@ public class Elevator extends SubsystemBase {
         io.runVolts(volts);
     }
 
+    public void stop() {
+        io.stop();
+    }
+
+    public void resetPosition() {
+        io.resetPosition(0);
+    }
+
     public void runCharacterization() {
         io.runVolts(voltage.getAsDouble());
+    }
+
+    public double getAvgVelocity() {
+        return (inputs.velocityRotationsPerSecond[0] + inputs.velocityRotationsPerSecond[1]) / 2;
     }
 
     public double getPosition() {

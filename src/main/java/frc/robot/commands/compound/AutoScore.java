@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.RobotContainer;
 import frc.robot.RobotState;
 import frc.robot.commands.elevator.RaiseToPos;
+import frc.robot.commands.outtake.endeffector.OuttakeCoral;
 import frc.robot.commands.swerve.AutoAlignToCoral;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.elevator.Elevator.ElevatorGoal;
@@ -24,7 +25,7 @@ public class AutoScore extends SequentialCommandGroup {
         addRequirements(elevator, wrist);
 
         addCommands(
-                // new InstantCommand(() -> robot.getEndEffector().setCurrentGoal(EndEffectorRollerGoal.)),
+                new InstantCommand(() -> robot.getEndEffector().setCurrentGoal(EndEffectorRollerGoal.GENTLE_INTAKE)),
                 new ConditionalCommand(
                         new ScoreL1(robot),
                         new SequentialCommandGroup(
@@ -32,8 +33,7 @@ public class AutoScore extends SequentialCommandGroup {
                                         new AutoAlignToCoral(robot, driver),
                                         new RaiseToPos(robot, () -> elevator.getDesiredLevel())),
                                 new ConditionalCommand(
-                                        new SequentialCommandGroup(
-                                                new WaitCommand(0.3), new InstantCommand()), // replace w outtake coral
+                                        new SequentialCommandGroup(new WaitCommand(0.3), new OuttakeCoral(robot)),
                                         new InstantCommand(),
                                         (() -> RobotState.getInstance().isAutoAlignAtGoal())),
                                 new InstantCommand(
