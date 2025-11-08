@@ -1,7 +1,6 @@
 package frc.robot.subsystems.swerve;
 
 import static edu.wpi.first.units.Units.MetersPerSecond;
-import static frc.robot.subsystems.swerve.SwerveConstants.TunerConstants;
 
 import com.ctre.phoenix6.CANBus;
 import com.pathplanner.lib.config.ModuleConfig;
@@ -15,10 +14,9 @@ import frc.robot.subsystems.swerve.generated.TunerConstantsV3;
 
 public class SwerveConstants {
 
-    /** <b> !! PLACEHOLDER VALUE !! </b> */
     public static final ConstantsWrapper TunerConstants = new ConstantsWrapper(TunerConstantsV3.class);
 
-    // TunerConstantsPlaceholder doesn't include these constants, so they are declared locally
+    // TunerConstants doesn't include these constants, so they are declared locally
 
     public static final double kOdometryFreq =
             new CANBus(TunerConstants.getDrivetrainConstants().CANBusName).isNetworkFD() ? 250.0 : 100.0;
@@ -30,6 +28,7 @@ public class SwerveConstants {
                     Math.hypot(TunerConstants.getBackLeft().LocationX, TunerConstants.getBackLeft().LocationY),
                     Math.hypot(TunerConstants.getBackRight().LocationX, TunerConstants.getBackRight().LocationY)));
 
+    // TODO: set
     public static final double kRobotMass = 63.957;
     public static final double kRobotMoi = 3.825;
     public static final double kWheelCOF = 1.9;
@@ -51,6 +50,8 @@ public class SwerveConstants {
             getModuleTranslations());
 
     public static final PPHolonomicDriveController kAutoController =
+            // translation pids, rotation pids
+            // TODO: set
             new PPHolonomicDriveController(new PIDConstants(2, 0.0, 0), new PIDConstants(2, 0.0, 0.0));
 
     public static Translation2d[] getModuleTranslations() {
