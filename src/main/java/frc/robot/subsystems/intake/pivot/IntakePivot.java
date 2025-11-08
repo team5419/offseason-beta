@@ -27,16 +27,16 @@ public class IntakePivot extends SubsystemBase {
     private static final LoggedTunableNumber kA = new LoggedTunableNumber("Intake Pivot/Gains/kA", kGains.kA());
     private static final LoggedTunableNumber kG = new LoggedTunableNumber("Intake Pivot/Gains/kG", kGains.kG());
 
-    private static final LoggedTunableNumber intake = new LoggedTunableNumber("Intake Pivot/Setpoints/intake", 0);
-    private static final LoggedTunableNumber l1 = new LoggedTunableNumber("Intake Pivot/Setpoints/L1", 50);
-    private static final LoggedTunableNumber handoff = new LoggedTunableNumber("Intake Pivot/Setpoints/handoff", 150);
+    private static final LoggedTunableNumber intake = new LoggedTunableNumber("Intake Pivot/Setpoints/intake", 85);
+    private static final LoggedTunableNumber l1 = new LoggedTunableNumber("Intake Pivot/Setpoints/L1", 20);
+    private static final LoggedTunableNumber handoff = new LoggedTunableNumber("Intake Pivot/Setpoints/handoff", -10);
     private static final LoggedTunableNumber volts = new LoggedTunableNumber("Intake Pivot/volts", 0.0);
 
     public enum IntakePivotGoal {
         IDLE(() -> 0), // TODO: set idle angle
-        INTAKE(() -> 17), // TODO: Set intake angle
-        SCORE_L1(() -> 0), // TODO: set scoring angle
-        HANDOFF(() -> 0); // TODO: set handoff angle
+        INTAKE(intake), // TODO: Set intake angle
+        SCORE_L1(l1), // TODO: set scoring angle
+        HANDOFF(handoff); // TODO: set handoff angle
 
         @Getter
         private DoubleSupplier pivotAngle;
@@ -63,7 +63,6 @@ public class IntakePivot extends SubsystemBase {
             stop();
         } else {
             runPosition(currentGoal);
-            System.out.println("a");
         }
 
         LoggedTunableNumber.ifChanged(hashCode(), () -> io.setPID(kP.get(), kI.get(), kD.get()), kP, kI, kD);

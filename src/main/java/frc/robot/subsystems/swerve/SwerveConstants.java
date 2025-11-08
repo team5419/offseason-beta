@@ -1,6 +1,7 @@
 package frc.robot.subsystems.swerve;
 
 import static edu.wpi.first.units.Units.MetersPerSecond;
+import static frc.robot.subsystems.swerve.SwerveConstants.TunerConstants;
 
 import com.ctre.phoenix6.CANBus;
 import com.pathplanner.lib.config.ModuleConfig;
@@ -10,12 +11,12 @@ import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.system.plant.DCMotor;
 import frc.robot.lib.swerve.ConstantsWrapper;
-import frc.robot.subsystems.swerve.generated.TunerConstants;
+import frc.robot.subsystems.swerve.generated.TunerConstantsV3;
 
 public class SwerveConstants {
 
     /** <b> !! PLACEHOLDER VALUE !! </b> */
-    public static final ConstantsWrapper TunerConstants = new ConstantsWrapper(TunerConstants.class);
+    public static final ConstantsWrapper TunerConstants = new ConstantsWrapper(TunerConstantsV3.class);
 
     // TunerConstantsPlaceholder doesn't include these constants, so they are declared locally
 

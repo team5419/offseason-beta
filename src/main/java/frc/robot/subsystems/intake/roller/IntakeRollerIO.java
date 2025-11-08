@@ -10,6 +10,7 @@ public interface IntakeRollerIO {
 
         public double[] motorPositionRotations = new double[] {0.0, 0.0};
         public double[] motorVelocityRPS = new double[] {0.0, 0.0};
+        public double[] motorReferenceVelocityRps = new double[] {0.0, 0.0};
         public double[] motorAppliedVolts = new double[] {0.0, 0.0};
         public double[] motorSupplyCurrentAmps = new double[] {0.0, 0.0};
         public double[] motorTorqueCurrentAmps = new double[] {0.0, 0.0};

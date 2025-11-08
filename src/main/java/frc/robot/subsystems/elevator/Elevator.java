@@ -32,7 +32,7 @@ public class Elevator extends SubsystemBase {
     private static final LoggedTunableNumber l3 = new LoggedTunableNumber("Elevator/L3", kElevatorHeights.l3());
     private static final LoggedTunableNumber l4 = new LoggedTunableNumber("Elevator/L4", kElevatorHeights.l4());
 
-    private static final LoggedTunableNumber voltage = new LoggedTunableNumber("Elevator/Tuning/Apply Volts");
+    private static final LoggedTunableNumber voltage = new LoggedTunableNumber("Elevator/Tuning/Apply Volts", 0);
 
     @Getter
     @Setter

@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.elevator.ElevateToPosition;
+import frc.robot.commands.intake.intakepivot.IntakePivotToPosition;
 import frc.robot.commands.swerve.DriveCommands;
 import frc.robot.constants.GlobalConstants;
 import frc.robot.constants.Ports;
@@ -27,10 +28,12 @@ import frc.robot.subsystems.elevator.ElevatorIO;
 import frc.robot.subsystems.elevator.ElevatorIOSim;
 import frc.robot.subsystems.elevator.ElevatorIOTalonFX;
 import frc.robot.subsystems.intake.pivot.IntakePivot;
+import frc.robot.subsystems.intake.pivot.IntakePivot.IntakePivotGoal;
 import frc.robot.subsystems.intake.pivot.IntakePivotIO;
 import frc.robot.subsystems.intake.pivot.IntakePivotIOSim;
 import frc.robot.subsystems.intake.pivot.IntakePivotIOTalonFX;
 import frc.robot.subsystems.intake.roller.IntakeRoller;
+import frc.robot.subsystems.intake.roller.IntakeRoller.IntakeRollerGoal;
 import frc.robot.subsystems.intake.roller.IntakeRollerIO;
 import frc.robot.subsystems.intake.roller.IntakeRollerIOSim;
 import frc.robot.subsystems.intake.roller.IntakeRollerIOTalonFX;
@@ -122,21 +125,28 @@ public class RobotContainer {
         driver.start(); // ! Unbound
         driver.back(); // ! Unbound
 
-        driver.a(); // ! Unbound
-        driver.b(); // ! Unbound
-        driver.x(); // ! Unbound
+        driver.a().onTrue(new IntakePivotToPosition(this, () -> IntakePivotGoal.INTAKE)); // ! Unbound
+        driver.b().onTrue(new IntakePivotToPosition(this, () -> IntakePivotGoal.SCORE_L1)); // ! Unbound
+        driver.x().onTrue(new IntakePivotToPosition(this, () -> IntakePivotGoal.HANDOFF)); // ! Unbound
         driver.y(); // ! Unbound
 
-        driver.povUp(); // ! Unbound
-        driver.povDown(); // ! Unbound
+        // driver.povUp().onTrue(new ElevateToPosition(elevator, () -> ElevatorGoal.L2)); // ! Unbound
+        // driver.povDown().onTrue(new ElevateToPosition(elevator, () -> ElevatorGoal.L1));
+        ;
+        ; // ! Unbound
         driver.povLeft(); // ! Unbound
         driver.povRight(); // ! Unbound
 
         driver.leftBumper(); // ! Unbound
         driver.rightBumper(); // ! Unbound
 
-        driver.leftTrigger(0.1); // ! Unbound
-        driver.rightTrigger(0.1); // ! Unbound
+        driver.leftTrigger(0.1)
+                .onTrue(new InstantCommand(() -> intakeRoller.setCurrentGoal(IntakeRollerGoal.INTAKE)))
+                .onFalse(new InstantCommand(() -> intakeRoller.setCurrentGoal(IntakeRollerGoal.IDLE)));
+        ; // ! Unbound
+        driver.rightTrigger(0.1)
+                .onTrue(new InstantCommand(() -> intakeRoller.setCurrentGoal(IntakeRollerGoal.OUTTAKECORRAL)))
+                .onFalse(new InstantCommand(() -> intakeRoller.setCurrentGoal(IntakeRollerGoal.IDLE))); // ! Unbound
     }
 
     private void configureOperatorBindings() {
