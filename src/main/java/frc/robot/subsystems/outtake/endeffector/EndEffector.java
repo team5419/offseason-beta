@@ -37,7 +37,7 @@ public class EndEffector extends SubsystemBase {
         IDLE(() -> 0),
         HANDOFF(handoff),
         INTAKE_ALGAE(intakeAlgae),
-        HOLD_ALGAE(holdAlgae),
+        GENTLE_INTAKE(holdAlgae),
         OUTTAKE(outtake);
 
         @Getter

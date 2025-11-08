@@ -28,6 +28,6 @@ public class SuckAlgae extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        endEffector.setCurrentGoal(EndEffectorRollerGoal.HOLD_ALGAE);
+        endEffector.setCurrentGoal(EndEffectorRollerGoal.GENTLE_INTAKE);
     }
 }
